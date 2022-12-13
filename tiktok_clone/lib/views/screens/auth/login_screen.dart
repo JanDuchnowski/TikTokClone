@@ -8,6 +8,7 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +42,7 @@ class LoginScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     print("Register button pressed");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignupScreen(),
-                      ),
-                    );
+                    Navigator.of(context).pop();
                   },
                   child: const Text(
                     "Register",
