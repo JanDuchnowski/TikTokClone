@@ -20,6 +20,13 @@ Future<String> _uploadToStorage(File image) async {
 }
 
 class AuthController {
+  static final AuthController _singleton = AuthController._internal();
+
+  factory AuthController() {
+    return _singleton;
+  }
+
+  AuthController._internal();
   void registerUser(
       String username, String email, String password, File? image) async {
     try {

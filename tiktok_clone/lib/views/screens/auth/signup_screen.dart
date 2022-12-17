@@ -65,7 +65,12 @@ class SignupScreen extends StatelessWidget {
               labelText: 'Password',
               icon: Icons.key,
             ),
-            const SubmitButton(buttonText: "Register"),
+            SubmitButton(
+              buttonText: "Register",
+              email: _emailController.text,
+              password: _passwordController.text,
+              username: _usernameController.text,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
