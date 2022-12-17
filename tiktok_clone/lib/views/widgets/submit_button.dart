@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
 
 class SubmitButton extends StatelessWidget {
@@ -25,6 +26,10 @@ class SubmitButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
+          if (buttonText == "Register") {
+            //TODO get access to text controllers from signup page
+            AuthController().registerUser();
+          }
           print(buttonText);
         },
         child: Center(

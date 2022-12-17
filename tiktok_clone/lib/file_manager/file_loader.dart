@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tiktok_clone/firebase/my_storage.dart';
+import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/video_tiktok.dart';
 
 class FileLoader extends StatefulWidget {
@@ -27,7 +27,7 @@ class _FileLoaderState extends State<FileLoader> {
   }
 
   Future fetchFiles() async {
-    final ref = MyStorage().storage.ref().child(
+    final ref = Storage().firebaseStorage.ref().child(
         'gs://tiktokclone-c2cf7.appspot.com/files/data/user/0/com.example.tiktok_clone/cache/file_picker/IMG_4900.HEIC');
     print("filename " + pickedFile!.name);
     var url = await ref.getDownloadURL();
@@ -38,8 +38,8 @@ class _FileLoaderState extends State<FileLoader> {
     final path = 'files/${pickedFile!.path}';
     final file = File(pickedFile!.path!);
 
-    final ref1 = MyStorage().storage.ref().child(path);
-    MyStorage().storage.ref().child('files/');
+    final ref1 = Storage().firebaseStorage.ref().child(path);
+    Storage().firebaseStorage.ref().child('files/');
 
     //  final ref = FirebaseStorage.instance.ref().child(path);
 
