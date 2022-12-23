@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
+import 'package:tiktok_clone/views/widgets/register_button.dart';
 import 'package:tiktok_clone/views/widgets/submit_button.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
 
@@ -65,7 +66,7 @@ class SignupScreen extends StatelessWidget {
               labelText: 'Password',
               icon: Icons.key,
             ),
-            SubmitButton(
+            RegisterButton(
               buttonText: "Register",
               email: _emailController.text,
               password: _passwordController.text,

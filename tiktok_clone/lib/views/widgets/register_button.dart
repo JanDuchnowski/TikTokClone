@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
+import 'package:tiktok_clone/views/widgets/submit_button.dart';
 
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({
-    Key? key,
-    required this.buttonText,
-    required this.password,
-    required this.email,
-  }) : super(key: key);
+class RegisterButton extends SubmitButton {
+  const RegisterButton(
+      {Key? key,
+      required this.buttonText,
+      required this.password,
+      required this.email,
+      required this.username})
+      : super(
+            key: key, buttonText: buttonText, password: password, email: email);
 
   final String buttonText;
   final String email;
   final String password;
-
+  final String username;
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width - 40;
@@ -33,7 +36,7 @@ class SubmitButton extends StatelessWidget {
         onTap: () {
           if (buttonText == "Register") {
             //TODO get access to text controllers from signup page
-            // AuthController().registerUser(username, email, password, image);
+            //   AuthController().registerUser(username, email, password, image);
           }
           print(buttonText);
         },
