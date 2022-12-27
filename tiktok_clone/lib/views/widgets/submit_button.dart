@@ -11,8 +11,8 @@ class SubmitButton extends StatelessWidget {
   }) : super(key: key);
 
   final String buttonText;
-  final String email;
-  final String password;
+  final TextEditingController email;
+  final TextEditingController password;
 
   @override
   Widget build(BuildContext context) {

@@ -36,8 +36,8 @@ class LoginScreen extends StatelessWidget {
             ),
             SubmitButton(
               buttonText: "Login",
-              email: _emailController.text,
-              password: _passwordController.text,
+              email: _emailController,
+              password: _passwordController,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

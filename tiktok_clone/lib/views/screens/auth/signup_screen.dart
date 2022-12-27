@@ -1,19 +1,27 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:tiktok_clone/utils/color_palette.dart';
+
+import 'package:tiktok_clone/controllers/auth_controller.dart';
+
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 import 'package:tiktok_clone/views/widgets/register_button.dart';
-import 'package:tiktok_clone/views/widgets/submit_button.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   SignupScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final TextEditingController _usernameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,18 +39,24 @@ class SignupScreen extends StatelessWidget {
             ),
             Stack(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 64,
-                  backgroundImage: NetworkImage(
-                      'https://ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png'),
+                  backgroundImage: AuthController().pickedProfileImage == null
+                      ? const NetworkImage(
+                          'https://ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png')
+                      : FileImage(
+                              File(AuthController().pickedProfileImage!.path))
+                          as ImageProvider,
                   backgroundColor: Colors.white,
                 ),
                 Positioned(
                   bottom: -10,
                   left: 80,
                   child: IconButton(
-                    onPressed: () {
-                      print("Pick an image");
+                    onPressed: () async {
+                      await AuthController().pickImage();
+                      //TODO add bloc to refresh the state when a picture is chosen
+                      setState(() {});
                     },
                     icon: const Icon(
                       Icons.add_a_photo,
@@ -68,9 +82,9 @@ class SignupScreen extends StatelessWidget {
             ),
             RegisterButton(
               buttonText: "Register",
-              email: _emailController.text,
-              password: _passwordController.text,
-              username: _usernameController.text,
+              email: _emailController,
+              password: _passwordController,
+              username: _usernameController,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

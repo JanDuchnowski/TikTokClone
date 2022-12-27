@@ -1,23 +1,12 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
-
-Future<String> _uploadToStorage(File image) async {
-  Reference ref = Storage()
-      .firebaseStorage
-      .ref()
-      .child('profilPics')
-      .child(Storage().firebaseAuth.currentUser!.uid);
-
-  UploadTask uploadTask = ref.putFile(image);
-  TaskSnapshot snap =
-      await uploadTask; //TODO fully understand what this snap holds (what upload)
-  String downloadUrl = await snap.ref.getDownloadURL();
-  return downloadUrl;
-}
 
 class AuthController {
   static final AuthController _singleton = AuthController._internal();
@@ -27,12 +16,44 @@ class AuthController {
   }
 
   AuthController._internal();
+
+  File? pickedProfileImage;
+
+  File? getProfileImage() {
+    return pickedProfileImage;
+  }
+
+  Future<void> pickImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      //TODO using bloc change state to loading image state
+      print("You have successfully selected a picture");
+    }
+
+    pickedProfileImage = File(pickedImage!.path);
+  }
+
+  Future<String> _uploadToStorage(File image) async {
+    Reference ref = Storage()
+        .firebaseStorage
+        .ref()
+        .child('profilPics')
+        .child(Storage().firebaseAuth.currentUser!.uid);
+
+    UploadTask uploadTask = ref.putFile(image);
+    TaskSnapshot snap =
+        await uploadTask; //TODO fully understand what this snap holds (what upload)
+    String downloadUrl = await snap.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   void registerUser(
       String username, String email, String password, File? image) async {
     try {
       if (username.isNotEmpty &&
           email.isNotEmpty &&
-          password.isEmpty &&
+          password.isNotEmpty &&
           image != null) {
         //TODO save the user to our auth and firebase
         UserCredential userCredential =

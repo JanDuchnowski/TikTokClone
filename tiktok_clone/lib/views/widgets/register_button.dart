@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
@@ -14,9 +16,9 @@ class RegisterButton extends SubmitButton {
             key: key, buttonText: buttonText, password: password, email: email);
 
   final String buttonText;
-  final String email;
-  final String password;
-  final String username;
+  final TextEditingController email;
+  final TextEditingController password;
+  final TextEditingController username;
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width - 40;
@@ -35,10 +37,16 @@ class RegisterButton extends SubmitButton {
       child: InkWell(
         onTap: () {
           if (buttonText == "Register") {
+            print(
+                "username = ${username.text},  email = ${email.text}, password = ${password.text}, photo = ${AuthController().pickedProfileImage!}");
             //TODO get access to text controllers from signup page
-            //   AuthController().registerUser(username, email, password, image);
+            AuthController().registerUser(
+              username.text,
+              email.text,
+              password.text,
+              (AuthController().pickedProfileImage!),
+            );
           }
-          print(buttonText);
         },
         child: Center(
           child: Text(
