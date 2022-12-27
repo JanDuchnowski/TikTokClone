@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
+import 'package:tiktok_clone/views/screens/home_screen.dart';
 
 class AuthController {
   static final AuthController _singleton = AuthController._internal();
@@ -18,7 +19,7 @@ class AuthController {
   AuthController._internal();
 
   File? pickedProfileImage;
-
+  User? user;
   File? getProfileImage() {
     return pickedProfileImage;
   }
@@ -74,8 +75,33 @@ class AuthController {
             .doc(userCredential.user!.uid)
             .set(user.toJson());
       } else {
+        print("Error registering");
         print("You forgot to input some credentials");
       }
-    } catch (e) {}
+    } catch (e) {
+      print("Error registering");
+    }
+  }
+
+  void loginUser(String email, String password, BuildContext context) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await Storage()
+            .firebaseAuth
+            .signInWithEmailAndPassword(email: email, password: password);
+        print("Successful login");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      } else {
+        print("Error logging in");
+        print("Please input all the credentials");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

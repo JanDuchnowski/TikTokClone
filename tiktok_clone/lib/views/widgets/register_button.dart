@@ -8,16 +8,13 @@ import 'package:tiktok_clone/views/widgets/submit_button.dart';
 class RegisterButton extends SubmitButton {
   const RegisterButton(
       {Key? key,
-      required this.buttonText,
-      required this.password,
-      required this.email,
+      required buttonText,
+      required password,
+      required email,
       required this.username})
       : super(
             key: key, buttonText: buttonText, password: password, email: email);
 
-  final String buttonText;
-  final TextEditingController email;
-  final TextEditingController password;
   final TextEditingController username;
   @override
   Widget build(BuildContext context) {

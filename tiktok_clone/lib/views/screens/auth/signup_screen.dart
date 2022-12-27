@@ -79,6 +79,7 @@ class _SignupScreenState extends State<SignupScreen> {
               textController: _passwordController,
               labelText: 'Password',
               icon: Icons.key,
+              isObscure: true,
             ),
             RegisterButton(
               buttonText: "Register",

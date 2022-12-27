@@ -31,11 +31,7 @@ class SubmitButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          if (buttonText == "Register") {
-            //TODO get access to text controllers from signup page
-            // AuthController().registerUser(username, email, password, image);
-          }
-          print(buttonText);
+          AuthController().loginUser(email.text, password.text, context);
         },
         child: Center(
           child: Text(
