@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 import 'package:tiktok_clone/views/widgets/register_button.dart';
@@ -94,11 +95,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextButton(
                   onPressed: () {
                     print("Go back to login page button pressed");
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
+                      Routes.loginScreenRoute,
                     );
                   },
                   child: const Text(

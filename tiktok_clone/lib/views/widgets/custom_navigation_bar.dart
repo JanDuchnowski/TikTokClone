@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:tiktok_clone/utils/color_palette.dart';
 import 'package:tiktok_clone/views/widgets/custom_plus_icon.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -16,6 +17,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: ColorPalette.backgroundColor,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.red,
+      currentIndex: _selectedIndex,
       items: const [
         BottomNavigationBarItem(
             icon: Icon(
@@ -29,7 +35,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               size: 30,
             ),
             label: 'Friends'),
-        BottomNavigationBarItem(icon: CustomPlusIcon(), label: ''),
+        BottomNavigationBarItem(
+          icon: CustomPlusIcon(),
+          label: '',
+        ),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.message,

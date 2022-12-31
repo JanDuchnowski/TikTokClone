@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
+import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/home_screen.dart';
 
 class AuthController {
@@ -90,12 +91,8 @@ class AuthController {
             .firebaseAuth
             .signInWithEmailAndPassword(email: email, password: password);
         print("Successful login");
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ),
-        );
+
+        Navigator.pushNamed(context, Routes.homeScreenRoute);
       } else {
         print("Error logging in");
         print("Please input all the credentials");

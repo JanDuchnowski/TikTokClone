@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/file_manager/file_loader.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
+import 'package:tiktok_clone/utils/routes/router.dart';
+import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 import 'package:tiktok_clone/views/screens/auth/signup_screen.dart';
 import 'package:video_player/video_player.dart';
@@ -29,10 +31,12 @@ class _TikTokAppState extends State<TikTokApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tiktok Clone',
+      onGenerateRoute: generateRoute,
+      initialRoute: Routes.signupScreenRoute,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: ColorPalette.backgroundColor,
       ),
-      home: SignupScreen(),
+      //home: LoginScreen(),
     );
   }
 }
