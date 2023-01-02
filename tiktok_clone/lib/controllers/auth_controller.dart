@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
-import 'package:tiktok_clone/views/screens/home_screen.dart';
+import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 
 class AuthController {
   static final AuthController _singleton = AuthController._internal();

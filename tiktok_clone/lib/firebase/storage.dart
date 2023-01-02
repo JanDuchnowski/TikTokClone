@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +9,8 @@ class Storage {
   final firebaseStorage = FirebaseStorage.instance;
   final firebaseAuth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
+
+  late List<CameraDescription> camerasList;
 
   factory Storage() {
     return _singleton;

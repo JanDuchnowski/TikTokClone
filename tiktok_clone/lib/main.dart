@@ -1,11 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/file_manager/file_loader.dart';
+
+import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
 import 'package:tiktok_clone/utils/routes/router.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
-import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
-import 'package:tiktok_clone/views/screens/auth/signup_screen.dart';
-import 'package:video_player/video_player.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -15,6 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  Storage().camerasList = await availableCameras();
+
   runApp(TikTokApp());
 }
 
@@ -36,7 +38,6 @@ class _TikTokAppState extends State<TikTokApp> {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: ColorPalette.backgroundColor,
       ),
-      //home: LoginScreen(),
     );
   }
 }
