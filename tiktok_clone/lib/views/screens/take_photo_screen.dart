@@ -1,6 +1,7 @@
 // A screen that allows users to take a picture using a given camera.
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/views/screens/display_video_screen.dart';
 
@@ -39,38 +40,63 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          try {
-            await _initializeControllerFuture;
+      body: Stack(
+        children: [
+          FutureBuilder<void>(
+            future: _initializeControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final mediaSize =
+                    MediaQuery.of(context).size; //TODO put these in utils
 
-            final image = await _controller.takePicture();
+                final scale =
+                    1 / (_controller.value.aspectRatio * mediaSize.aspectRatio);
+                return Transform.scale(
+                  scale: scale,
+                  alignment: Alignment.topCenter,
+                  child: CameraPreview(_controller),
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: IconButton(
+              icon: const Icon(Icons.photo),
+              iconSize: 35,
+              onPressed: () {
+                AuthController().pickImage();
+              },
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: FloatingActionButton(
+              onPressed: () async {
+                try {
+                  await _initializeControllerFuture;
 
-            if (!mounted) return;
+                  final image = await _controller.takePicture();
 
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  imagePath: image.path,
-                ),
-              ),
-            );
-          } catch (e) {
-            print(e);
-          }
-        },
-        child: const Icon(Icons.camera_alt),
+                  if (!mounted) return;
+
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DisplayPictureScreen(
+                        imagePath: image.path,
+                      ),
+                    ),
+                  );
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: const Icon(Icons.camera_alt),
+            ),
+          ),
+        ],
       ),
     );
   }

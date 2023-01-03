@@ -20,6 +20,7 @@ class AuthController {
   AuthController._internal();
 
   File? pickedProfileImage;
+  File? pickedFileToUpload;
   User? user;
   File? getProfileImage() {
     return pickedProfileImage;
@@ -32,8 +33,11 @@ class AuthController {
       //TODO using bloc change state to loading image state
       print("You have successfully selected a picture");
     }
-
-    pickedProfileImage = File(pickedImage!.path);
+    if (pickedProfileImage == null) {
+      pickedProfileImage = File(pickedImage!.path);
+    } else {
+      pickedFileToUpload = File(pickedImage!.path); // This seems not elegant
+    }
   }
 
   Future<String> _uploadToStorage(File image) async {
