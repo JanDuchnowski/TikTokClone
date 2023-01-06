@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:tiktok_clone/views/screens/home/tiktok_feed.dart';
 import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,8 +12,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         bottomNavigationBar: CustomNavigationBar(),
         body: Center(
-          child: Container(
-            child: Text("Home Screen"),
+          child: Column(
+            children: [
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: TikTokFeed()),
+              Container(
+                child: Text("Home Screen"),
+              ),
+            ],
           ),
         ));
   }

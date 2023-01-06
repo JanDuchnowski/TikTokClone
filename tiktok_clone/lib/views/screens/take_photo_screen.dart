@@ -67,7 +67,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               icon: const Icon(Icons.photo),
               iconSize: 35,
               onPressed: () {
-                AuthController().pickImage();
+                AuthController().pickVideo();
               },
             ),
           ),

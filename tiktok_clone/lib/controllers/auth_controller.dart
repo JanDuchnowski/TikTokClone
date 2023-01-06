@@ -22,8 +22,22 @@ class AuthController {
   File? pickedProfileImage;
   File? pickedFileToUpload;
   User? user;
-  File? getProfileImage() {
-    return pickedProfileImage;
+
+  Future<void> pickVideo() async {
+    final XFile? pickedVideo =
+        await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedVideo != null) {
+      //TODO using bloc change state to loading image state
+      print("You have successfully selected a picture");
+      String downloadUrl =
+          await _uploadToStorage(File(pickedVideo.path), 'posts');
+      print(downloadUrl);
+      await Storage()
+          .firestore
+          .collection('posts')
+          .doc(pickedVideo.name)
+          .set({"video": (downloadUrl)});
+    }
   }
 
   Future<void> pickImage() async {
@@ -40,13 +54,15 @@ class AuthController {
     }
   }
 
-  Future<String> _uploadToStorage(File image) async {
-    Reference ref = Storage()
-        .firebaseStorage
-        .ref()
-        .child('profilPics')
-        .child(Storage().firebaseAuth.currentUser!.uid);
-
+  Future<String> _uploadToStorage(File image, String folder) async {
+    print("Got to uploading the image to storage");
+    Reference ref = folder == 'posts'
+        ? Storage().firebaseStorage.ref().child(folder).child(image.path)
+        : Storage().firebaseStorage.ref().child(folder).child(Storage()
+            .firebaseAuth
+            .currentUser!
+            .uid); //TODO create seperete functions to
+    print(ref);
     UploadTask uploadTask = ref.putFile(image);
     TaskSnapshot snap =
         await uploadTask; //TODO fully understand what this snap holds (what upload)
@@ -67,7 +83,7 @@ class AuthController {
                   email: email,
                   password: password,
                 );
-        String downloadUrl = await _uploadToStorage(image);
+        String downloadUrl = await _uploadToStorage(image, 'profilPics');
         model.User user = model.User(
           name: username,
           email: email,
