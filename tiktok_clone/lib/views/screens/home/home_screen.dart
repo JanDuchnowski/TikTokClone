@@ -10,18 +10,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: CustomNavigationBar(),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: TikTokFeed()),
-              Container(
-                child: Text("Home Screen"),
-              ),
-            ],
-          ),
-        ));
+      bottomNavigationBar: CustomNavigationBar(),
+      body: TikTokFeed(),
+    );
   }
 }

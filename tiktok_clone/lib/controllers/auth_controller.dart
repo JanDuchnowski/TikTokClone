@@ -22,6 +22,7 @@ class AuthController {
   File? pickedProfileImage;
   File? pickedFileToUpload;
   User? user;
+  List<Object?>? videoList;
 
   Future<void> pickVideo() async {
     final XFile? pickedVideo =

@@ -17,10 +17,8 @@ class _VideoPostState extends State<VideoPost> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-      widget.dataSource!,
-      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
-    );
+    _controller = VideoPlayerController.asset('assets/placeholder_video.mkv');
+    // videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
 
     _controller.addListener(() {
       setState(() {});
@@ -39,8 +37,6 @@ class _VideoPostState extends State<VideoPost> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height / 4,
-      width: MediaQuery.of(context).size.width / 4,
       child: VideoPlayer(_controller),
     );
   }
