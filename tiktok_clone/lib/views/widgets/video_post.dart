@@ -17,7 +17,7 @@ class _VideoPostState extends State<VideoPost> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/placeholder_video.mkv');
+    _controller = VideoPlayerController.network(widget.dataSource!);
     // videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
 
     _controller.addListener(() {
