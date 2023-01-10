@@ -20,7 +20,6 @@ class _TikTokFeedState extends State<TikTokFeed> {
   void initState() {
     videoController.fetchPosts();
     super.initState();
-    //print(AuthController().videoList);
   }
 
   @override
@@ -31,12 +30,23 @@ class _TikTokFeedState extends State<TikTokFeed> {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           final data = AuthController().videoList![index];
-          //  print(data.toString());
           return Stack(
             children: [
               VideoPost(
                 dataSource: data.toString(),
               ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  height: 60,
+                  child: Column(
+                    children: [
+                      Text(AuthController().user!.displayName!),
+                      Text("test")
+                    ],
+                  ),
+                ),
+              )
             ],
           );
         },

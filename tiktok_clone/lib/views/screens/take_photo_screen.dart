@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/views/screens/display_video_screen.dart';
+import 'package:tiktok_clone/views/screens/confirm_video_screen.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -71,31 +71,31 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               },
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: FloatingActionButton(
-              onPressed: () async {
-                try {
-                  await _initializeControllerFuture;
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: FloatingActionButton(
+          //     onPressed: () async {
+          //       try {
+          //         await _initializeControllerFuture;
 
-                  final image = await _controller.takePicture();
+          //         final image = await _controller.startVideoRecording();
 
-                  if (!mounted) return;
+          //         if (!mounted) return;
 
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => DisplayPictureScreen(
-                        imagePath: image.path,
-                      ),
-                    ),
-                  );
-                } catch (e) {
-                  print(e);
-                }
-              },
-              child: const Icon(Icons.camera_alt),
-            ),
-          ),
+          //         await Navigator.of(context).push(
+          //           MaterialPageRoute(
+          //             builder: (context) => ConfirmScreen(
+          //               videoFile: ,
+          //             ),
+          //           ),
+          //         );
+          //       } catch (e) {
+          //         print(e);
+          //       }
+          //     },
+          //     child: const Icon(Icons.camera_alt),
+          //   ),
+          // ),
         ],
       ),
     );

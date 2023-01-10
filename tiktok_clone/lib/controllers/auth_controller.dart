@@ -65,6 +65,7 @@ class AuthController {
             .uid); //TODO create seperete functions to
     print(ref);
     UploadTask uploadTask = ref.putFile(image);
+    // print
     TaskSnapshot snap =
         await uploadTask; //TODO fully understand what this snap holds (what upload)
     String downloadUrl = await snap.ref.getDownloadURL();
