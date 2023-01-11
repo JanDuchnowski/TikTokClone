@@ -4,6 +4,7 @@ import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 import 'package:tiktok_clone/views/screens/auth/signup_screen.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 import 'package:tiktok_clone/views/screens/video/add_video_screen.dart';
+import 'package:tiktok_clone/views/screens/video/comment_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

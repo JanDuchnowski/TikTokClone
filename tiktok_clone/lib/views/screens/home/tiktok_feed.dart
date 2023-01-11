@@ -6,6 +6,8 @@ import 'package:tiktok_clone/controllers/like_controller.dart';
 import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/video.dart';
+import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/views/screens/video/comment_screen.dart';
 
 import 'package:tiktok_clone/views/widgets/video_post.dart';
 
@@ -43,6 +45,7 @@ class _TikTokFeedState extends State<TikTokFeed> {
             ),
             children: snapshot.data!.docs.map((document) {
               final currentVideo = Video.fromSnap(document);
+
               return Stack(children: [
                 VideoPost(
                   dataSource: currentVideo.videoUrl,
@@ -111,18 +114,28 @@ class _TikTokFeedState extends State<TikTokFeed> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    final LikeController likeController =
-                                        LikeController(postId: currentVideo.id);
-                                    likeController.incrementLikes();
+                                    LikeController().postId = currentVideo.id;
+                                    LikeController().incrementLikes();
                                   },
-                                  icon: const Icon(Icons.favorite),
+                                  icon: const Icon(
+                                    Icons.favorite,
+                                  ),
                                 ),
                                 Text(currentVideo.likes.toString()),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CommentScreen(
+                                              videoId: currentVideo.id,
+                                              commentList:
+                                                  currentVideo.comments)),
+                                    );
+                                  },
                                   icon: const Icon(Icons.comment),
                                 ),
                                 Text(currentVideo.commentCount.toString()),

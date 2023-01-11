@@ -4,4 +4,5 @@ class Routes {
   static const loginScreenRoute = '/login';
   static const messageScreenRoute = '/message';
   static const videoPickerRoute = '/video';
+  static const commentScreenRoute = '/comments';
 }

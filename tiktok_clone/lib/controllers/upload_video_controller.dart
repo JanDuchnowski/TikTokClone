@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/video.dart';
 
@@ -35,7 +32,8 @@ class UploadVideoController {
         likes: 0,
         commentCount: 0,
         shareCount: 0,
-        usersWhoLiked: ['1'],
+        usersWhoLiked: [],
+        comments: [],
         songName: songName,
         caption: caption,
         videoUrl: videoUrl,
