@@ -44,7 +44,6 @@ class UploadVideoController {
       await Storage().firestore.collection('posts').doc('Video $len').set(
             video.toJson(),
           );
-      VideoController().fetchPosts();
     } catch (e) {
       print(e);
     }

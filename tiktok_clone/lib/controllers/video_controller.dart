@@ -12,12 +12,10 @@ class VideoController {
   }
   late List<Video> videoList;
   VideoController._internal();
-  Future<void> fetchPosts() async {
-    print("was called");
+  // Future<void> fetchPosts() async {
+  //   print("was called");
 
-    final snapshot = await Storage().firestore.collection('posts').get();
-    videoList = snapshot.docs.map((doc) => Video.fromSnap(doc)).toList();
-    //await Storage().firestore.collection('posts').get().then((value) =>
-    //    videoList = value.docs.map((doc) => Video.fromSnap(doc)).toList());
-  }
+  //   final snapshot = await Storage().firestore.collection('posts').get();
+  //   videoList = snapshot.docs.map((doc) => Video.fromSnap(doc)).toList();
+  // }
 }
