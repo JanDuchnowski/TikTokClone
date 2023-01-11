@@ -32,7 +32,7 @@ class UploadVideoController {
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
         id: "Video $len",
-        likes: [],
+        likes: 0,
         commentCount: 0,
         shareCount: 0,
         songName: songName,

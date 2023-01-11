@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/controllers/video_controller.dart';
 
@@ -28,6 +29,7 @@ class _TikTokFeedState extends State<TikTokFeed> {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           final data = VideoController().videoList[index];
+          print(VideoController().videoList[0]);
           return Stack(children: [
             VideoPost(
               dataSource: data.videoUrl,
@@ -88,6 +90,44 @@ class _TikTokFeedState extends State<TikTokFeed> {
                           ),
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                final LikeController likeController =
+                                    LikeController(postId: data.id);
+                                likeController.incrementLikes();
+                              },
+                              icon: const Icon(Icons.favorite),
+                            ),
+                            Text(data.likes.toString()),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.comment),
+                            ),
+                            Text(data.commentCount.toString()),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.reply),
+                            ),
+                            Text(data.shareCount.toString()),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        //),
+                      )
                     ],
                   ),
                 ),
