@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
+import 'package:tiktok_clone/models/video.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 
@@ -22,24 +23,6 @@ class AuthController {
   File? pickedProfileImage;
   File? pickedFileToUpload;
   User? user;
-  List<Object?>? videoList;
-
-  Future<void> pickVideo() async {
-    final XFile? pickedVideo =
-        await ImagePicker().pickVideo(source: ImageSource.gallery);
-    if (pickedVideo != null) {
-      //TODO using bloc change state to loading image state
-      print("You have successfully selected a picture");
-      String downloadUrl =
-          await _uploadToStorage(File(pickedVideo.path), 'posts');
-      print(downloadUrl);
-      await Storage()
-          .firestore
-          .collection('posts')
-          .doc(pickedVideo.name)
-          .set({"video": (downloadUrl)});
-    }
-  }
 
   Future<void> pickImage() async {
     final pickedImage =
@@ -48,11 +31,8 @@ class AuthController {
       //TODO using bloc change state to loading image state
       print("You have successfully selected a picture");
     }
-    if (pickedProfileImage == null) {
-      pickedProfileImage = File(pickedImage!.path);
-    } else {
-      pickedFileToUpload = File(pickedImage!.path); // This seems not elegant
-    }
+
+    pickedProfileImage = File(pickedImage!.path);
   }
 
   Future<String> _uploadToStorage(File image, String folder) async {
@@ -65,7 +45,6 @@ class AuthController {
             .uid); //TODO create seperete functions to
     print(ref);
     UploadTask uploadTask = ref.putFile(image);
-    // print
     TaskSnapshot snap =
         await uploadTask; //TODO fully understand what this snap holds (what upload)
     String downloadUrl = await snap.ref.getDownloadURL();

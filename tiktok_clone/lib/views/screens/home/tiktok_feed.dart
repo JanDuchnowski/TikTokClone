@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
+
 import 'package:tiktok_clone/controllers/video_controller.dart';
-import 'package:tiktok_clone/firebase/storage.dart';
+
 import 'package:tiktok_clone/views/widgets/video_post.dart';
-import 'package:video_player/video_player.dart';
 
 class TikTokFeed extends StatefulWidget {
   TikTokFeed({Key? key}) : super(key: key);
@@ -14,12 +13,11 @@ class TikTokFeed extends StatefulWidget {
 }
 
 class _TikTokFeedState extends State<TikTokFeed> {
-  final VideoController videoController = VideoController();
   List<String>? postsList;
   @override
   void initState() {
-    videoController.fetchPosts();
     super.initState();
+    VideoController().fetchPosts();
   }
 
   @override
@@ -29,26 +27,73 @@ class _TikTokFeedState extends State<TikTokFeed> {
         controller: PageController(initialPage: 0, viewportFraction: 1),
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
-          final data = AuthController().videoList![index];
-          return Stack(
-            children: [
-              VideoPost(
-                dataSource: data.toString(),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  height: 60,
-                  child: Column(
+          final data = VideoController().videoList[index];
+          return Stack(children: [
+            VideoPost(
+              dataSource: data.videoUrl,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(AuthController().user!.displayName!),
-                      Text("test")
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                data.username,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                data.caption,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.music_note,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    data.songName,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              )
-            ],
-          );
+              ],
+            )
+          ]);
         },
       ),
     );
