@@ -35,6 +35,7 @@ class UploadVideoController {
         likes: 0,
         commentCount: 0,
         shareCount: 0,
+        usersWhoLiked: ['1'],
         songName: songName,
         caption: caption,
         videoUrl: videoUrl,

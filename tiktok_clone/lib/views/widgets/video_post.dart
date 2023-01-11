@@ -21,7 +21,7 @@ class _VideoPostState extends State<VideoPost> {
     // videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
 
     _controller.addListener(() {
-      setState(() {});
+      //setState(() {});
     });
     _controller.setLooping(true);
     _controller.initialize();
