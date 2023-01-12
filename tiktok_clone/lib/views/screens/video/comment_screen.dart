@@ -8,12 +8,9 @@ import 'package:tiktok_clone/models/comment.dart';
 import 'package:tiktok_clone/views/widgets/comment_widget.dart';
 
 class CommentScreen extends StatelessWidget {
-  const CommentScreen(
-      {Key? key, required this.videoId, required this.commentList})
-      : super(key: key);
+  const CommentScreen({Key? key, required this.videoId}) : super(key: key);
 
   final String videoId;
-  final List<dynamic> commentList;
 
   @override
   Widget build(BuildContext context) {

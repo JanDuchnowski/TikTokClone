@@ -1,3 +1,4 @@
+import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
@@ -19,10 +20,12 @@ class TikTokFeed extends StatefulWidget {
 }
 
 class _TikTokFeedState extends State<TikTokFeed> {
+  BottomDrawerController bottomDrawerController = BottomDrawerController();
   List<String>? postsList;
   @override
   void initState() {
     super.initState();
+
     //  VideoController().fetchPosts();
   }
 
@@ -51,6 +54,7 @@ class _TikTokFeedState extends State<TikTokFeed> {
                   dataSource: currentVideo.videoUrl,
                 ),
                 Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(
                       height: 100,
@@ -128,13 +132,13 @@ class _TikTokFeedState extends State<TikTokFeed> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CommentScreen(
-                                              videoId: currentVideo.id,
-                                              commentList:
-                                                  currentVideo.comments)),
+                                    showModalBottomSheet<void>(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CommentScreen(
+                                          videoId: currentVideo.id,
+                                        );
+                                      },
                                     );
                                   },
                                   icon: const Icon(Icons.comment),
