@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 import 'package:tiktok_clone/views/screens/auth/signup_screen.dart';
+import 'package:tiktok_clone/views/screens/conversations_list_screen.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 import 'package:tiktok_clone/views/screens/video/add_video_screen.dart';
 import 'package:tiktok_clone/views/screens/video/comment_screen.dart';
@@ -16,6 +17,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SignupScreen());
     case Routes.videoPickerRoute:
       return MaterialPageRoute(builder: (context) => const AddVideoScreen());
+    case Routes.conversationsScreenRoute:
+      return MaterialPageRoute(builder: (context) => ConversationsListScreen());
     default:
       return MaterialPageRoute(builder: (context) => const HomeScreen());
   }

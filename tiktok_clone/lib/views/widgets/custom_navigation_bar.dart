@@ -70,6 +70,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           break;
 
         case 3:
+          Navigator.pushNamed(context, Routes.conversationsScreenRoute);
           break;
         default:
           break;
