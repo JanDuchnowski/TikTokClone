@@ -125,8 +125,7 @@ class _TikTokFeedState extends State<TikTokFeed> {
                                     Icons.favorite,
                                   ),
                                 ),
-                                Text(currentVideo.usersWhoLiked.length
-                                    .toString()),
+                                Text(currentVideo.likes.length.toString()),
                                 const SizedBox(
                                   height: 10,
                                 ),

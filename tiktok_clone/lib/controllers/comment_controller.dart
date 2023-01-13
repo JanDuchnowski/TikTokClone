@@ -9,18 +9,6 @@ class CommentController {
   CommentController({required this.postId});
 
   Future<void> postComment(String newCommentText) async {
-    // final commentSnapshot =
-    //     await Storage().firestore.collection('posts').doc(postId).get();
-
-    // final List comments = commentSnapshot['comments'];
-    // comments.add(newCommentText);
-
-    // await Storage()
-    //     .firestore
-    //     .collection('posts')
-    //     .doc(postId)
-    //     .update({"comments": comments});
-
     DocumentSnapshot userDoc = await Storage()
         .firestore
         .collection('users')
@@ -54,5 +42,57 @@ class CommentController {
         .set(
           newComment.toJson(),
         );
+
+    final commentSnapshot =
+        await Storage().firestore.collection('posts').doc(postId).get();
+
+    final commentCount = commentSnapshot['commentCount'];
+    await Storage().firestore.collection('posts').doc(postId).update(
+      {"commentCount": commentCount + 1},
+    );
+  }
+
+  Future<void> incrementCommentLikes(String commentId) async {
+    final commentSnapshot = await Storage()
+        .firestore
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(commentId)
+        .get();
+
+    final List usersWhoLikedComment = commentSnapshot['likes'];
+
+    if (usersWhoLikedComment.contains(AuthController().user!.uid)) {
+      usersWhoLikedComment.remove(AuthController().user!.uid);
+      await Storage()
+          .firestore
+          .collection('posts')
+          .doc(postId)
+          .collection("comments")
+          .doc(commentId)
+          .update({"likes": usersWhoLikedComment});
+      return;
+    }
+
+    usersWhoLikedComment.add(AuthController().user!.uid);
+    print(usersWhoLikedComment);
+    await Storage()
+        .firestore
+        .collection('posts')
+        .doc(postId)
+        .collection("comments")
+        .doc(commentId)
+        .update({"likes": usersWhoLikedComment});
+
+    final commentSnapshotAfterwards = await Storage()
+        .firestore
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(commentId)
+        .get();
+
+    print(commentSnapshotAfterwards['likes']);
   }
 }

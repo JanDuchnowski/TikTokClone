@@ -11,42 +11,28 @@ class LikeController {
   LikeController._internal();
   String? postId;
 
-  Future<bool> videoWasLiked() async {
-    final likesSnapshot =
-        await Storage().firestore.collection('posts').doc(postId).get();
-
-    final List usersWhoLikedPost = likesSnapshot['usersWhoLiked'];
-
-    if (usersWhoLikedPost.contains(AuthController().user!.uid)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  //TODO make the function work both for liking posts and comment
   Future<void> incrementLikes() async {
-    //Check if the current user has already liked the video
-    //if not like and add him to the list of users who liked
-    //if yes return
-
     final likesSnapshot =
         await Storage().firestore.collection('posts').doc(postId).get();
 
-    final List usersWhoLikedPost = likesSnapshot['usersWhoLiked'];
-
+    final List usersWhoLikedPost = likesSnapshot['likes'];
     if (usersWhoLikedPost.contains(AuthController().user!.uid)) {
       usersWhoLikedPost.remove(AuthController().user!.uid);
-      final numberOfLikes = likesSnapshot['likes'];
-
-      await Storage().firestore.collection('posts').doc(postId).update(
-          {"likes": numberOfLikes - 1, "usersWhoLiked": usersWhoLikedPost});
+      await Storage()
+          .firestore
+          .collection('posts')
+          .doc(postId)
+          .update({"likes": usersWhoLikedPost});
       return;
     }
 
     usersWhoLikedPost.add(AuthController().user!.uid);
-    final numberOfLikes = likesSnapshot['likes'];
 
-    await Storage().firestore.collection('posts').doc(postId).update(
-        {"likes": numberOfLikes + 1, "usersWhoLiked": usersWhoLikedPost});
+    await Storage()
+        .firestore
+        .collection('posts')
+        .doc(postId)
+        .update({"likes": usersWhoLikedPost});
   }
 }

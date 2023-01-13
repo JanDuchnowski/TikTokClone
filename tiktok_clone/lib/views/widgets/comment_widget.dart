@@ -2,15 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:tiktok_clone/controllers/comment_controller.dart';
 import 'package:tiktok_clone/models/comment.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentWidget extends StatelessWidget {
-  const CommentWidget({Key? key, required this.comment}) : super(key: key);
+  const CommentWidget(
+      {Key? key, required this.comment, required this.commentController})
+      : super(key: key);
 
   final Comment comment;
+  final CommentController commentController;
   @override
   Widget build(BuildContext context) {
+    final deviceWidth = MediaQuery.of(context).size.width;
     return ListTile(
       leading:
           CircleAvatar(foregroundImage: NetworkImage(comment.profilePhoto)),
@@ -48,13 +53,34 @@ class CommentWidget extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
+          IconButton(
+            onPressed: () {
+              commentController.incrementCommentLikes(comment.id);
+            },
+            icon: const Icon(
+              Icons.favorite,
+            ),
+          ),
           Text(
             '${comment.likes.length} likes',
             style: const TextStyle(
               fontSize: 12,
               color: Colors.white,
             ),
-          )
+          ),
+        ],
+      ),
+      trailing: Column(
+        children: [
+          // IconButton(
+          //   onPressed: () {
+          //     commentController.incrementCommentLikes(comment.id);
+          //   },
+          //   icon: const Icon(
+          //     Icons.favorite,
+          //   ),
+          // ),
+          // Text(comment.likes.length.toString()),
         ],
       ),
     );

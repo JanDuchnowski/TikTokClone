@@ -8,57 +8,63 @@ import 'package:tiktok_clone/models/comment.dart';
 import 'package:tiktok_clone/views/widgets/comment_widget.dart';
 
 class CommentScreen extends StatelessWidget {
-  const CommentScreen({Key? key, required this.videoId}) : super(key: key);
+  CommentScreen({Key? key, required this.videoId}) : super(key: key);
 
   final String videoId;
-
+  final TextEditingController _commentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final CommentController commentController =
         CommentController(postId: videoId);
+    print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       body: StreamBuilder(
-          stream: Storage()
-              .firestore
-              .collection('posts')
-              .doc(videoId)
-              .collection('comments')
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // Check for errors
-            if (!snapshot.hasData) {
-              return Container(child: Text("Snapshot does not have data"));
+        stream: Storage()
+            .firestore
+            .collection('posts')
+            .doc(videoId)
+            .collection('comments')
+            .orderBy("datePublished")
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Text("Snapshot does not have data");
+          }
+
+          return ListView(
+            shrinkWrap: true,
+            children: snapshot != null
+                ? snapshot.data!.docs.map((document) {
+                    final currentComment = Comment.fromSnap(document);
+
+                    return CommentWidget(
+                      comment: currentComment,
+                      commentController: commentController,
+                    );
+                  }).toList()
+                : [
+                    Container(
+                      child: Text("No comments yet"),
+                    )
+                  ],
+          );
+        },
+      ),
+      bottomNavigationBar: Container(
+        width: MediaQuery.of(context).size.width - 10,
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+        ),
+        child: TextField(
+          controller: _commentTextController,
+          onSubmitted: (value) {
+            if (value.isNotEmpty) {
+              commentController.postComment(value);
+              _commentTextController.clear();
             }
-
-            return Column(
-              children: [
-                ListView(
-                  shrinkWrap: true,
-                  children: snapshot != null
-                      ? snapshot.data!.docs.map((document) {
-                          final currentComment = Comment.fromSnap(document);
-
-                          return Container(
-                            child: CommentWidget(
-                              comment: currentComment,
-                            ),
-                          );
-                        }).toList()
-                      : [
-                          Container(
-                            child: Text("No comments yet"),
-                          )
-                        ],
-                ),
-                TextField(
-                  onSubmitted: (value) {
-                    commentController.postComment(value);
-                  },
-                ),
-              ],
-            );
-          }),
+          },
+        ),
+      ),
     );
   }
 }
