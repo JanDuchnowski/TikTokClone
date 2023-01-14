@@ -18,11 +18,8 @@ class _VideoPostState extends State<VideoPost> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(widget.dataSource!);
-    // videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
 
-    _controller.addListener(() {
-      //setState(() {});
-    });
+    _controller.addListener(() {});
     _controller.setLooping(true);
     _controller.initialize();
     _controller.play();
@@ -36,8 +33,6 @@ class _VideoPostState extends State<VideoPost> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: VideoPlayer(_controller),
-    );
+    return VideoPlayer(_controller);
   }
 }

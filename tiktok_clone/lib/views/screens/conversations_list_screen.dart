@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart';
-import 'package:tiktok_clone/views/chat_screen.dart';
+import 'package:tiktok_clone/views/screens/chat_screen.dart';
 
 class ConversationsListScreen extends StatefulWidget {
   ConversationsListScreen({Key? key}) : super(key: key);
