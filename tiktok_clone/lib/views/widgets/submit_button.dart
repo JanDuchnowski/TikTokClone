@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/utils/color_palette.dart';
 
 class SubmitButton extends StatelessWidget {

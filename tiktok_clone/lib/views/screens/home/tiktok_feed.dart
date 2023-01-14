@@ -1,14 +1,14 @@
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/comment/comment_screen.dart';
+import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/video.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
-import 'package:tiktok_clone/views/screens/video/comment_screen.dart';
 
 import 'package:tiktok_clone/views/widgets/video_post.dart';
 
