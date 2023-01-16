@@ -15,7 +15,8 @@ class UploadVideoController {
     return downloadUrl;
   }
 
-  uploadVideo(String songName, String caption, String videoPath) async {
+  Future<void> uploadVideo(
+      String songName, String caption, String videoPath) async {
     try {
       String uid = Storage().firebaseAuth.currentUser!.uid;
       DocumentSnapshot userDoc =
@@ -40,6 +41,15 @@ class UploadVideoController {
       );
 
       await Storage().firestore.collection('posts').doc('Video $len').set(
+            video.toJson(),
+          );
+      await Storage()
+          .firestore
+          .collection('users')
+          .doc((userDoc.data()! as Map<String, dynamic>)['uid'])
+          .collection('posts')
+          .doc('Video $len')
+          .set(
             video.toJson(),
           );
     } catch (e) {

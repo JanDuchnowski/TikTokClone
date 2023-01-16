@@ -7,6 +7,7 @@ import 'package:tiktok_clone/chat/chat_screen.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart';
 import 'package:tiktok_clone/profile/profile_screen.dart';
+import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
 class FriendsPage extends StatefulWidget {
   const FriendsPage({Key? key}) : super(key: key);
@@ -59,6 +60,9 @@ class _FriendsPageState extends State<FriendsPage> {
               }).toList(),
             );
           }),
+      bottomNavigationBar: CustomNavigationBar(
+        currentlySelected: 1,
+      ),
     );
   }
 }

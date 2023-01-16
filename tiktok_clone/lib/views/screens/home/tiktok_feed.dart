@@ -6,6 +6,7 @@ import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
+import 'package:tiktok_clone/models/user.dart';
 import 'package:tiktok_clone/video/video.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/video/video_controller.dart';
@@ -26,6 +27,12 @@ class _TikTokFeedState extends State<TikTokFeed> {
   @override
   void initState() {
     super.initState();
+    getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
+  }
+
+  Future<void> getCurrentUser(String uid) async {
+    AuthController().currentUser = User.fromSnap(
+        await Storage().firestore.collection('users').doc(uid).get());
   }
 
   @override
@@ -166,7 +173,9 @@ class _TikTokFeedState extends State<TikTokFeed> {
           );
         },
       ),
-      bottomNavigationBar: CustomNavigationBar(),
+      bottomNavigationBar: CustomNavigationBar(
+        currentlySelected: 0,
+      ),
     );
   }
 }

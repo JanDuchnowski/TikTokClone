@@ -8,6 +8,7 @@ import 'package:tiktok_clone/chat/chat_screen.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 
 import 'package:tiktok_clone/models/user.dart';
+import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
 class ConversationsListScreen extends StatefulWidget {
   ConversationsListScreen({Key? key}) : super(key: key);
@@ -39,29 +40,32 @@ class _ConversationsListScreenState extends State<ConversationsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-          stream: Storage().firestore.collection('users').snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            print(snapshot.data);
-            if (!snapshot.hasData) {
-              return const Text("No data in snapshot");
-            }
-            return ListView(
-              children: snapshot.data!.docs.map((document) {
-                final User interlocutorUser = User.fromSnap(document);
-                return ListTile(
-                  title: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatScreen(
-                                currentUser: currentUser!,
-                                interlocutorUser: interlocutorUser)));
-                      },
-                      child: Text(interlocutorUser.name)),
-                );
-              }).toList(),
-            );
-          }),
+        stream: Storage().firestore.collection('users').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          print(snapshot.data);
+          if (!snapshot.hasData) {
+            return const Text("No data in snapshot");
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((document) {
+              final User interlocutorUser = User.fromSnap(document);
+              return ListTile(
+                title: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ChatScreen(
+                              currentUser: currentUser!,
+                              interlocutorUser: interlocutorUser)));
+                    },
+                    child: Text(interlocutorUser.name)),
+              );
+            }).toList(),
+          );
+        },
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        currentlySelected: 3,
+      ),
     );
   }
 }

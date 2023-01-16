@@ -10,42 +10,32 @@ import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/widgets/custom_plus_icon.dart';
 
 class CustomNavigationBar extends StatefulWidget {
-  CustomNavigationBar({Key? key}) : super(key: key);
+  CustomNavigationBar({
+    Key? key,
+    required this.currentlySelected,
+  }) : super(key: key);
 
+  final int currentlySelected;
   @override
   State<CustomNavigationBar> createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  int _selectedIndex = 0;
   User? currentUser;
   @override
   void initState() {
     super.initState();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   getCurrentUser().then((value) => print(currentUser));
-    // });
   }
-
-  // Future<void> getCurrentUser() async {
-  //   final userSnapshot = await Storage()
-  //       .firestore
-  //       .collection('users')
-  //       .doc(AuthController().user!.uid)
-  //       .get();
-  //   currentUser = User.fromSnap(userSnapshot);
-  //   print(currentUser);
-  // }
 
   @override
   Widget build(BuildContext context) {
+    //  print("Chosen index = ${_selectedIndex}");
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: ColorPalette.backgroundColor,
       unselectedItemColor: Colors.white,
       selectedItemColor: Colors.red,
-      currentIndex: _selectedIndex,
+      currentIndex: widget.currentlySelected,
       items: const [
         BottomNavigationBarItem(
             icon: Icon(
@@ -82,9 +72,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
-      switch (_selectedIndex) {
+      switch (index) {
         case 0:
+          Navigator.pushNamed(context, Routes.homeScreenRoute);
           break;
         case 1:
           Navigator.pushNamed(context, Routes.friendsPageRoute);
@@ -108,7 +98,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         default:
           break;
       }
-      print(_selectedIndex);
+      print(index);
     });
   }
 }

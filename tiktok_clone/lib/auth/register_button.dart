@@ -34,14 +34,12 @@ class RegisterButton extends SubmitButton {
       child: InkWell(
         onTap: () {
           if (buttonText == "Register") {
-            print(
-                "username = ${username.text},  email = ${email.text}, password = ${password.text}, photo = ${AuthController().pickedProfileImage!}");
             //TODO get access to text controllers from signup page
             AuthController().registerUser(
               username.text,
               email.text,
               password.text,
-              (AuthController().pickedProfileImage!),
+              (AuthController().pickedProfileImage),
             );
           }
         },

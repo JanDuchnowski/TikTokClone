@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 
 import 'package:tiktok_clone/video/upload_video_controller.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
@@ -94,6 +95,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       onPressed: () {
                         uploadVideoController.uploadVideo(_songController.text,
                             _captionController.text, widget.videoPath);
+
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                       child: const Text(

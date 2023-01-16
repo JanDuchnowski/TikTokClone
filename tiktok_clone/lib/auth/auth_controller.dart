@@ -78,12 +78,16 @@ class AuthController {
           email: email,
           uid: userCredential.user!.uid,
           profilePhoto: downloadUrl,
+          likes: 0,
+          followers: [],
+          following: [],
         );
         await Storage()
             .firestore
             .collection('users')
             .doc(userCredential.user!.uid)
             .set(user.toJson());
+        currentUser = user;
       } else {
         print("Error registering");
         print("You forgot to input some credentials");
@@ -109,5 +113,9 @@ class AuthController {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> signOut() async {
+    await Storage().firebaseAuth.signOut();
   }
 }

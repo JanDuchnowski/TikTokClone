@@ -6,6 +6,7 @@ import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 import 'package:tiktok_clone/views/widgets/submit_button.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
+import 'package:tiktok_clone/models/user.dart' as model;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -25,18 +26,22 @@ class _LoginScreenState extends State<LoginScreen> {
     AuthController().user = (Storage().firebaseAuth.currentUser);
     //TODO mlisten to user signed-in and signed-out events with authStateChanges()
     if (AuthController().user != null) {
+      getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
       print("User already logged in");
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        // Future(() {
         Navigator.pushNamed(
             context,
             Routes
                 .homeScreenRoute); //This navigates to the home widget embeded in the main
-        // });
       });
     } else {
       print("User has to login");
     }
+  }
+
+  Future<void> getCurrentUser(String uid) async {
+    AuthController().currentUser = model.User.fromSnap(
+        await Storage().firestore.collection('users').doc(uid).get());
   }
 
   @override
@@ -61,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextInputField(
               textController: _passwordController,
+              isObscure: true,
               labelText: 'Password',
               icon: Icons.key,
             ),
