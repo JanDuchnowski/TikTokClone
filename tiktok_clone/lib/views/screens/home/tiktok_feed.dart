@@ -5,12 +5,13 @@ import 'package:tiktok_clone/comment/comment_screen.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/controllers/like_controller.dart';
 
-import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/video.dart';
+import 'package:tiktok_clone/video/video.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/video/video_controller.dart';
+import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
-import 'package:tiktok_clone/views/widgets/video_post.dart';
+import 'package:tiktok_clone/video/video_post.dart';
 
 class TikTokFeed extends StatefulWidget {
   TikTokFeed({Key? key}) : super(key: key);
@@ -25,8 +26,6 @@ class _TikTokFeedState extends State<TikTokFeed> {
   @override
   void initState() {
     super.initState();
-
-    //  VideoController().fetchPosts();
   }
 
   @override
@@ -118,8 +117,8 @@ class _TikTokFeedState extends State<TikTokFeed> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    LikeController().postId = currentVideo.id;
-                                    LikeController().incrementLikes();
+                                    VideoController().postId = currentVideo.id;
+                                    VideoController().incrementLikes();
                                   },
                                   icon: const Icon(
                                     Icons.favorite,
@@ -167,6 +166,7 @@ class _TikTokFeedState extends State<TikTokFeed> {
           );
         },
       ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }
