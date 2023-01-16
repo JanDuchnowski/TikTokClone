@@ -24,6 +24,7 @@ class TikTokFeed extends StatefulWidget {
 class _TikTokFeedState extends State<TikTokFeed> {
   BottomDrawerController bottomDrawerController = BottomDrawerController();
   List<String>? postsList;
+  final List<String> postsLikedByCurrentUser = [];
   @override
   void initState() {
     super.initState();
@@ -125,10 +126,17 @@ class _TikTokFeedState extends State<TikTokFeed> {
                                 IconButton(
                                   onPressed: () {
                                     VideoController().postId = currentVideo.id;
-                                    VideoController().incrementLikes();
+                                    VideoController().addToLiked =
+                                        addToLikedPosts;
+                                    VideoController().incrementLikes(
+                                        postsLikedByCurrentUser!);
                                   },
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.favorite,
+                                    color: postsLikedByCurrentUser!
+                                            .contains(document.id)
+                                        ? Colors.red
+                                        : Colors.white,
                                   ),
                                 ),
                                 Text(currentVideo.likes.length.toString()),
@@ -177,5 +185,13 @@ class _TikTokFeedState extends State<TikTokFeed> {
         currentlySelected: 0,
       ),
     );
+  }
+
+  void addToLikedPosts(String postId) {
+    if (postsLikedByCurrentUser!.contains(postId)) {
+      postsLikedByCurrentUser!.remove(postId);
+    } else {
+      postsLikedByCurrentUser!.add(postId);
+    }
   }
 }

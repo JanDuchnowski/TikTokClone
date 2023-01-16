@@ -54,60 +54,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   return Scaffold(
                     body: ListView(
-                        shrinkWrap: true,
-                        children: snapshot.data!.docs.map(
-                          (document) {
-                            final User currentUser = User.fromSnap(document);
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map(
+                        (document) {
+                          final User currentUser = User.fromSnap(document);
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const SizedBox(
-                                  height: 32,
-                                ),
-                                CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(currentUser!.profilePhoto),
-                                  radius: 60,
-                                ),
-                                const SizedBox(
-                                  height: 32,
-                                ),
-                                Text(
-                                  currentUser.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          currentUser.following.length
-                                              .toString(),
-                                        ),
-                                        const Text("Following"),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 32,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          currentUser.followers.length
-                                              .toString(),
-                                        ),
-                                        const Text("Followers"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        ).toList()),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(currentUser!.profilePhoto),
+                                radius: 60,
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              Text(
+                                currentUser.name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        currentUser.following.length.toString(),
+                                      ),
+                                      const Text("Following"),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 32,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        currentUser.followers.length.toString(),
+                                      ),
+                                      const Text("Followers"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ).toList(),
+                    ),
                   );
                 },
               ),
