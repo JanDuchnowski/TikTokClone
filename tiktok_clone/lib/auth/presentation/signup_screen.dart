@@ -1,12 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
-
-import 'package:tiktok_clone/auth/login_screen.dart';
-import 'package:tiktok_clone/auth/register_button.dart';
+import 'package:tiktok_clone/auth/widgets/register_button.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -82,7 +78,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 isObscure: true,
               ),
               RegisterButton(
-                buttonText: "Register",
                 email: _emailController,
                 password: _passwordController,
                 username: _usernameController,
@@ -93,7 +88,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   const Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
-                      print("Go back to login page button pressed");
                       Navigator.pushNamed(
                         context,
                         Routes.loginScreenRoute,

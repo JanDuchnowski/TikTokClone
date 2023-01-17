@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/video/video.dart';
+import 'package:tiktok_clone/models/video.dart';
 
 class UploadVideoController {
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {

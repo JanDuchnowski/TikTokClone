@@ -1,41 +1,26 @@
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/comment/comment_screen.dart';
+import 'package:tiktok_clone/comment/presentation/comment_screen.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart';
-import 'package:tiktok_clone/profile/profile_screen.dart';
-import 'package:tiktok_clone/video/video.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/models/video.dart';
+
 import 'package:tiktok_clone/video/video_controller.dart';
+import 'package:tiktok_clone/video/widgets/video_post.dart';
 import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
-import 'package:tiktok_clone/video/video_post.dart';
+import 'package:tiktok_clone/video/widgets/video_post.dart';
 
-class TikTokFeed extends StatefulWidget {
+class TikTokFeed extends StatelessWidget {
   TikTokFeed({Key? key}) : super(key: key);
 
-  @override
-  State<TikTokFeed> createState() => _TikTokFeedState();
-}
-
-class _TikTokFeedState extends State<TikTokFeed> {
   BottomDrawerController bottomDrawerController = BottomDrawerController();
   List<String>? postsList;
   final List<String> postsLikedByCurrentUser = [];
-  @override
-  void initState() {
-    super.initState();
-    // getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
-  }
-
-  Future<void> getCurrentUser(String uid) async {
-    // AuthController().currentUser = User.fromSnap(
-    // await Storage().firestore.collection('users').doc(uid).get());
-  }
 
   @override
   Widget build(BuildContext context) {

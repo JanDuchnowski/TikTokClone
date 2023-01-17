@@ -4,8 +4,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/comment/comment_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/comment/comment.dart';
-import 'package:tiktok_clone/comment/comment_widget.dart';
+import 'package:tiktok_clone/models/comment.dart';
+import 'package:tiktok_clone/comment/widgets/comment_widget.dart';
 
 class CommentScreen extends StatelessWidget {
   CommentScreen({Key? key, required this.videoId}) : super(key: key);

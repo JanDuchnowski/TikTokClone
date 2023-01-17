@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/auth/widgets/login_button.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
-import 'package:tiktok_clone/views/screens/home/home_screen.dart';
-import 'package:tiktok_clone/views/widgets/submit_button.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
-import 'package:tiktok_clone/models/user.dart' as model;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -24,15 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     AuthController().user = (Storage().firebaseAuth.currentUser);
-    //TODO mlisten to user signed-in and signed-out events with authStateChanges()
     if (AuthController().user != null) {
       AuthController().getCurrentUser();
-      // print("Current user = ${AuthController().user}");
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.pushNamed(
-            context,
-            Routes
-                .homeScreenRoute); //This navigates to the home widget embeded in the main
+        Navigator.pushNamed(context, Routes.homeScreenRoute);
       });
     } else {
       print("User has to login");
@@ -65,8 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: 'Password',
               icon: Icons.key,
             ),
-            SubmitButton(
-              buttonText: "Login",
+            LoginButton(
               email: _emailController,
               password: _passwordController,
             ),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
+
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart';
-import 'package:tiktok_clone/profile/profile_screen.dart';
-import 'package:tiktok_clone/utils/color_palette.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/utilities/color_palette.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+
 import 'package:tiktok_clone/views/widgets/custom_plus_icon.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -22,14 +21,9 @@ class CustomNavigationBar extends StatefulWidget {
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   User? currentUser;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    //  print("Chosen index = ${_selectedIndex}");
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: ColorPalette.backgroundColor,
@@ -98,7 +92,6 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         default:
           break;
       }
-      print(index);
     });
   }
 }

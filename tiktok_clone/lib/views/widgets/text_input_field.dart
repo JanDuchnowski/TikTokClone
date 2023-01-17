@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:tiktok_clone/utils/color_palette.dart';
+import 'package:tiktok_clone/utilities/color_palette.dart';
 
 class TextInputField extends StatelessWidget {
   const TextInputField({

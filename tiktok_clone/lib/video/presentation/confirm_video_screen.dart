@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 
 import 'package:tiktok_clone/video/upload_video_controller.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';

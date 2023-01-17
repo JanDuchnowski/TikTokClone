@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
-import 'package:tiktok_clone/video/video.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+import 'package:tiktok_clone/models/video.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
 
 class AuthController {
@@ -24,9 +24,7 @@ class AuthController {
   File? pickedFileToUpload;
   User? user;
   model.User? currentUser;
-
   Future<void> getCurrentUser() async {
-    print("was called");
     final userSnapshot =
         await Storage().firestore.collection('users').doc(user!.uid).get();
     currentUser = model.User.fromSnap(userSnapshot);
@@ -36,7 +34,6 @@ class AuthController {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
-      //TODO using bloc change state to loading image state
       print("You have successfully selected a picture");
       pickedProfileImage = File(pickedImage.path);
     }
@@ -44,16 +41,15 @@ class AuthController {
 
   Future<String> _uploadToStorage(File image, String folder) async {
     print("Got to uploading the image to storage");
-    Reference ref = folder == 'posts'
-        ? Storage().firebaseStorage.ref().child(folder).child(image.path)
-        : Storage().firebaseStorage.ref().child(folder).child(Storage()
-            .firebaseAuth
-            .currentUser!
-            .uid); //TODO create seperete functions to
+
+    final Reference ref = Storage()
+        .firebaseStorage
+        .ref()
+        .child(folder)
+        .child(Storage().firebaseAuth.currentUser!.uid);
 
     UploadTask uploadTask = ref.putFile(image);
-    TaskSnapshot snap =
-        await uploadTask; //TODO fully understand what this snap holds (what upload)
+    TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
   }
@@ -65,7 +61,6 @@ class AuthController {
           email.isNotEmpty &&
           password.isNotEmpty &&
           image != null) {
-        //TODO save the user to our auth and firebase
         UserCredential userCredential =
             await Storage().firebaseAuth.createUserWithEmailAndPassword(
                   email: email,
@@ -89,7 +84,6 @@ class AuthController {
             .set(user.toJson());
         currentUser = user;
       } else {
-        print("Error registering");
         print("You forgot to input some credentials");
       }
     } catch (e) {

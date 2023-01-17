@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/video/video.dart';
+import 'package:tiktok_clone/models/video.dart';
 
 class VideoController {
   static final VideoController _singleton = VideoController._internal();

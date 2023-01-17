@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/utils/color_palette.dart';
 
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({
+import 'package:tiktok_clone/utilities/color_palette.dart';
+import 'package:tiktok_clone/utilities/constants.dart';
+
+class LoginButton extends StatelessWidget {
+  const LoginButton({
     Key? key,
-    required this.buttonText,
     required this.password,
     required this.email,
   }) : super(key: key);
 
-  final String buttonText;
   final TextEditingController email;
   final TextEditingController password;
 
@@ -33,10 +33,10 @@ class SubmitButton extends StatelessWidget {
         onTap: () {
           AuthController().loginUser(email.text, password.text, context);
         },
-        child: Center(
+        child: const Center(
           child: Text(
-            buttonText,
-            style: const TextStyle(
+            Constants.loginButtonText,
+            style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),

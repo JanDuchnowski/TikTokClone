@@ -1,41 +1,24 @@
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/comment/comment_screen.dart';
+import 'package:tiktok_clone/comment/presentation/comment_screen.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/user.dart';
-import 'package:tiktok_clone/profile/profile_screen.dart';
-import 'package:tiktok_clone/video/video.dart';
-import 'package:tiktok_clone/utils/routes/routes_constants.dart';
+import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/models/video.dart';
+
 import 'package:tiktok_clone/video/video_controller.dart';
 import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
-import 'package:tiktok_clone/video/video_post.dart';
+import 'package:tiktok_clone/video/widgets/video_post.dart';
 
-class FriendsPage extends StatefulWidget {
+class FriendsPage extends StatelessWidget {
   FriendsPage({Key? key}) : super(key: key);
 
-  @override
-  State<FriendsPage> createState() => _FriendsPageState();
-}
-
-class _FriendsPageState extends State<FriendsPage> {
   BottomDrawerController bottomDrawerController = BottomDrawerController();
   List<String>? postsList;
   final List<String> postsLikedByCurrentUser = [];
-  @override
-  void initState() {
-    super.initState();
-    // getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
-  }
-
-  Future<void> getCurrentUser(String uid) async {
-    // AuthController().currentUser = User.fromSnap(
-    // await Storage().firestore.collection('users').doc(uid).get());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +28,10 @@ class _FriendsPageState extends State<FriendsPage> {
             .firestore
             .collection('posts')
             .where("uid", whereIn: AuthController().currentUser!.friends)
-            .snapshots(), // where uid is in AuthController().currentUser.friends
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -68,9 +51,6 @@ class _FriendsPageState extends State<FriendsPage> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    //const SizedBox(
-                    //   height: 100,
-                    // ),
                     Expanded(
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -204,7 +184,7 @@ class _FriendsPageState extends State<FriendsPage> {
         },
       ),
       bottomNavigationBar: CustomNavigationBar(
-        currentlySelected: 0,
+        currentlySelected: 1,
       ),
     );
   }
