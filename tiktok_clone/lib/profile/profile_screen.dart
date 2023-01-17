@@ -33,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
               child: StreamBuilder(
@@ -52,61 +53,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     );
                   }
 
-                  return Scaffold(
-                    body: ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map(
-                        (document) {
-                          final User currentUser = User.fromSnap(document);
+                  return ListView(
+                    shrinkWrap: true,
+                    children: snapshot.data!.docs.map(
+                      (document) {
+                        final User currentUser = User.fromSnap(document);
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(currentUser!.profilePhoto),
-                                radius: 60,
-                              ),
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              Text(
-                                currentUser.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        currentUser.following.length.toString(),
-                                      ),
-                                      const Text("Following"),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 32,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        currentUser.followers.length.toString(),
-                                      ),
-                                      const Text("Followers"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      ).toList(),
-                    ),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(currentUser.profilePhoto),
+                              radius: 60,
+                            ),
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            Text(
+                              currentUser.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      currentUser.following.length.toString(),
+                                    ),
+                                    const Text("Following"),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 32,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      currentUser.followers.length.toString(),
+                                    ),
+                                    const Text("Followers"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    ).toList(),
                   );
                 },
               ),
@@ -127,17 +126,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   width: 32,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    AuthController().signOut();
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    margin:
-                        Storage().firebaseAuth.currentUser!.uid != widget.userId
-                            ? const EdgeInsets.only(right: 48.0)
-                            : EdgeInsets.all(0),
+                Container(
+                  margin:
+                      Storage().firebaseAuth.currentUser!.uid != widget.userId
+                          ? const EdgeInsets.only(right: 0.0)
+                          : const EdgeInsets.only(right: 24),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      AuthController().signOut();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
                     child: Text("Sign Out"),
                   ),
                 ),

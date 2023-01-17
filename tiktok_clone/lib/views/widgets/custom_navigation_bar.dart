@@ -90,8 +90,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  ProfileScreen(userId: AuthController().user!.uid),
+              builder: (context) => ProfileScreen(
+                  userId: Storage().firebaseAuth.currentUser!.uid),
             ),
           );
           break;

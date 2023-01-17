@@ -59,6 +59,7 @@ class CommentWidget extends StatelessWidget {
             },
             icon: const Icon(
               Icons.favorite,
+              // color: ,
             ),
           ),
           Text(
@@ -68,19 +69,6 @@ class CommentWidget extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-        ],
-      ),
-      trailing: Column(
-        children: [
-          // IconButton(
-          //   onPressed: () {
-          //     commentController.incrementCommentLikes(comment.id);
-          //   },
-          //   icon: const Icon(
-          //     Icons.favorite,
-          //   ),
-          // ),
-          // Text(comment.likes.length.toString()),
         ],
       ),
     );

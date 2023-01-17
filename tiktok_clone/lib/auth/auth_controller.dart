@@ -38,9 +38,8 @@ class AuthController {
     if (pickedImage != null) {
       //TODO using bloc change state to loading image state
       print("You have successfully selected a picture");
+      pickedProfileImage = File(pickedImage.path);
     }
-
-    pickedProfileImage = File(pickedImage!.path);
   }
 
   Future<String> _uploadToStorage(File image, String folder) async {
@@ -51,7 +50,7 @@ class AuthController {
             .firebaseAuth
             .currentUser!
             .uid); //TODO create seperete functions to
-    print(ref);
+
     UploadTask uploadTask = ref.putFile(image);
     TaskSnapshot snap =
         await uploadTask; //TODO fully understand what this snap holds (what upload)
@@ -81,6 +80,7 @@ class AuthController {
           likes: 0,
           followers: [],
           following: [],
+          friends: [],
         );
         await Storage()
             .firestore
@@ -93,7 +93,7 @@ class AuthController {
         print("You forgot to input some credentials");
       }
     } catch (e) {
-      print("Error registering");
+      print(e);
     }
   }
 

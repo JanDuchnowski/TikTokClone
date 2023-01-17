@@ -24,16 +24,7 @@ class _ConversationsListScreenState extends State<ConversationsListScreen> {
   void initState() {
     super.initState();
 
-    getCurrentUser();
-  }
-
-  Future<void> getCurrentUser() async {
-    final userSnapshot = await Storage()
-        .firestore
-        .collection('users')
-        .doc(AuthController().user!.uid)
-        .get();
-    currentUser = User.fromSnap(userSnapshot);
+    //getCurrentUser();
   }
 
   @override
@@ -42,7 +33,6 @@ class _ConversationsListScreenState extends State<ConversationsListScreen> {
       body: StreamBuilder(
         stream: Storage().firestore.collection('users').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          print(snapshot.data);
           if (!snapshot.hasData) {
             return const Text("No data in snapshot");
           }

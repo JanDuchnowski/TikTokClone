@@ -76,7 +76,7 @@ class CommentController {
     }
 
     usersWhoLikedComment.add(AuthController().user!.uid);
-    print(usersWhoLikedComment);
+
     await Storage()
         .firestore
         .collection('posts')
@@ -85,14 +85,12 @@ class CommentController {
         .doc(commentId)
         .update({"likes": usersWhoLikedComment});
 
-    final commentSnapshotAfterwards = await Storage()
-        .firestore
-        .collection('posts')
-        .doc(postId)
-        .collection('comments')
-        .doc(commentId)
-        .get();
-
-    print(commentSnapshotAfterwards['likes']);
+    // final commentSnapshotAfterwards = await Storage()
+    //     .firestore
+    //     .collection('posts')
+    //     .doc(postId)
+    //     .collection('comments')
+    //     .doc(commentId)
+    //     .get();
   }
 }

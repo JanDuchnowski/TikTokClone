@@ -24,7 +24,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.conversationsScreenRoute:
       return MaterialPageRoute(builder: (context) => ConversationsListScreen());
     case Routes.friendsPageRoute:
-      return MaterialPageRoute(builder: (context) => const FriendsPage());
+      return MaterialPageRoute(builder: (context) => FriendsPage());
     //  case Routes.profileScreenRoute:
     //   return MaterialPageRoute(builder: (context) {
     //      return ProfileScreen(user: AuthController().currentUser!);

@@ -8,6 +8,7 @@ class User {
   int likes;
   List following;
   List followers;
+  List friends;
 
   User({
     required this.name,
@@ -17,6 +18,7 @@ class User {
     required this.likes,
     required this.following,
     required this.followers,
+    required this.friends,
   });
 
   Map<String, dynamic> toJson() => {
@@ -27,6 +29,7 @@ class User {
         "likes": likes,
         "following": following,
         "followers": followers,
+        "friends": friends,
       };
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -39,6 +42,7 @@ class User {
       likes: snapshot['likes'],
       following: snapshot['following'],
       followers: snapshot['followers'],
+      friends: snapshot['friends'],
     );
   }
 }

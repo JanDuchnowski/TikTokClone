@@ -20,7 +20,6 @@ void main() async {
   runApp(TikTokApp());
 }
 
-/// Stateful widget to fetch and then display video content.
 class TikTokApp extends StatefulWidget {
   TikTokApp();
 

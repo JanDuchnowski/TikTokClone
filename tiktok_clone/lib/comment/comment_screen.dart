@@ -16,7 +16,6 @@ class CommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final CommentController commentController =
         CommentController(postId: videoId);
-    print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       body: StreamBuilder(
         stream: Storage()

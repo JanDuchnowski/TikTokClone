@@ -26,8 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
     AuthController().user = (Storage().firebaseAuth.currentUser);
     //TODO mlisten to user signed-in and signed-out events with authStateChanges()
     if (AuthController().user != null) {
-      getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
-      print("User already logged in");
+      AuthController().getCurrentUser();
+      // print("Current user = ${AuthController().user}");
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Navigator.pushNamed(
             context,
@@ -37,11 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       print("User has to login");
     }
-  }
-
-  Future<void> getCurrentUser(String uid) async {
-    AuthController().currentUser = model.User.fromSnap(
-        await Storage().firestore.collection('users').doc(uid).get());
   }
 
   @override

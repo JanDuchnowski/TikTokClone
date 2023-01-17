@@ -7,6 +7,7 @@ import 'package:tiktok_clone/controllers/like_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user.dart';
+import 'package:tiktok_clone/profile/profile_screen.dart';
 import 'package:tiktok_clone/video/video.dart';
 import 'package:tiktok_clone/utils/routes/routes_constants.dart';
 import 'package:tiktok_clone/video/video_controller.dart';
@@ -28,12 +29,12 @@ class _TikTokFeedState extends State<TikTokFeed> {
   @override
   void initState() {
     super.initState();
-    getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
+    // getCurrentUser(Storage().firebaseAuth.currentUser!.uid);
   }
 
   Future<void> getCurrentUser(String uid) async {
-    AuthController().currentUser = User.fromSnap(
-        await Storage().firestore.collection('users').doc(uid).get());
+    // AuthController().currentUser = User.fromSnap(
+    // await Storage().firestore.collection('users').doc(uid).get());
   }
 
   @override
@@ -63,9 +64,9 @@ class _TikTokFeedState extends State<TikTokFeed> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(
-                      height: 100,
-                    ),
+                    //const SizedBox(
+                    //   height: 100,
+                    // ),
                     Expanded(
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -79,15 +80,32 @@ class _TikTokFeedState extends State<TikTokFeed> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    currentVideo.username,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: Size.zero,
+                                      padding: EdgeInsets.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => ProfileScreen(
+                                            userId: currentVideo.uid,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      currentVideo.username,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Text(
@@ -129,11 +147,11 @@ class _TikTokFeedState extends State<TikTokFeed> {
                                     VideoController().addToLiked =
                                         addToLikedPosts;
                                     VideoController().incrementLikes(
-                                        postsLikedByCurrentUser!);
+                                        postsLikedByCurrentUser);
                                   },
                                   icon: Icon(
                                     Icons.favorite,
-                                    color: postsLikedByCurrentUser!
+                                    color: postsLikedByCurrentUser
                                             .contains(document.id)
                                         ? Colors.red
                                         : Colors.white,
@@ -188,10 +206,10 @@ class _TikTokFeedState extends State<TikTokFeed> {
   }
 
   void addToLikedPosts(String postId) {
-    if (postsLikedByCurrentUser!.contains(postId)) {
-      postsLikedByCurrentUser!.remove(postId);
+    if (postsLikedByCurrentUser.contains(postId)) {
+      postsLikedByCurrentUser.remove(postId);
     } else {
-      postsLikedByCurrentUser!.add(postId);
+      postsLikedByCurrentUser.add(postId);
     }
   }
 }
