@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/comment.dart';
+import 'package:tiktok_clone/models/comment/comment.dart';
 
 class CommentController {
   final String postId;
@@ -26,7 +26,7 @@ class CommentController {
     final Comment newComment = Comment(
       username: (userDoc.data()! as dynamic)['name'],
       comment: newCommentText,
-      datePublished: Timestamp.now(),
+      datePublished: Timestamp.now().toDate(),
       likes: [],
       profilePhoto: (userDoc.data()! as dynamic)['profilePhoto'],
       uid: (userDoc.data()! as dynamic)['uid'],

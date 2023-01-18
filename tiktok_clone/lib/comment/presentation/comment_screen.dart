@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/comment/comment_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/comment.dart';
+import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/comment/widgets/comment_widget.dart';
 
 class CommentScreen extends StatelessWidget {
@@ -34,7 +34,8 @@ class CommentScreen extends StatelessWidget {
             shrinkWrap: true,
             children: snapshot != null
                 ? snapshot.data!.docs.map((document) {
-                    final currentComment = Comment.fromSnap(document);
+                    final currentComment = Comment.fromJson(
+                        document.data() as Map<String, dynamic>);
 
                     return CommentWidget(
                       comment: currentComment,

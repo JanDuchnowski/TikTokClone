@@ -4,9 +4,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/user.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/profile/profile_controller.dart';
-import 'package:tiktok_clone/models/video.dart';
+import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/video/widgets/video_post.dart';
 import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 

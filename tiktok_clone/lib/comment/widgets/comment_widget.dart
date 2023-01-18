@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/comment/comment_controller.dart';
-import 'package:tiktok_clone/models/comment.dart';
+import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentWidget extends StatelessWidget {
@@ -43,7 +43,7 @@ class CommentWidget extends StatelessWidget {
         children: [
           Text(
             timeago.format(
-              comment.datePublished.toDate(),
+              comment.datePublished,
             ),
             style: const TextStyle(
               fontSize: 12,

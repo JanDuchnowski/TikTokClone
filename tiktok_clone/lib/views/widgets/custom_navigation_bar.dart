@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/user.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';

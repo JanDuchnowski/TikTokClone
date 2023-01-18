@@ -6,10 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/user.dart' as model;
+import 'package:tiktok_clone/models/user/user.dart' as model;
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
-import 'package:tiktok_clone/models/video.dart';
-import 'package:tiktok_clone/views/screens/home/home_screen.dart';
+
+enum AuthenticationState { unknown, authenticated, unauthenticated }
 
 class AuthController {
   static final AuthController _singleton = AuthController._internal();
@@ -24,6 +24,7 @@ class AuthController {
   File? pickedFileToUpload;
   User? user;
   model.User? currentUser;
+
   Future<void> getCurrentUser() async {
     final userSnapshot =
         await Storage().firestore.collection('users').doc(user!.uid).get();

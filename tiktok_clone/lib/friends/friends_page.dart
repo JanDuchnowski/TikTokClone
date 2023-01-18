@@ -6,7 +6,7 @@ import 'package:tiktok_clone/auth/auth_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
-import 'package:tiktok_clone/models/video.dart';
+import 'package:tiktok_clone/models/video/video.dart';
 
 import 'package:tiktok_clone/video/video_controller.dart';
 import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
