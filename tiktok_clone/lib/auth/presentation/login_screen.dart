@@ -19,20 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    AuthController().user = (Storage().firebaseAuth.currentUser);
-    if (AuthController().user != null) {
-      AuthController().getCurrentUser();
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.pushNamed(context, Routes.homeScreenRoute);
-      });
-    } else {
-      print("User has to login");
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

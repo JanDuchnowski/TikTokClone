@@ -29,7 +29,7 @@ class TikTokFeed extends StatelessWidget {
         stream: Storage().firestore.collection('posts').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -49,9 +49,6 @@ class TikTokFeed extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    //const SizedBox(
-                    //   height: 100,
-                    // ),
                     Expanded(
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -65,8 +62,6 @@ class TikTokFeed extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisAlignment:
-                                //     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   TextButton(
                                     style: TextButton.styleFrom(

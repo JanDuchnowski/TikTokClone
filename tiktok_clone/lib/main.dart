@@ -1,7 +1,12 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/app_bloc_observer.dart';
+import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
+import 'package:tiktok_clone/auth/repository/authentication_repository.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
+import 'package:tiktok_clone/test.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/router.dart';
 
@@ -17,11 +22,21 @@ void main() async {
 
   Storage().camerasList = await availableCameras();
 
-  runApp(TikTokApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthenticationBloc(AuthenticationRepository()),
+        ),
+      ],
+      child: const TikTokApp(),
+    ),
+  );
+  Bloc.observer = AppBlocObserver();
 }
 
 class TikTokApp extends StatelessWidget {
-  const TikTokApp();
+  const TikTokApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

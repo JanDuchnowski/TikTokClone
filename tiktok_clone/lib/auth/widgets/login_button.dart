@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
+import 'package:tiktok_clone/test.dart';
 
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/constants.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+import 'package:tiktok_clone/views/screens/home/tiktok_feed.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
@@ -32,6 +37,9 @@ class LoginButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           AuthController().loginUser(email.text, password.text, context);
+          context.read<AuthenticationBloc>().add(AuthenticationStarted());
+
+          Navigator.of(context).pushNamed(Routes.homeScreenRoute);
         },
         child: const Center(
           child: Text(

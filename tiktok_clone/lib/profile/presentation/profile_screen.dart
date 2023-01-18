@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                         child: Text("Follow"),
                       )
-                    : SizedBox(
+                    : const SizedBox(
                         width: 0,
                       ),
                 SizedBox(

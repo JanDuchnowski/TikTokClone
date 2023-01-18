@@ -23,33 +23,6 @@ class Video with _$Video {
   }) = _Video;
 
   factory Video.fromJson(Map<String, dynamic> json) => _$VideoFromJson(json);
-  // Video({
-  //   required this.username,
-  //   required this.uid,
-  //   required this.id,
-  //   required this.likes,
-  //   required this.commentCount,
-  //   required this.shareCount,
-  //   required this.comments,
-  //   required this.songName,
-  //   required this.caption,
-  //   required this.videoUrl,
-  //   required this.profilePhoto,
-  // });
-
-  // Map<String, dynamic> toJson() => {
-  //       "username": username,
-  //       "uid": uid,
-  //       "profilePhoto": profilePhoto,
-  //       "id": id,
-  //       "likes": likes,
-  //       "commentCount": commentCount,
-  //       "shareCount": shareCount,
-  //       "comments": comments,
-  //       "songName": songName,
-  //       "caption": caption,
-  //       "videoUrl": videoUrl,
-  //     };
 
   static Video fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;

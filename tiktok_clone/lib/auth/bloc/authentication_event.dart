@@ -1,7 +1,7 @@
 part of 'authentication_bloc.dart';
 
 @immutable
-abstract class AuthenticationEvent {
+abstract class AuthenticationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }

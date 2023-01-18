@@ -7,6 +7,7 @@ import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
 
 import 'package:tiktok_clone/auth/presentation/login_screen.dart';
 import 'package:tiktok_clone/auth/presentation/signup_screen.dart';
+import 'package:tiktok_clone/test.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/video/presentation/add_video_screen.dart';
 import 'package:tiktok_clone/views/screens/home/home_screen.dart';
@@ -24,12 +25,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const AddVideoScreen());
     case Routes.conversationsScreenRoute:
       return MaterialPageRoute(builder: (context) => ConversationsListScreen());
-    case Routes.friendsPageRoute:
-      return MaterialPageRoute(builder: (context) => FriendsPage());
-    //  case Routes.profileScreenRoute:
-    //   return MaterialPageRoute(builder: (context) {
-    //      return ProfileScreen(user: AuthController().currentUser!);
-    // });
+    // case Routes.friendsPageRoute:
+    //   return MaterialPageRoute(builder: (context) => FriendsPage());
     default:
       return MaterialPageRoute(builder: (context) => TikTokFeed());
   }
