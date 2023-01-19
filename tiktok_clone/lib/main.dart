@@ -7,6 +7,7 @@ import 'package:tiktok_clone/auth/repository/authentication_repository.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
+import 'package:tiktok_clone/repository/post_repository.dart';
 import 'package:tiktok_clone/test.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/router.dart';
@@ -30,7 +31,7 @@ void main() async {
           create: (context) => AuthenticationBloc(AuthenticationRepository()),
         ),
         BlocProvider(
-          create: ((context) => TiktokBloc()),
+          create: ((context) => TiktokBloc(PostRepository())),
         ),
       ],
       child: const TikTokApp(),

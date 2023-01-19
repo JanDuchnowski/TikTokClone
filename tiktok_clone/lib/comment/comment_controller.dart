@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 
 class CommentController {
   final String postId;
@@ -9,10 +10,11 @@ class CommentController {
   CommentController({required this.postId});
 
   Future<void> postComment(String newCommentText) async {
+    final User? currentUser = await AuthController().getCurrentUser();
     DocumentSnapshot userDoc = await Storage()
         .firestore
         .collection('users')
-        .doc(AuthController().user!.uid)
+        .doc(currentUser!.uid)
         .get();
 
     var allDocs = await Storage()
@@ -53,6 +55,7 @@ class CommentController {
   }
 
   Future<void> incrementCommentLikes(String commentId) async {
+    final User? currentUser = await AuthController().getCurrentUser();
     final commentSnapshot = await Storage()
         .firestore
         .collection('posts')
@@ -63,8 +66,8 @@ class CommentController {
 
     final List usersWhoLikedComment = commentSnapshot['likes'];
 
-    if (usersWhoLikedComment.contains(AuthController().user!.uid)) {
-      usersWhoLikedComment.remove(AuthController().user!.uid);
+    if (usersWhoLikedComment.contains(currentUser!.uid)) {
+      usersWhoLikedComment.remove(currentUser.uid);
       await Storage()
           .firestore
           .collection('posts')
@@ -75,7 +78,7 @@ class CommentController {
       return;
     }
 
-    usersWhoLikedComment.add(AuthController().user!.uid);
+    usersWhoLikedComment.add(currentUser.uid);
 
     await Storage()
         .firestore
@@ -84,13 +87,5 @@ class CommentController {
         .collection("comments")
         .doc(commentId)
         .update({"likes": usersWhoLikedComment});
-
-    // final commentSnapshotAfterwards = await Storage()
-    //     .firestore
-    //     .collection('posts')
-    //     .doc(postId)
-    //     .collection('comments')
-    //     .doc(commentId)
-    //     .get();
   }
 }

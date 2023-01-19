@@ -25,7 +25,6 @@ class AuthenticationBloc
         model.User? user = await _authenticationRepository.getCurrentUser();
 
         if (user != null) {
-          print('got here');
           emit(AuthenticationSuccess(user: user));
         } else {
           emit(AuthenticationFailure());

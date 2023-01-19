@@ -4,7 +4,7 @@ import 'package:tiktok_clone/chat/presentation/chat_screen.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
+import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class ConversationsListScreen extends StatelessWidget {
   ConversationsListScreen({Key? key}) : super(key: key);

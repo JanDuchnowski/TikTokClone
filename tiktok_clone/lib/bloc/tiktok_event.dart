@@ -6,5 +6,13 @@ abstract class TiktokEvent extends Equatable {
 
 class FetchPostsEvent extends TiktokEvent {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
+}
+
+class LikePostEvent extends TiktokEvent {
+  final postId;
+
+  const LikePostEvent({required this.postId});
+  @override
+  List<Object?> get props => [];
 }

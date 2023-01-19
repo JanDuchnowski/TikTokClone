@@ -13,13 +13,16 @@ class VideoController {
   String? postId;
   Function? addToLiked;
   VideoController._internal();
+
   Future<void> incrementLikes(List<String> postsLikedByCurrentUser) async {
+    final currentUser = await AuthController().getCurrentUser();
     final likesSnapshot =
         await Storage().firestore.collection('posts').doc(postId).get();
     addToLiked!(postId);
     final List usersWhoLikedPost = likesSnapshot['likes'];
-    if (usersWhoLikedPost.contains(AuthController().user!.uid)) {
-      usersWhoLikedPost.remove(AuthController().user!.uid);
+    if (usersWhoLikedPost.contains(currentUser!.uid)) {
+      print("Removing a like");
+      usersWhoLikedPost.remove(currentUser.uid);
 
       await Storage()
           .firestore
@@ -29,20 +32,12 @@ class VideoController {
       return;
     }
 
-    usersWhoLikedPost.add(AuthController().user!.uid);
-
+    usersWhoLikedPost.add(currentUser.uid);
+    print("Adding a like");
     await Storage()
         .firestore
         .collection('posts')
         .doc(postId)
         .update({"likes": usersWhoLikedPost});
-  }
-
-  Future<List<String>> getUsers() async {
-    final likesSnapshot =
-        await Storage().firestore.collection('posts').doc(postId).get();
-
-    final List<String> usersWhoLikedPost = likesSnapshot['likes'];
-    return usersWhoLikedPost;
   }
 }

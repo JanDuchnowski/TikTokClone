@@ -10,7 +10,7 @@ class TiktokInitial extends TiktokState {
 }
 
 class TikTokFetchedPosts extends TiktokState {
-  final QuerySnapshot<Map<String, dynamic>> postsStream;
+  final QuerySnapshot<Map<String, dynamic>> postsQuery;
 
-  const TikTokFetchedPosts({required this.postsStream});
+  const TikTokFetchedPosts({required this.postsQuery});
 }

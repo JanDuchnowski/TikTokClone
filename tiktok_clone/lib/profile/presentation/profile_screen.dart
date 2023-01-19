@@ -8,7 +8,7 @@ import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/profile/profile_controller.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/video/widgets/video_post.dart';
-import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
+import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key, required this.userId}) : super(key: key);

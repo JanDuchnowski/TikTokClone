@@ -37,8 +37,8 @@ class ProfileController {
           .update({"followers": followersOfTheOtherUser});
       return;
     }
-
-    followersOfTheOtherUser.add(AuthController().user!.uid);
+    final User? currentUser = await AuthController().getCurrentUser();
+    followersOfTheOtherUser.add(currentUser!.uid);
     followingOfTheCurrentUser.add(otherUserId);
 
     await Storage()

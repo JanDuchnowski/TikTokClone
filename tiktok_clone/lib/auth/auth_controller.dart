@@ -20,7 +20,6 @@ class AuthController {
   AuthController._internal();
 
   File? pickedProfileImage;
-  User? user;
   model.User? currentUser;
 
   Future<model.User?> getCurrentUser() async {
