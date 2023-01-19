@@ -11,9 +11,9 @@ import 'package:tiktok_clone/models/video/video.dart';
 
 import 'package:tiktok_clone/video/video_controller.dart';
 import 'package:tiktok_clone/video/widgets/video_post.dart';
-import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
 
 import 'package:tiktok_clone/video/widgets/video_post.dart';
+import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class TikTokFeed extends StatelessWidget {
   TikTokFeed({Key? key}) : super(key: key);

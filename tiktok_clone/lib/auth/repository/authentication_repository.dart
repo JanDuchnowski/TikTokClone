@@ -1,14 +1,22 @@
+import 'dart:io';
+
 import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 abstract class AuthenticationRepositoryInterface {
   Future<User?> getCurrentUser();
+  Future<File?> pickProfileImage();
 }
 
-class AuthenticationRepository extends AuthenticationRepositoryInterface {
+class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<User?> getCurrentUser() {
     return AuthController().getCurrentUser();
+  }
+
+  @override
+  Future<File?> pickProfileImage() {
+    return AuthController().pickImage();
   }
 }
 

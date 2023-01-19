@@ -7,11 +7,9 @@ import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
 
 import 'package:tiktok_clone/auth/presentation/login_screen.dart';
 import 'package:tiktok_clone/auth/presentation/signup_screen.dart';
-import 'package:tiktok_clone/test.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/video/presentation/add_video_screen.dart';
-import 'package:tiktok_clone/views/screens/home/home_screen.dart';
-import 'package:tiktok_clone/views/screens/home/tiktok_feed.dart';
+import 'package:tiktok_clone/tiktok_feed.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

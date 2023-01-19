@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/app_bloc_observer.dart';
 import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
 import 'package:tiktok_clone/auth/repository/authentication_repository.dart';
+import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/test.dart';
@@ -27,6 +28,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthenticationBloc(AuthenticationRepository()),
+        ),
+        BlocProvider(
+          create: ((context) => TiktokBloc()),
         ),
       ],
       child: const TikTokApp(),

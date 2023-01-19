@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +21,7 @@ class AuthenticationBloc
   AuthenticationBloc(this._authenticationRepository)
       : super(AuthenticationInitial()) {
     on<AuthenticationEvent>((event, emit) async {
-      if (event is AuthenticationStarted) {
+      if (event is AuthenticationStartedEvent) {
         model.User? user = await _authenticationRepository.getCurrentUser();
 
         if (user != null) {
@@ -28,9 +30,13 @@ class AuthenticationBloc
         } else {
           emit(AuthenticationFailure());
         }
-      } else if (event is AuthenticationSignedOut) {
-        // await _authenticationRepository.signOut();
+      } else if (event is AuthenticationSignedOutEvent) {
         emit(AuthenticationFailure());
+      } else if (event is ProfilePictureChosenEvent) {
+        File? profilePhoto = await _authenticationRepository.pickProfileImage();
+        if (profilePhoto != null) {
+          emit(AuthenticationChosenPhoto(profileImage: profilePhoto));
+        }
       }
     });
   }

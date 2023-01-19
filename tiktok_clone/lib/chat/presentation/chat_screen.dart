@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/views/widgets/custom_navigation_bar.dart';
+import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen(

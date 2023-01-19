@@ -34,14 +34,13 @@ class AuthController {
     return currentUser;
   }
 
-  Future<File?> getProfileImage() async {}
-
-  Future<void> pickImage() async {
+  Future<File?> pickImage() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       print("You have successfully selected a picture");
       pickedProfileImage = File(pickedImage.path);
+      return pickedProfileImage;
     }
   }
 

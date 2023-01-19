@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:tiktok_clone/video/upload_video_controller.dart';
-import 'package:tiktok_clone/views/widgets/text_input_field.dart';
+import 'package:tiktok_clone/widgets/text_input_field.dart';
 
 import 'package:video_player/video_player.dart';
 

@@ -12,6 +12,14 @@ class AuthenticationInitial extends AuthenticationState {
   List<Object?> get props => [];
 }
 
+class AuthenticationChosenPhoto extends AuthenticationState {
+  final File profileImage;
+  const AuthenticationChosenPhoto({required this.profileImage});
+
+  @override
+  List<Object?> get props => [];
+}
+
 class AuthenticationSuccess extends AuthenticationState {
   final model.User? user;
   const AuthenticationSuccess({this.user});

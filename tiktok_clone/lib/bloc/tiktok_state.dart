@@ -8,3 +8,9 @@ abstract class TiktokState {
 class TiktokInitial extends TiktokState {
   const TiktokInitial();
 }
+
+class TikTokFetchedPosts extends TiktokState {
+  final QuerySnapshot<Map<String, dynamic>> postsStream;
+
+  const TikTokFetchedPosts({required this.postsStream});
+}

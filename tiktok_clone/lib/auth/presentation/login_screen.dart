@@ -3,8 +3,7 @@ import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/auth/widgets/login_button.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
-
-import 'package:tiktok_clone/views/widgets/text_input_field.dart';
+import 'package:tiktok_clone/widgets/text_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
