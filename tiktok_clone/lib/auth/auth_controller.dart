@@ -80,13 +80,14 @@ class AuthController {
           followers: [],
           following: [],
           friends: [],
+          currentlyLikedPosts: [],
         );
         await Storage()
             .firestore
             .collection('users')
             .doc(userCredential.user!.uid)
             .set(user.toJson());
-        currentUser = user;
+        print("successfully registered the user in cloud firestore");
       } else {
         print("You forgot to input some credentials");
       }

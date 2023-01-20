@@ -39,7 +39,8 @@ class LoginButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           AuthController().loginUser(email.text, password.text, context);
-          context.read<AuthenticationBloc>().add(AuthenticationStartedEvent());
+          context.read<AuthenticationBloc>().add(
+              AuthenticationStartedEvent()); // poczekać aż state bedzie successfull
           context.read<TiktokBloc>().add(FetchPostsEvent());
           Navigator.of(context).pushNamed(Routes.homeScreenRoute);
         },

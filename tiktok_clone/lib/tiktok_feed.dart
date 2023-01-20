@@ -29,14 +29,14 @@ class TikTokFeed extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<TiktokBloc, TiktokState>(
         builder: (context, state) {
-          if (state is TikTokFetchedPosts) {
+          if (state.status == AppStatus.postsFetched) {
             return PageView(
               scrollDirection: Axis.vertical,
               controller: PageController(
                 initialPage: 0,
                 viewportFraction: 1,
               ),
-              children: state.postsQuery.docs.map((document) {
+              children: state.postsQuery!.docs.map((document) {
                 final currentVideo = Video.fromSnap(document);
 
                 return Stack(children: [
@@ -120,23 +120,20 @@ class TikTokFeed extends StatelessWidget {
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      VideoController().postId =
-                                          currentVideo.id;
-                                      VideoController().addToLiked =
-                                          addToLikedPosts;
+                                      print(
+                                          "state.likedPosts = ${state.likedPosts!.contains(currentVideo.id)}");
+
                                       context.read<TiktokBloc>().add(
                                           LikePostEvent(
                                               postId: currentVideo.id));
-                                      // VideoController().incrementLikes(
-                                      //     postsLikedByCurrentUser);
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color:
-                                          postsLikedByCurrentUser //TODO state should hold that
-                                                  .contains(document.id)
-                                              ? Colors.red
-                                              : Colors.white,
+                                      color: state
+                                              .likedPosts! //TODO state should hold that
+                                              .contains(currentVideo.id)
+                                          ? Colors.red
+                                          : Colors.white,
                                     ),
                                   ),
                                   Text(currentVideo.likes.length.toString()),

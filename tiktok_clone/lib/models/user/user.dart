@@ -17,6 +17,7 @@ class User with _$User {
     required List following,
     required List followers,
     required List friends,
+    required List currentlyLikedPosts,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -32,6 +33,7 @@ class User with _$User {
       following: snapshot['following'],
       followers: snapshot['followers'],
       friends: snapshot['friends'],
+      currentlyLikedPosts: snapshot['currentlyLikedPosts'],
     );
   }
 }

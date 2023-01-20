@@ -28,6 +28,7 @@ mixin _$User {
   List<dynamic> get following => throw _privateConstructorUsedError;
   List<dynamic> get followers => throw _privateConstructorUsedError;
   List<dynamic> get friends => throw _privateConstructorUsedError;
+  List<dynamic> get currentlyLikedPosts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $UserCopyWith<$Res> {
       int likes,
       List<dynamic> following,
       List<dynamic> followers,
-      List<dynamic> friends});
+      List<dynamic> friends,
+      List<dynamic> currentlyLikedPosts});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? following = null,
     Object? followers = null,
     Object? friends = null,
+    Object? currentlyLikedPosts = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -105,6 +108,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.friends
           : friends // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      currentlyLikedPosts: null == currentlyLikedPosts
+          ? _value.currentlyLikedPosts
+          : currentlyLikedPosts // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ) as $Val);
   }
 }
@@ -123,7 +130,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       int likes,
       List<dynamic> following,
       List<dynamic> followers,
-      List<dynamic> friends});
+      List<dynamic> friends,
+      List<dynamic> currentlyLikedPosts});
 }
 
 /// @nodoc
@@ -143,6 +151,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? following = null,
     Object? followers = null,
     Object? friends = null,
+    Object? currentlyLikedPosts = null,
   }) {
     return _then(_$_User(
       name: null == name
@@ -177,6 +186,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value._friends
           : friends // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      currentlyLikedPosts: null == currentlyLikedPosts
+          ? _value._currentlyLikedPosts
+          : currentlyLikedPosts // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -192,10 +205,12 @@ class _$_User extends _User {
       required this.likes,
       required final List<dynamic> following,
       required final List<dynamic> followers,
-      required final List<dynamic> friends})
+      required final List<dynamic> friends,
+      required final List<dynamic> currentlyLikedPosts})
       : _following = following,
         _followers = followers,
         _friends = friends,
+        _currentlyLikedPosts = currentlyLikedPosts,
         super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -234,9 +249,18 @@ class _$_User extends _User {
     return EqualUnmodifiableListView(_friends);
   }
 
+  final List<dynamic> _currentlyLikedPosts;
+  @override
+  List<dynamic> get currentlyLikedPosts {
+    if (_currentlyLikedPosts is EqualUnmodifiableListView)
+      return _currentlyLikedPosts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_currentlyLikedPosts);
+  }
+
   @override
   String toString() {
-    return 'User(name: $name, email: $email, profilePhoto: $profilePhoto, uid: $uid, likes: $likes, following: $following, followers: $followers, friends: $friends)';
+    return 'User(name: $name, email: $email, profilePhoto: $profilePhoto, uid: $uid, likes: $likes, following: $following, followers: $followers, friends: $friends, currentlyLikedPosts: $currentlyLikedPosts)';
   }
 
   @override
@@ -254,7 +278,9 @@ class _$_User extends _User {
                 .equals(other._following, _following) &&
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
-            const DeepCollectionEquality().equals(other._friends, _friends));
+            const DeepCollectionEquality().equals(other._friends, _friends) &&
+            const DeepCollectionEquality()
+                .equals(other._currentlyLikedPosts, _currentlyLikedPosts));
   }
 
   @JsonKey(ignore: true)
@@ -268,7 +294,8 @@ class _$_User extends _User {
       likes,
       const DeepCollectionEquality().hash(_following),
       const DeepCollectionEquality().hash(_followers),
-      const DeepCollectionEquality().hash(_friends));
+      const DeepCollectionEquality().hash(_friends),
+      const DeepCollectionEquality().hash(_currentlyLikedPosts));
 
   @JsonKey(ignore: true)
   @override
@@ -293,7 +320,8 @@ abstract class _User extends User {
       required final int likes,
       required final List<dynamic> following,
       required final List<dynamic> followers,
-      required final List<dynamic> friends}) = _$_User;
+      required final List<dynamic> friends,
+      required final List<dynamic> currentlyLikedPosts}) = _$_User;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -314,6 +342,8 @@ abstract class _User extends User {
   List<dynamic> get followers;
   @override
   List<dynamic> get friends;
+  @override
+  List<dynamic> get currentlyLikedPosts;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

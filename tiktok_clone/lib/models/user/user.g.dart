@@ -15,6 +15,7 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       following: json['following'] as List<dynamic>,
       followers: json['followers'] as List<dynamic>,
       friends: json['friends'] as List<dynamic>,
+      currentlyLikedPosts: json['currentlyLikedPosts'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'following': instance.following,
       'followers': instance.followers,
       'friends': instance.friends,
+      'currentlyLikedPosts': instance.currentlyLikedPosts,
     };
