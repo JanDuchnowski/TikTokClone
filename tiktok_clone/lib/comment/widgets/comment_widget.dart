@@ -1,18 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:tiktok_clone/comment/comment_controller.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentWidget extends StatelessWidget {
-  const CommentWidget(
-      {Key? key, required this.comment, required this.commentController})
+  const CommentWidget({Key? key, required this.comment, required this.postId})
       : super(key: key);
 
   final Comment comment;
-  final CommentController commentController;
+
+  final String postId;
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -55,7 +54,10 @@ class CommentWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              commentController.incrementCommentLikes(comment.id);
+              //    commentController.incrementCommentLikes(comment.id);
+              context
+                  .read<TiktokBloc>()
+                  .add(LikeCommentEvent(commentId: comment.id, postId: postId));
             },
             icon: const Icon(
               Icons.favorite,

@@ -129,11 +129,7 @@ class TikTokFeed extends StatelessWidget {
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color: state
-                                              .likedPosts! //TODO state should hold that
-                                              .contains(currentVideo.id)
-                                          ? Colors.red
-                                          : Colors.white,
+                                      color: Colors.white,
                                     ),
                                   ),
                                   Text(currentVideo.likes.length.toString()),
@@ -142,6 +138,9 @@ class TikTokFeed extends StatelessWidget {
                                   ),
                                   IconButton(
                                     onPressed: () {
+                                      context.read<TiktokBloc>().add(
+                                          FetchCommentsEvent(
+                                              postId: currentVideo.id));
                                       showModalBottomSheet<void>(
                                         context: context,
                                         builder: (BuildContext context) {

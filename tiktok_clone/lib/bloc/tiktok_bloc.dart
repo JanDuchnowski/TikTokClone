@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 
@@ -45,6 +46,19 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
 
           emit(
               state.copyWith(likedPosts: szyc, status: AppStatus.postsFetched));
+        } else if (event is FetchCommentsEvent) {
+          final Stream<QuerySnapshot<Map<String, dynamic>>>? commentStream =
+              _postRepository.getCommentStream(event.postId);
+          await emit.forEach(commentStream!,
+              onData: ((QuerySnapshot<Map<String, dynamic>> data) {
+            return state.copyWith(
+              commentQuery: data,
+            );
+          }));
+        } else if (event is PostCommentEvent) {
+          _postRepository.postComment(event.commentText, event.postId);
+        } else if (event is LikeCommentEvent) {
+          _postRepository.likeComment(event.commentId, event.postId);
         }
       },
     );

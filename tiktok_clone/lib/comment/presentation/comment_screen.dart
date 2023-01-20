@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 import 'package:tiktok_clone/comment/comment_controller.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
@@ -14,32 +16,18 @@ class CommentScreen extends StatelessWidget {
   final TextEditingController _commentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final CommentController commentController =
-        CommentController(postId: videoId);
     return Scaffold(
-      body: StreamBuilder(
-        stream: Storage()
-            .firestore
-            .collection('posts')
-            .doc(videoId)
-            .collection('comments')
-            .orderBy("datePublished")
-            .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Text("Snapshot does not have data");
-          }
-
+      body: BlocBuilder<TiktokBloc, TiktokState>(
+        builder: ((context, state) {
           return ListView(
             shrinkWrap: true,
-            children: snapshot != null
-                ? snapshot.data!.docs.map((document) {
-                    final currentComment = Comment.fromJson(
-                        document.data() as Map<String, dynamic>);
+            children: state.commentQuery != null
+                ? state.commentQuery!.docs.map((document) {
+                    final currentComment = Comment.fromJson(document.data());
 
                     return CommentWidget(
                       comment: currentComment,
-                      commentController: commentController,
+                      postId: videoId,
                     );
                   }).toList()
                 : [
@@ -48,7 +36,7 @@ class CommentScreen extends StatelessWidget {
                     )
                   ],
           );
-        },
+        }),
       ),
       bottomNavigationBar: Container(
         width: MediaQuery.of(context).size.width - 10,
@@ -59,7 +47,9 @@ class CommentScreen extends StatelessWidget {
           controller: _commentTextController,
           onSubmitted: (value) {
             if (value.isNotEmpty) {
-              commentController.postComment(value);
+              context
+                  .read<TiktokBloc>()
+                  .add(PostCommentEvent(commentText: value, postId: videoId));
               _commentTextController.clear();
             }
           },
