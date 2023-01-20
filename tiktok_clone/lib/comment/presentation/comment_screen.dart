@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
-import 'package:tiktok_clone/comment/comment_controller.dart';
+
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/comment/widgets/comment_widget.dart';

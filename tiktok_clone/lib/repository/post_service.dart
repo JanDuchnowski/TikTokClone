@@ -132,4 +132,16 @@ class PostService {
         .doc(commentId)
         .update({"likes": usersWhoLikedComment});
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendPostStream(
+      List<String> friendsList) {
+    if (friendsList.isNotEmpty) {
+      return Storage()
+          .firestore
+          .collection('posts')
+          .where("uid", whereIn: friendsList)
+          .snapshots();
+    }
+    return null;
+  }
 }

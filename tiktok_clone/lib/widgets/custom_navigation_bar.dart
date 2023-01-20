@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
@@ -67,9 +69,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     setState(() {
       switch (index) {
         case 0:
+          context.read<TiktokBloc>().add(FetchPostsEvent());
           Navigator.pushNamed(context, Routes.homeScreenRoute);
           break;
         case 1:
+          context.read<TiktokBloc>().add(const FetchFriendsPostsEvent());
           Navigator.pushNamed(context, Routes.friendsPageRoute);
           break;
         case 2:

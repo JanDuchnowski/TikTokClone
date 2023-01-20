@@ -23,8 +23,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const AddVideoScreen());
     case Routes.conversationsScreenRoute:
       return MaterialPageRoute(builder: (context) => ConversationsListScreen());
-    // case Routes.friendsPageRoute:
-    //   return MaterialPageRoute(builder: (context) => FriendsPage());
+    case Routes.friendsPageRoute:
+      return MaterialPageRoute(builder: (context) => FriendsPage());
     default:
       return MaterialPageRoute(builder: (context) => TikTokFeed());
   }

@@ -42,3 +42,10 @@ class LikeCommentEvent extends TiktokEvent {
   @override
   List<Object?> get props => [];
 }
+
+class FetchFriendsPostsEvent extends TiktokEvent {
+  const FetchFriendsPostsEvent();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -7,6 +7,7 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/profile/profile_controller.dart';
 import 'package:tiktok_clone/models/video/video.dart';
+import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/video/widgets/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
@@ -134,8 +135,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       AuthController().signOut();
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
+
+                      Navigator.of(context).popUntil(
+                          ModalRoute.withName(Routes.signupScreenRoute));
                     },
                     child: Text("Sign Out"),
                   ),

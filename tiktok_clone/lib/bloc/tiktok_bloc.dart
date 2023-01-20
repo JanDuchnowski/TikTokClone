@@ -5,7 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tiktok_clone/auth/auth_controller.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 
@@ -24,6 +26,7 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
               await _postRepository.getCurrentlyLikedPosts();
           final List<String> currenStringLikedPosts =
               currentLikedPosts.map((post) => post as String).toList();
+
           await emit.forEach(postStream!,
               onData: ((QuerySnapshot<Map<String, dynamic>> data) {
             return state.copyWith(
@@ -59,6 +62,23 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
           _postRepository.postComment(event.commentText, event.postId);
         } else if (event is LikeCommentEvent) {
           _postRepository.likeComment(event.commentId, event.postId);
+        } else if (event is FetchFriendsPostsEvent) {
+          final User? currentUser = await AuthController().getCurrentUser();
+          final List<String> currentFriendsList =
+              currentUser!.friends.map((friend) => friend.toString()).toList();
+          final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
+              _postRepository.getFriendsPosts(currentFriendsList);
+          //HOW TO HANDLE NO FRIENDS = empty stream
+          if (postStream == null) {
+            emit(state.copyWith(status: AppStatus.initial));
+          } else {
+            await emit.forEach(postStream,
+                onData: ((QuerySnapshot<Map<String, dynamic>> data) {
+              return state.copyWith(
+                postsQuery: data,
+              );
+            }));
+          }
         }
       },
     );
