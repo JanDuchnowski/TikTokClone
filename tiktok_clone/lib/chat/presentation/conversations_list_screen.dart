@@ -4,6 +4,8 @@ import 'package:tiktok_clone/chat/presentation/chat_screen.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 
 import 'package:tiktok_clone/models/user/user.dart';
+import 'package:tiktok_clone/profile/bloc/profile_bloc.dart';
+import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class ConversationsListScreen extends StatelessWidget {
@@ -26,9 +28,12 @@ class ConversationsListScreen extends StatelessWidget {
                 title: TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                              currentUser: currentUser!,
-                              interlocutorUser: interlocutorUser)));
+                          builder: (context) =>
+                              ProfileScreen(userId: interlocutorUser.uid)
+                          // ChatScreen(
+                          //     currentUser: currentUser!,
+                          //     interlocutorUser: interlocutorUser)
+                          ));
                     },
                     child: Text(interlocutorUser.name)),
               );

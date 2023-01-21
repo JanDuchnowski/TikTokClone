@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/profile/profile_controller.dart';
@@ -37,79 +39,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
-              child: StreamBuilder(
-                stream: Storage()
-                    .firestore
-                    .collection('users')
-                    .where('uid', isEqualTo: widget.userId)
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Text("No data");
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(
-                      strokeWidth: 5.0,
-                    );
-                  }
-
+              child: BlocBuilder<TiktokBloc, TiktokState>(
+                  builder: (context, state) {
+                if (state.postInfoQuery != null) {
                   return ListView(
-                    shrinkWrap: true,
-                    children: snapshot.data!.docs.map(
-                      (document) {
-                        final User currentUser = User.fromSnap(document);
+                      shrinkWrap: true,
+                      children: state.postInfoQuery!.docs.map(
+                        (document) {
+                          final User currentUser = User.fromSnap(document);
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 32,
-                            ),
-                            CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(currentUser.profilePhoto),
-                              radius: 60,
-                            ),
-                            const SizedBox(
-                              height: 32,
-                            ),
-                            Text(
-                              currentUser.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      currentUser.following.length.toString(),
-                                    ),
-                                    const Text("Following"),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 32,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      currentUser.followers.length.toString(),
-                                    ),
-                                    const Text("Followers"),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      },
-                    ).toList(),
-                  );
-                },
-              ),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(currentUser.profilePhoto),
+                                radius: 60,
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              Text(
+                                currentUser.name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        currentUser.following.length.toString(),
+                                      ),
+                                      const Text("Following"),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 32,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        currentUser.followers.length.toString(),
+                                      ),
+                                      const Text("Followers"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ).toList());
+                }
+                return Text("Stream was null");
+              }),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

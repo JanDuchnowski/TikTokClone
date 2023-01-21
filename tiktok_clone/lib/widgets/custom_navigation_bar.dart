@@ -84,6 +84,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Navigator.pushNamed(context, Routes.conversationsScreenRoute);
           break;
         case 4:
+          context.read<TiktokBloc>().add(
+              FetchProfileEvent(uid: Storage().firebaseAuth.currentUser!.uid));
           Navigator.push(
             context,
             MaterialPageRoute(

@@ -49,3 +49,10 @@ class FetchFriendsPostsEvent extends TiktokEvent {
   @override
   List<Object?> get props => [];
 }
+
+class FetchProfileEvent extends TiktokEvent {
+  final String uid;
+  const FetchProfileEvent({required this.uid});
+  @override
+  List<Object?> get props => [];
+}

@@ -6,6 +6,7 @@ abstract class PostRepositoryInterface {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getCommentStream(String postId);
   Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsPosts(
       List<String> friendsList);
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(String uid);
   Future<String?> likePost(String postId);
   Future<String?> removeLike(String postId);
   Future<List<dynamic>> getCurrentlyLikedPosts();
@@ -54,5 +55,11 @@ class PostRepository implements PostRepositoryInterface {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsPosts(
       List<String> friendsList) {
     return _postService.getFriendPostStream(friendsList);
+  }
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(
+      String uid) {
+    return _postService.getProfileInfoStream(uid);
   }
 }

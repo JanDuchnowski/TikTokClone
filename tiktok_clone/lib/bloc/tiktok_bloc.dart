@@ -76,9 +76,22 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
                 onData: ((QuerySnapshot<Map<String, dynamic>> data) {
               return state.copyWith(
                 postsQuery: data,
+                status: AppStatus.postsFetched,
               );
             }));
           }
+        } else if (event is FetchProfileEvent) {
+          final Stream<QuerySnapshot<Map<String, dynamic>>>? postInfoStream =
+              _postRepository.getProfileInfoStream(event.uid);
+
+          await emit.forEach(
+            postInfoStream!,
+            onData: ((QuerySnapshot<Map<String, dynamic>> data) {
+              return state.copyWith(
+                postInfoQuery: data,
+              );
+            }),
+          );
         }
       },
     );
