@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/auth/widgets/login_button.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/widgets/login_button.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/widgets/text_input_field.dart';

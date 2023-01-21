@@ -3,32 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/profile/profile_controller.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
-import 'package:tiktok_clone/video/widgets/video_post.dart';
+import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key, required this.userId}) : super(key: key);
   final String userId;
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  late ProfileController _profileController;
-
-  @override
-  void initState() {
-    super.initState();
-    _profileController = ProfileController(userId: widget.userId);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +88,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Storage().firebaseAuth.currentUser!.uid != widget.userId
+                Storage().firebaseAuth.currentUser!.uid != userId
                     ? ElevatedButton(
                         onPressed: () {
-                          _profileController.followUser(widget.userId);
+                          // _profileController.followUser(userId);
                         },
                         child: Text("Follow"),
                       )
@@ -116,10 +102,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 32,
                 ),
                 Container(
-                  margin:
-                      Storage().firebaseAuth.currentUser!.uid != widget.userId
-                          ? const EdgeInsets.only(right: 0.0)
-                          : const EdgeInsets.only(right: 24),
+                  margin: Storage().firebaseAuth.currentUser!.uid != userId
+                      ? const EdgeInsets.only(right: 0.0)
+                      : const EdgeInsets.only(right: 24),
                   child: ElevatedButton(
                     onPressed: () {
                       AuthController().signOut();
@@ -137,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 stream: Storage()
                     .firestore
                     .collection("users")
-                    .doc(widget.userId)
+                    .doc(userId)
                     .collection("posts")
                     .snapshots(),
                 builder: (BuildContext context,

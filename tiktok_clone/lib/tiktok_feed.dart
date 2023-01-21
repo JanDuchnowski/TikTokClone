@@ -2,19 +2,20 @@ import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/comment_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
-import 'package:tiktok_clone/comment/presentation/comment_screen.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/views/screens/comment_screen.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/views/screens/profile_screen.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 
-import 'package:tiktok_clone/video/video_controller.dart';
-import 'package:tiktok_clone/video/widgets/video_post.dart';
+import 'package:tiktok_clone/controllers/video_controller.dart';
+import 'package:tiktok_clone/widgets/video/video_post.dart';
 
-import 'package:tiktok_clone/video/widgets/video_post.dart';
+import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class TikTokFeed extends StatelessWidget {
@@ -141,7 +142,7 @@ class TikTokFeed extends StatelessWidget {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      context.read<TiktokBloc>().add(
+                                      context.read<CommentBloc>().add(
                                           FetchCommentsEvent(
                                               postId: currentVideo.id));
                                       showModalBottomSheet<void>(

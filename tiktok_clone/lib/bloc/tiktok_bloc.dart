@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
@@ -44,31 +44,34 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
             _postRepository.likePost(likedPostId!);
             currentLikedPosts.add(likedPostId);
           }
-          List<String> szyc =
+          List<String> newLikedPosts =
               currentLikedPosts.map((post) => post as String).toList();
 
-          emit(
-              state.copyWith(likedPosts: szyc, status: AppStatus.postsFetched));
-        } else if (event is FetchCommentsEvent) {
-          final Stream<QuerySnapshot<Map<String, dynamic>>>? commentStream =
-              _postRepository.getCommentStream(event.postId);
-          await emit.forEach(commentStream!,
-              onData: ((QuerySnapshot<Map<String, dynamic>> data) {
-            return state.copyWith(
-              commentQuery: data,
-            );
-          }));
-        } else if (event is PostCommentEvent) {
-          _postRepository.postComment(event.commentText, event.postId);
-        } else if (event is LikeCommentEvent) {
-          _postRepository.likeComment(event.commentId, event.postId);
-        } else if (event is FetchFriendsPostsEvent) {
+          emit(state.copyWith(
+              likedPosts: newLikedPosts, status: AppStatus.postsFetched));
+        }
+        //COMMENT SECTION
+        // } else if (event is FetchCommentsEvent) {
+        //   final Stream<QuerySnapshot<Map<String, dynamic>>>? commentStream =
+        //       _postRepository.getCommentStream(event.postId);
+        //   await emit.forEach(commentStream!,
+        //       onData: ((QuerySnapshot<Map<String, dynamic>> data) {
+        //     return state.copyWith(
+        //       commentQuery: data,
+        //     );
+        //   }));
+        // } else if (event is PostCommentEvent) {
+        //   _postRepository.postComment(event.commentText, event.postId);
+        // } else if (event is LikeCommentEvent) {
+        //   _postRepository.likeComment(event.commentId, event.postId);
+        // }
+        //FRIENDS
+        else if (event is FetchFriendsPostsEvent) {
           final User? currentUser = await AuthController().getCurrentUser();
           final List<String> currentFriendsList =
               currentUser!.friends.map((friend) => friend.toString()).toList();
           final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
               _postRepository.getFriendsPosts(currentFriendsList);
-          //HOW TO HANDLE NO FRIENDS = empty stream
           if (postStream == null) {
             emit(state.copyWith(status: AppStatus.initial));
           } else {
@@ -80,7 +83,9 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
               );
             }));
           }
-        } else if (event is FetchProfileEvent) {
+        }
+        //PROFILE
+        else if (event is FetchProfileEvent) {
           final Stream<QuerySnapshot<Map<String, dynamic>>>? postInfoStream =
               _postRepository.getProfileInfoStream(event.uid);
 

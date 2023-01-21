@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/chat/presentation/conversations_list_screen.dart';
-import 'package:tiktok_clone/friends/friends_page.dart';
-import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/views/screens/conversations_list_screen.dart';
+import 'package:tiktok_clone/views/screens/friends_page.dart';
+import 'package:tiktok_clone/views/screens/login_screen.dart';
+import 'package:tiktok_clone/views/screens/profile_screen.dart';
 
-import 'package:tiktok_clone/auth/presentation/login_screen.dart';
-import 'package:tiktok_clone/auth/presentation/signup_screen.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
-import 'package:tiktok_clone/video/presentation/add_video_screen.dart';
+import 'package:tiktok_clone/views/screens/signup_screen.dart';
+import 'package:tiktok_clone/views/video/add_video_screen.dart';
 import 'package:tiktok_clone/tiktok_feed.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

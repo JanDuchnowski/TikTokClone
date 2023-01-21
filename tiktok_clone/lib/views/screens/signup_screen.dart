@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
-import 'package:tiktok_clone/auth/widgets/register_button.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/bloc/authentication_bloc.dart';
+import 'package:tiktok_clone/widgets/register_button.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/widgets/text_input_field.dart';
 

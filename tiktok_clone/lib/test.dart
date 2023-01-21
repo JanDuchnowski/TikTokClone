@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
+import 'package:tiktok_clone/bloc/authentication_bloc.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 

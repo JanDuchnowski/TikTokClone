@@ -6,7 +6,6 @@ abstract class AuthenticationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-@immutable
 class ProfilePictureChosenEvent extends AuthenticationEvent {
   @override
   List<Object> get props => [];

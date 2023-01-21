@@ -4,7 +4,7 @@ import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/profile/presentation/profile_screen.dart';
+import 'package:tiktok_clone/views/screens/profile_screen.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/widgets/custom_plus_icon.dart';

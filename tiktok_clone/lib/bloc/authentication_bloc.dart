@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:tiktok_clone/auth/repository/authentication_repository.dart';
+import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/models/user/user.dart' as model;
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/user/user.dart';

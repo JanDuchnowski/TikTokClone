@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/auth/auth_controller.dart';
-import 'package:tiktok_clone/auth/bloc/authentication_bloc.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/bloc/authentication_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/test.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/comment_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -15,9 +16,16 @@ class CommentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
+
     return ListTile(
-      leading:
-          CircleAvatar(foregroundImage: NetworkImage(comment.profilePhoto)),
+      leading: CircleAvatar(
+          foregroundImage: Image.network(
+        comment.profilePhoto,
+        errorBuilder:
+            (BuildContext contex, Object object, StackTrace? stackTrace) {
+          return Text("Error fetching profile photo");
+        },
+      ).image),
       title: Row(
         children: [
           Text(
@@ -54,9 +62,8 @@ class CommentWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              //    commentController.incrementCommentLikes(comment.id);
               context
-                  .read<TiktokBloc>()
+                  .read<CommentBloc>()
                   .add(LikeCommentEvent(commentId: comment.id, postId: postId));
             },
             icon: const Icon(

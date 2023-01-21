@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/comment_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
-import 'package:tiktok_clone/comment/widgets/comment_widget.dart';
+import 'package:tiktok_clone/widgets/comment_widget.dart';
 
 class CommentScreen extends StatelessWidget {
   CommentScreen({Key? key, required this.videoId}) : super(key: key);
@@ -17,7 +18,7 @@ class CommentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<TiktokBloc, TiktokState>(
+      body: BlocBuilder<CommentBloc, CommentState>(
         builder: ((context, state) {
           return ListView(
             shrinkWrap: true,
@@ -48,7 +49,7 @@ class CommentScreen extends StatelessWidget {
           onSubmitted: (value) {
             if (value.isNotEmpty) {
               context
-                  .read<TiktokBloc>()
+                  .read<CommentBloc>()
                   .add(PostCommentEvent(commentText: value, postId: videoId));
               _commentTextController.clear();
             }
