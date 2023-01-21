@@ -68,6 +68,9 @@ class TikTokFeed extends StatelessWidget {
                                             MaterialTapTargetSize.shrinkWrap,
                                       ),
                                       onPressed: () {
+                                        context.read<TiktokBloc>().add(
+                                            FetchProfileEvent(
+                                                uid: currentVideo.uid));
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => ProfileScreen(

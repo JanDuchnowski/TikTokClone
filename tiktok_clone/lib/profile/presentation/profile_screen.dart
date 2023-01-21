@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: state.postInfoQuery!.docs.map(
                         (document) {
                           final User currentUser = User.fromSnap(document);
-
+                          print("Username = ${document.data()}");
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
