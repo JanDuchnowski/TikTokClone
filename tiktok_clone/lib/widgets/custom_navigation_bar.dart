@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
+import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
@@ -84,7 +85,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Navigator.pushNamed(context, Routes.conversationsScreenRoute);
           break;
         case 4:
-          context.read<TiktokBloc>().add(
+          context.read<ProfileBloc>().add(
               FetchProfileEvent(uid: Storage().firebaseAuth.currentUser!.uid));
           Navigator.push(
             context,

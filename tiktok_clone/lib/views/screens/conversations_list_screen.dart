@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
+import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 
 import 'package:tiktok_clone/models/user/user.dart';
@@ -29,7 +30,7 @@ class ConversationsListScreen extends StatelessWidget {
                 title: TextButton(
                     onPressed: () {
                       context
-                          .read<TiktokBloc>()
+                          .read<ProfileBloc>()
                           .add(FetchProfileEvent(uid: interlocutorUser.uid));
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>

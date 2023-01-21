@@ -2,8 +2,8 @@ import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/bloc/comment_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
+import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/views/screens/comment_screen.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
 

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
-import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
@@ -25,12 +26,12 @@ class ProfileScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
-              child: BlocBuilder<TiktokBloc, TiktokState>(
+              child: BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
-                if (state.postInfoQuery != null) {
+                if (state.profileInfoQuery != null) {
                   return ListView(
                       shrinkWrap: true,
-                      children: state.postInfoQuery!.docs.map(
+                      children: state.profileInfoQuery!.docs.map(
                         (document) {
                           final User currentUser = User.fromSnap(document);
                           print("Username = ${document.data()}");

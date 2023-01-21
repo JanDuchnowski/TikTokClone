@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/bloc/comment_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok_bloc.dart';
+import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
