@@ -51,13 +51,16 @@ class PostService {
     return currentUser!.currentlyLikedPosts;
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendPostStream(
-      List<String> friendsList) {
-    if (friendsList.isNotEmpty) {
+  Future<Stream<QuerySnapshot<Map<String, dynamic>>>>?
+      getFriendPostStream() async {
+    final User? currentUser = await AuthController().getCurrentUser();
+    final List<String> currentFriendsList =
+        currentUser!.friends.map((friend) => friend.toString()).toList();
+    if (currentFriendsList.isNotEmpty) {
       return Storage()
           .firestore
           .collection('posts')
-          .where("uid", whereIn: friendsList)
+          .where("uid", whereIn: currentFriendsList)
           .snapshots();
     }
     return null;

@@ -12,7 +12,6 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/repository/comment_repository.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 import 'package:tiktok_clone/repository/profile_repository.dart';
-import 'package:tiktok_clone/test.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/router.dart';
 

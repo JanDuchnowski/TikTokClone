@@ -11,8 +11,6 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/views/screens/profile_screen.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 
-import 'package:tiktok_clone/controllers/video_controller.dart';
-
 import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 import 'package:tiktok_clone/widgets/video/video_post.dart';
