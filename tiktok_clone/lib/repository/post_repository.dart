@@ -3,7 +3,8 @@ import 'package:tiktok_clone/service/post_service.dart';
 
 abstract class PostRepositoryInterface {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getPostStream();
-  Future<Stream<QuerySnapshot<Map<String, dynamic>>>>? getFriendsPosts();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsPosts(
+      List<String> friendsList);
   Future<String?> likePost(String postId);
   Future<String?> removeLike(String postId);
   Future<List<dynamic>> getCurrentlyLikedPosts();
@@ -32,7 +33,8 @@ class PostRepository implements PostRepositoryInterface {
   }
 
   @override
-  Future<Stream<QuerySnapshot<Map<String, dynamic>>>?> getFriendsPosts() async {
-    return await _postService.getFriendPostStream();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsPosts(
+      List<String> friendsList) {
+    return _postService.getFriendPostStream(friendsList);
   }
 }

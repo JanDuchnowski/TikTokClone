@@ -33,7 +33,9 @@ void main() async {
         BlocProvider(
             create: (context) =>
                 AuthenticationBloc(AuthenticationRepository())),
-        BlocProvider(create: ((context) => TiktokBloc(PostRepository()))),
+        BlocProvider(
+            create: ((context) =>
+                TiktokBloc(PostRepository(), AuthenticationRepository()))),
         BlocProvider(create: ((context) => CommentBloc(CommentRepository()))),
         BlocProvider(create: ((context) => ProfileBloc(ProfileRepository()))),
       ],

@@ -9,6 +9,7 @@ import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
+import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 
 part 'tiktok_event.dart';
@@ -16,7 +17,9 @@ part 'tiktok_state.dart';
 
 class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
   final PostRepositoryInterface _postRepository;
-  TiktokBloc(this._postRepository) : super(TiktokState.initial()) {
+  final AuthenticationRepositoryInterface _authenticationRepository;
+  TiktokBloc(this._postRepository, this._authenticationRepository)
+      : super(TiktokState.initial()) {
     on<FetchPostsEvent>((event, emit) async {
       final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
           _postRepository.getPostStream();
@@ -52,11 +55,12 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
 
     on<FetchFriendsPostsEvent>(
       (event, emit) async {
-        final User? currentUser = await AuthController().getCurrentUser();
-        final List<String> currentFriendsList =
+        final User? currentUser =
+            await _authenticationRepository.getCurrentUser();
+        final List<String> friendsList =
             currentUser!.friends.map((friend) => friend.toString()).toList();
         final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
-            _postRepository.getFriendsPosts(currentFriendsList);
+            _postRepository.getFriendsPosts(friendsList);
         if (postStream == null) {
           emit(state.copyWith(status: AppStatus.initial));
         } else {
