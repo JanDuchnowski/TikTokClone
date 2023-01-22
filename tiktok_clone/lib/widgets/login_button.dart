@@ -8,7 +8,7 @@ import 'package:tiktok_clone/utilities/constants.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
+  LoginButton({
     Key? key,
     required this.password,
     required this.email,
@@ -16,6 +16,7 @@ class LoginButton extends StatelessWidget {
 
   final TextEditingController email;
   final TextEditingController password;
+  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class LoginButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          AuthController().loginUser(email.text, password.text, context);
+          _authenticationService.loginUser(email.text, password.text, context);
           context.read<AuthenticationBloc>().add(
               AuthenticationStartedEvent()); // poczekać aż state bedzie successfull
           context.read<TiktokBloc>().add(FetchPostsEvent());

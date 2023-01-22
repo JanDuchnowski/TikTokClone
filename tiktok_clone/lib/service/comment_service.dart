@@ -5,6 +5,7 @@ import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 class CommentService {
+  final AuthenticationService _authenticationService = AuthenticationService();
   Stream<QuerySnapshot<Map<String, dynamic>>>? getCommentStream(String postId) {
     return Storage()
         .firestore
@@ -16,7 +17,7 @@ class CommentService {
   }
 
   void postComment(String commentText, String postId) async {
-    final User? currentUser = await AuthController().getCurrentUser();
+    final User? currentUser = await _authenticationService.getCurrentUser();
 
     var allDocs = await Storage()
         .firestore
@@ -53,7 +54,7 @@ class CommentService {
   }
 
   void likeComment(String commentId, String postId) async {
-    final User? currentUser = await AuthController().getCurrentUser();
+    final User? currentUser = await _authenticationService.getCurrentUser();
     final commentSnapshot = await Storage()
         .firestore
         .collection('posts')

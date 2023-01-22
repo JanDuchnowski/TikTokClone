@@ -9,14 +9,15 @@ abstract class AuthenticationRepositoryInterface {
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
+  final AuthenticationService _authenticationService = AuthenticationService();
   @override
   Future<User?> getCurrentUser() {
-    return AuthController().getCurrentUser();
+    return _authenticationService.getCurrentUser();
   }
 
   @override
   Future<File?> pickProfileImage() {
-    return AuthController().pickImage();
+    return _authenticationService.pickImage();
   }
 }
 

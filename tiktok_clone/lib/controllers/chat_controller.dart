@@ -5,8 +5,9 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 class ChatController {
+  final AuthenticationService _authenticationService = AuthenticationService();
   Future<void> sendMessage(String message, String receiverId) async {
-    final User? currentUser = await AuthController().getCurrentUser();
+    final User? currentUser = await _authenticationService.getCurrentUser();
     Storage()
         .firestore
         .collection('users')

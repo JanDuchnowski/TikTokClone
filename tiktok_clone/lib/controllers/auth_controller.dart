@@ -10,15 +10,7 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart' as model;
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 
-class AuthController {
-  static final AuthController _singleton = AuthController._internal();
-
-  factory AuthController() {
-    return _singleton;
-  }
-
-  AuthController._internal();
-
+class AuthenticationService {
   File? pickedProfileImage;
   model.User? currentUser;
 

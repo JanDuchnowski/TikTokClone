@@ -16,6 +16,7 @@ import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key, required this.userId}) : super(key: key);
   final String userId;
+  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +109,7 @@ class ProfileScreen extends StatelessWidget {
                       : const EdgeInsets.only(right: 24),
                   child: ElevatedButton(
                     onPressed: () {
-                      AuthController().signOut();
+                      _authenticationService.signOut(); //move this to
 
                       Navigator.of(context).popUntil(
                           ModalRoute.withName(Routes.signupScreenRoute));

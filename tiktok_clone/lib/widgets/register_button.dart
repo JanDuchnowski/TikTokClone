@@ -7,7 +7,7 @@ import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/constants.dart';
 
 class RegisterButton extends StatelessWidget {
-  const RegisterButton(
+  RegisterButton(
       {Key? key,
       required this.password,
       required this.email,
@@ -16,6 +16,7 @@ class RegisterButton extends StatelessWidget {
   final TextEditingController password;
   final TextEditingController email;
   final TextEditingController username;
+  final AuthenticationService _authenticationService = AuthenticationService();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -36,11 +37,11 @@ class RegisterButton extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 //TODO get access to text controllers from signup page
-                AuthController().registerUser(
+                _authenticationService.registerUser(
                   username.text,
                   email.text,
                   password.text,
-                  (AuthController().pickedProfileImage),
+                  (_authenticationService.pickedProfileImage),
                 );
               },
               child: const Center(

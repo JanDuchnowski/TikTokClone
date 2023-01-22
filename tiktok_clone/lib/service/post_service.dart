@@ -5,12 +5,13 @@ import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 class PostService {
+  final AuthenticationService _authenticationService = AuthenticationService();
   Stream<QuerySnapshot<Map<String, dynamic>>>? getPostStream() {
     return Storage().firestore.collection('posts').snapshots();
   }
 
   Future<String?> likePost(String postId) async {
-    final currentUser = await AuthController().getCurrentUser();
+    final currentUser = await _authenticationService.getCurrentUser();
     final likesSnapshot =
         await Storage().firestore.collection('posts').doc(postId).get();
     final List usersWhoLikedPost = likesSnapshot['likes'];
@@ -31,7 +32,7 @@ class PostService {
   }
 
   Future<String?> removeLike(String postId) async {
-    final currentUser = await AuthController().getCurrentUser();
+    final currentUser = await _authenticationService.getCurrentUser();
     final likesSnapshot =
         await Storage().firestore.collection('posts').doc(postId).get();
     final List usersWhoLikedPost = likesSnapshot['likes'];
@@ -47,7 +48,7 @@ class PostService {
   }
 
   Future<List<dynamic>> getCurrentlyLikedPosts() async {
-    final currentUser = await AuthController().getCurrentUser();
+    final currentUser = await _authenticationService.getCurrentUser();
     return currentUser!.currentlyLikedPosts;
   }
 
