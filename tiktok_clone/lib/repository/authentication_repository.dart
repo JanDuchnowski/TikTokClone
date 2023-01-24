@@ -8,6 +8,7 @@ abstract class AuthenticationRepositoryInterface {
   Future<File?> pickProfileImage();
   void registerUser(
       String username, String email, String password, File? image);
+  Future<String?> fetchLogo();
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
@@ -27,6 +28,11 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       String username, String email, String password, File? image) {
     return _authenticationService.registerUser(
         username, email, password, image);
+  }
+
+  @override
+  Future<String?> fetchLogo() {
+    return _authenticationService.fetchLogo();
   }
 }
 

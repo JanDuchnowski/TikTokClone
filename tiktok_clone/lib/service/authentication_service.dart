@@ -109,4 +109,10 @@ class AuthenticationService {
   Future<void> signOut() async {
     await Storage().firebaseAuth.signOut();
   }
+
+  Future<String?> fetchLogo() async {
+    final ref = Storage().firebaseStorage.ref().child('icon').child('icon.png');
+    final downloadUrl = ref.getDownloadURL();
+    return downloadUrl;
+  }
 }

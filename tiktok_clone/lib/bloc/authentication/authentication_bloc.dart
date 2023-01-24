@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -22,6 +23,12 @@ class AuthenticationBloc
 
   AuthenticationBloc(this._authenticationRepository)
       : super(AuthenticationState.initial()) {
+    on<FetchLogoEvent>(
+      (event, emit) async {
+        final String? logoUrl = await _authenticationRepository.fetchLogo();
+        emit(state.copyWith(logoUrl: logoUrl!));
+      },
+    );
     on<AuthenticationEvent>((event, emit) async {
       if (event is AuthenticationStartedEvent) {
         model.User? user = await _authenticationRepository.getCurrentUser();

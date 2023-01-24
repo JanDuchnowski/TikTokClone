@@ -38,8 +38,8 @@ void main() async {
     child: MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) =>
-                AuthenticationBloc(AuthenticationRepository())),
+            create: (context) => AuthenticationBloc(AuthenticationRepository())
+              ..add(FetchLogoEvent())),
         BlocProvider(
             create: ((context) =>
                 TiktokBloc(PostRepository(), AuthenticationRepository()))),

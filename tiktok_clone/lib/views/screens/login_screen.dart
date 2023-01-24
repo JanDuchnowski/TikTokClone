@@ -3,6 +3,7 @@ import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/widgets/login_button.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+import 'package:tiktok_clone/widgets/logo_widget.dart';
 import 'package:tiktok_clone/widgets/text_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,14 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Login Screen"),
-            const SizedBox(
-              height: 32,
-            ),
+            const LogoWidget(),
             const Text("Login"),
-            const SizedBox(
-              height: 32,
-            ),
             TextInputField(
               textController: _emailController,
               labelText: 'Email',

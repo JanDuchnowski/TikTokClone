@@ -37,3 +37,8 @@ class InvalidEmailEvent extends AuthenticationEvent {
   @override
   List<Object> get props => [];
 }
+
+class FetchLogoEvent extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}
