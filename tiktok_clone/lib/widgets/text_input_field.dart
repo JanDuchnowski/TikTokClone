@@ -6,18 +6,20 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 
 class TextInputField extends StatelessWidget {
-  const TextInputField({
-    Key? key,
-    required this.textController,
-    required this.labelText,
-    this.isObscure = false,
-    required this.icon,
-  }) : super(key: key);
+  const TextInputField(
+      {Key? key,
+      required this.textController,
+      required this.labelText,
+      this.isObscure = false,
+      required this.icon,
+      required this.onChanged})
+      : super(key: key);
 
   final TextEditingController textController;
   final String labelText;
   final bool isObscure;
   final IconData icon;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class TextInputField extends StatelessWidget {
         vertical: 10,
       ),
       child: TextField(
+        onChanged: (_) => onChanged(_, context),
         controller: textController,
         decoration: InputDecoration(
           labelText: labelText,

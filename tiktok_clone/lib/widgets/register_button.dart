@@ -30,8 +30,10 @@ class RegisterButton extends StatelessWidget {
               right: 20,
               bottom: 20,
             ),
-            decoration: const BoxDecoration(
-              color: ColorPalette.buttonColor,
+            decoration: BoxDecoration(
+              color: state is AuthenticationCredentialsNotEmpty
+                  ? ColorPalette.buttonColor
+                  : Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             child: InkWell(

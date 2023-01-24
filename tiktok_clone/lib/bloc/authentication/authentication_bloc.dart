@@ -34,9 +34,23 @@ class AuthenticationBloc
       } else if (event is ProfilePictureChosenEvent) {
         File? profilePhoto = await _authenticationRepository.pickProfileImage();
         if (profilePhoto != null) {
-          emit(AuthenticationChosenPhoto(profileImage: profilePhoto));
+          emit(AuthenticationChosenPhoto(
+            profileImage: profilePhoto,
+          ));
         }
       }
+    });
+    on<CredentialsNotEmptyEvent>((event, emit) {
+      print("Got here");
+      emit(AuthenticationCredentialsNotEmpty(
+        profileImage: (state as AuthenticationChosenPhoto).profileImage,
+      ));
+    });
+    on<CredentialsEmptyEvent>((event, emit) {
+      print("Got here");
+      emit(AuthenticationCredentialsEmpty(
+        profileImage: (state as AuthenticationChosenPhoto).profileImage,
+      ));
     });
   }
 }

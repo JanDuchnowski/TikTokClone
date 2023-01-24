@@ -20,3 +20,13 @@ class AuthenticationSignedOutEvent extends AuthenticationEvent {
   @override
   List<Object> get props => [];
 }
+
+class CredentialsNotEmptyEvent extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class CredentialsEmptyEvent extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}

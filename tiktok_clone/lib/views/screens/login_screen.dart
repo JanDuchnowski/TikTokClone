@@ -36,12 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
               textController: _emailController,
               labelText: 'Email',
               icon: Icons.email,
+              onChanged: (_) {}, //TODO add a real onChange
             ),
             TextInputField(
               textController: _passwordController,
               isObscure: true,
               labelText: 'Password',
               icon: Icons.key,
+              onChanged: (_) {},
             ),
             LoginButton(
               email: _emailController,

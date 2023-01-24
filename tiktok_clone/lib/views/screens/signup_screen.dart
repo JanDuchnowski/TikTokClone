@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/bloc/authentication/authentication_bloc.dart';
 import 'package:tiktok_clone/widgets/register_button.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
@@ -18,6 +16,12 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        // buildWhen: (previous, current) {
+        //   if (current is AuthenticationChosenPhoto) {
+        //     return true;
+        //   }
+        //   return false;
+        // },
         builder: ((context, state) {
           return SingleChildScrollView(
             child: Column(
@@ -38,7 +42,7 @@ class SignupScreen extends StatelessWidget {
                       backgroundImage: state is AuthenticationChosenPhoto
                           ? FileImage(state.profileImage) as ImageProvider
                           : const NetworkImage(
-                              'https://ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png'),
+                              'https:/p/ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png'),
                       backgroundColor: Colors.white,
                     ),
                     Positioned(
@@ -59,19 +63,23 @@ class SignupScreen extends StatelessWidget {
                   ],
                 ),
                 TextInputField(
-                    textController: _usernameController,
-                    labelText: 'Username',
-                    icon: Icons.person),
+                  textController: _usernameController,
+                  labelText: 'Username',
+                  icon: Icons.person,
+                  onChanged: areCredentialsNotEmpty,
+                ),
                 TextInputField(
                   textController: _emailController,
                   labelText: 'Email',
                   icon: Icons.email,
+                  onChanged: areCredentialsNotEmpty,
                 ),
                 TextInputField(
                   textController: _passwordController,
                   labelText: 'Password',
                   icon: Icons.key,
                   isObscure: true,
+                  onChanged: areCredentialsNotEmpty,
                 ),
                 RegisterButton(
                   email: _emailController,
@@ -101,5 +109,16 @@ class SignupScreen extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  bool areCredentialsNotEmpty(String? value, BuildContext context) {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _usernameController.text.isNotEmpty) {
+      context.read<AuthenticationBloc>().add(CredentialsNotEmptyEvent());
+      return true;
+    }
+    context.read<AuthenticationBloc>().add(CredentialsEmptyEvent());
+    return false;
   }
 }
