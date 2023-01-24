@@ -49,15 +49,20 @@ class AuthenticationBloc
       }
     });
     on<CredentialsNotEmptyEvent>((event, emit) {
-      if (state.profileImage != null) {
-        emit(state.copyWith(
-          authenticationStatus: AuthenticationStatus.notEmpty,
-        ));
-      }
+      //  if (state.profileImage != null) {
+      emit(state.copyWith(
+        authenticationStatus: AuthenticationStatus.notEmpty,
+      ));
+      //  }
     });
     on<CredentialsEmptyEvent>((event, emit) {
       emit(state.copyWith(
         authenticationStatus: AuthenticationStatus.empty,
+      ));
+    });
+    on<InvalidEmailEvent>((event, emit) {
+      emit(state.copyWith(
+        authenticationStatus: AuthenticationStatus.invalidEmail,
       ));
     });
   }

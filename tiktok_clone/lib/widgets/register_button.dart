@@ -37,13 +37,14 @@ class RegisterButton extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              //TODO get access to text controllers from signup page
-              _authenticationService.registerUser(
-                username.text,
-                email.text,
-                password.text,
-                (_authenticationService.pickedProfileImage),
-              );
+              if (state.authenticationStatus == AuthenticationStatus.notEmpty) {
+                _authenticationService.registerUser(
+                  username.text,
+                  email.text,
+                  password.text,
+                  (_authenticationService.pickedProfileImage),
+                );
+              }
             },
             child: const Center(
               child: Text(

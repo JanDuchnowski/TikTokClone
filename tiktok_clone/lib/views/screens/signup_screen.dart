@@ -48,12 +48,9 @@ class SignupScreen extends StatelessWidget {
                           context
                               .read<AuthenticationBloc>()
                               .add(ProfilePictureChosenEvent());
-                          // if (areCredentialsNotEmpty("", context) &&
-                          //     state is AuthenticationChosenPhoto) {
                           context
                               .read<AuthenticationBloc>()
                               .add(CredentialsNotEmptyEvent());
-                          //}
                         },
                         icon: const Icon(
                           Icons.add_a_photo,
@@ -87,6 +84,12 @@ class SignupScreen extends StatelessWidget {
                   password: _passwordController,
                   username: _usernameController,
                 ),
+                if (state.authenticationStatus == AuthenticationStatus.empty)
+                  const Text(
+                      "Please input all the credentials and choose a photo"),
+                if (state.authenticationStatus ==
+                    AuthenticationStatus.invalidEmail)
+                  const Text("Please input correct email address"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -112,14 +115,27 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  bool areCredentialsNotEmpty(String? value, BuildContext context) {
+  bool areCredentialsNotEmpty(String? value, BuildContext context,
+      AuthenticationState authenticationState) {
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty &&
-        _usernameController.text.isNotEmpty) {
-      context.read<AuthenticationBloc>().add(CredentialsNotEmptyEvent());
-      return true;
+        _usernameController.text.isNotEmpty &&
+        authenticationState.profileImage != null) {
+      if (_isEmailValid(_emailController.text)) {
+        context.read<AuthenticationBloc>().add(CredentialsNotEmptyEvent());
+        return true;
+      } else {
+        context.read<AuthenticationBloc>().add(InvalidEmailEvent());
+        return false;
+      }
     }
     context.read<AuthenticationBloc>().add(CredentialsEmptyEvent());
     return false;
+  }
+
+  bool _isEmailValid(String email) {
+    return RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
   }
 }

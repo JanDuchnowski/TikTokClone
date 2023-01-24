@@ -1,6 +1,13 @@
 part of 'authentication_bloc.dart';
 
-enum AuthenticationStatus { initial, empty, notEmpty, successful, fail }
+enum AuthenticationStatus {
+  initial,
+  empty,
+  notEmpty,
+  successful,
+  fail,
+  invalidEmail
+}
 
 class AuthenticationState extends Equatable {
   final File? profileImage;

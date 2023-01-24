@@ -31,7 +31,8 @@ class TextInputField extends StatelessWidget {
         vertical: 10,
       ),
       child: TextField(
-        onChanged: (_) => onChanged(_, context),
+        onChanged: (_) =>
+            onChanged(_, context, context.read<AuthenticationBloc>().state),
         controller: textController,
         decoration: InputDecoration(
           labelText: labelText,

@@ -30,3 +30,8 @@ class CredentialsEmptyEvent extends AuthenticationEvent {
   @override
   List<Object> get props => [];
 }
+
+class InvalidEmailEvent extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}
