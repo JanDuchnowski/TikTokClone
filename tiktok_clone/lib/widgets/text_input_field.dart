@@ -26,6 +26,7 @@ class TextInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 500,
       margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 10,

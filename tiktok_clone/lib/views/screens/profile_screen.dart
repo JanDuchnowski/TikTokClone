@@ -97,33 +97,38 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Storage().firebaseAuth.currentUser!.uid != userId
-                    ? ElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<ProfileBloc>()
-                              .add(FollowUserEvent(otherUserId: userId));
-                        },
-                        child: Text("Follow"),
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 32),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<ProfileBloc>()
+                                .add(FollowUserEvent(otherUserId: userId));
+                          },
+                          child: const Text("Follow"),
+                        ),
                       )
                     : const SizedBox(
                         width: 0,
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 32,
                 ),
-                Container(
-                  margin: Storage().firebaseAuth.currentUser!.uid != userId
-                      ? const EdgeInsets.only(right: 0.0)
-                      : const EdgeInsets.only(right: 24),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context
-                          .read<AuthenticationBloc>()
-                          .add(AuthenticationSignedOutEvent(context: context));
-                    },
-                    child: Text("Sign Out"),
-                  ),
-                ),
+                Storage().firebaseAuth.currentUser!.uid == userId
+                    ? Container(
+                        margin:
+                            Storage().firebaseAuth.currentUser!.uid != userId
+                                ? const EdgeInsets.only(right: 0.0)
+                                : const EdgeInsets.only(right: 24),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.read<AuthenticationBloc>().add(
+                                AuthenticationSignedOutEvent(context: context));
+                          },
+                          child: Text("Sign Out"),
+                        ),
+                      )
+                    : Container(),
               ],
             ),
             Flexible(
