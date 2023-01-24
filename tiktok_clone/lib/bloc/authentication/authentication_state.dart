@@ -1,57 +1,29 @@
 part of 'authentication_bloc.dart';
 
-abstract class AuthenticationState extends Equatable {
-  const AuthenticationState();
+enum AuthenticationStatus { initial, empty, notEmpty, successful, fail }
 
-  @override
-  List<Object?> get props => [];
-}
+class AuthenticationState extends Equatable {
+  final File? profileImage;
+  final AuthenticationStatus? authenticationStatus;
+  final model.User? user;
+  const AuthenticationState(
+      {this.profileImage, this.authenticationStatus, this.user});
 
-class AuthenticationInitial extends AuthenticationState {
-  @override
-  List<Object?> get props => [];
-}
+  const AuthenticationState.initial()
+      : authenticationStatus = AuthenticationStatus.initial,
+        profileImage = null,
+        user = null;
 
-class AuthenticationChosenPhoto extends AuthenticationState {
-  final File profileImage;
-  const AuthenticationChosenPhoto({required this.profileImage});
-
-  AuthenticationChosenPhoto copyWith({File? profileImage}) {
-    return AuthenticationChosenPhoto(
-      profileImage: profileImage ?? this.profileImage,
-    );
+  AuthenticationState copyWith(
+      {File? profileImage,
+      AuthenticationStatus? authenticationStatus,
+      model.User? user}) {
+    return AuthenticationState(
+        profileImage: profileImage ?? this.profileImage,
+        authenticationStatus: authenticationStatus ?? this.authenticationStatus,
+        user: user ?? this.user);
   }
 
   @override
-  List<Object?> get props => [];
-}
-
-class AuthenticationSuccess extends AuthenticationState {
-  final model.User? user;
-  const AuthenticationSuccess({this.user});
-
-  @override
-  List<Object?> get props => [user];
-}
-
-class AuthenticationFailure extends AuthenticationState {
-  @override
-  List<Object?> get props => [];
-}
-
-class AuthenticationCredentialsNotEmpty extends AuthenticationChosenPhoto {
-  final File profileImage;
-
-  const AuthenticationCredentialsNotEmpty({required this.profileImage})
-      : super(profileImage: profileImage);
-  @override
-  List<Object?> get props => [];
-}
-
-class AuthenticationCredentialsEmpty extends AuthenticationChosenPhoto {
-  final File profileImage;
-  const AuthenticationCredentialsEmpty({required this.profileImage})
-      : super(profileImage: profileImage);
-  @override
-  List<Object?> get props => [];
+  List<Object?> get props => [profileImage, authenticationStatus, user];
 }

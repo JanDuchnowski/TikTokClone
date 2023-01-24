@@ -19,37 +19,45 @@ class AuthenticationBloc
   final AuthenticationRepositoryInterface _authenticationRepository;
 
   AuthenticationBloc(this._authenticationRepository)
-      : super(AuthenticationInitial()) {
+      : super(AuthenticationState.initial()) {
     on<AuthenticationEvent>((event, emit) async {
       if (event is AuthenticationStartedEvent) {
         model.User? user = await _authenticationRepository.getCurrentUser();
 
         if (user != null) {
-          emit(AuthenticationSuccess(user: user));
+          emit(state.copyWith(
+              user: user,
+              authenticationStatus: AuthenticationStatus.successful));
         } else {
-          emit(AuthenticationFailure());
+          emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
         }
       } else if (event is AuthenticationSignedOutEvent) {
-        emit(AuthenticationFailure());
+        emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
       } else if (event is ProfilePictureChosenEvent) {
         File? profilePhoto = await _authenticationRepository.pickProfileImage();
         if (profilePhoto != null) {
-          emit(AuthenticationChosenPhoto(
-            profileImage: profilePhoto,
-          ));
+          if (state.authenticationStatus == AuthenticationStatus.notEmpty) {
+            emit(state.copyWith(
+              profileImage: profilePhoto,
+            ));
+          } else {
+            emit(state.copyWith(
+                profileImage: profilePhoto,
+                authenticationStatus: AuthenticationStatus.notEmpty));
+          }
         }
       }
     });
     on<CredentialsNotEmptyEvent>((event, emit) {
-      print("Got here");
-      emit(AuthenticationCredentialsNotEmpty(
-        profileImage: (state as AuthenticationChosenPhoto).profileImage,
-      ));
+      if (state.profileImage != null) {
+        emit(state.copyWith(
+          authenticationStatus: AuthenticationStatus.notEmpty,
+        ));
+      }
     });
     on<CredentialsEmptyEvent>((event, emit) {
-      print("Got here");
-      emit(AuthenticationCredentialsEmpty(
-        profileImage: (state as AuthenticationChosenPhoto).profileImage,
+      emit(state.copyWith(
+        authenticationStatus: AuthenticationStatus.empty,
       ));
     });
   }

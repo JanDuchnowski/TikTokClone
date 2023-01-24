@@ -21,43 +21,40 @@ class RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: ((context, state) {
-        if (state is AuthenticationChosenPhoto) {
-          return Container(
-            width: 100,
-            height: 50,
-            margin: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              bottom: 20,
-            ),
-            decoration: BoxDecoration(
-              color: state is AuthenticationCredentialsNotEmpty
-                  ? ColorPalette.buttonColor
-                  : Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-            ),
-            child: InkWell(
-              onTap: () {
-                //TODO get access to text controllers from signup page
-                _authenticationService.registerUser(
-                  username.text,
-                  email.text,
-                  password.text,
-                  (_authenticationService.pickedProfileImage),
-                );
-              },
-              child: const Center(
-                child: Text(
-                  Constants.registerButtonText,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+        return Container(
+          width: 100,
+          height: 50,
+          margin: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            bottom: 20,
+          ),
+          decoration: BoxDecoration(
+            color: state.authenticationStatus == AuthenticationStatus.notEmpty
+                ? ColorPalette.buttonColor
+                : Colors.grey,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          child: InkWell(
+            onTap: () {
+              //TODO get access to text controllers from signup page
+              _authenticationService.registerUser(
+                username.text,
+                email.text,
+                password.text,
+                (_authenticationService.pickedProfileImage),
+              );
+            },
+            child: const Center(
+              child: Text(
+                Constants.registerButtonText,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          );
-        }
-        return Text("Please input all the credentials and a photo");
+          ),
+        );
       }),
     );
   }

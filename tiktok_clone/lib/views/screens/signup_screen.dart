@@ -16,13 +16,8 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        // buildWhen: (previous, current) {
-        //   if (current is AuthenticationChosenPhoto) {
-        //     return true;
-        //   }
-        //   return false;
-        // },
         builder: ((context, state) {
+          print(state.authenticationStatus);
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +34,8 @@ class SignupScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 64,
-                      backgroundImage: state is AuthenticationChosenPhoto
-                          ? FileImage(state.profileImage) as ImageProvider
+                      backgroundImage: (state.profileImage != null)
+                          ? FileImage(state.profileImage!) as ImageProvider
                           : const NetworkImage(
                               'https:/p/ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png'),
                       backgroundColor: Colors.white,
@@ -53,6 +48,12 @@ class SignupScreen extends StatelessWidget {
                           context
                               .read<AuthenticationBloc>()
                               .add(ProfilePictureChosenEvent());
+                          // if (areCredentialsNotEmpty("", context) &&
+                          //     state is AuthenticationChosenPhoto) {
+                          context
+                              .read<AuthenticationBloc>()
+                              .add(CredentialsNotEmptyEvent());
+                          //}
                         },
                         icon: const Icon(
                           Icons.add_a_photo,
