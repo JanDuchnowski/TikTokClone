@@ -30,8 +30,11 @@ void main() async {
 
   Storage().camerasList = await availableCameras();
 
-  runApp(RepositoryProvider(
-    create: ((context) => UploadVideoRepository()),
+  runApp(MultiRepositoryProvider(
+    providers: [
+      RepositoryProvider(create: ((context) => UploadVideoRepository())),
+      RepositoryProvider(create: ((context) => AuthenticationRepository()))
+    ],
     child: MultiBlocProvider(
       providers: [
         BlocProvider(

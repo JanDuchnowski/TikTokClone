@@ -36,24 +36,16 @@ class AuthenticationBloc
       } else if (event is ProfilePictureChosenEvent) {
         File? profilePhoto = await _authenticationRepository.pickProfileImage();
         if (profilePhoto != null) {
-          if (state.authenticationStatus == AuthenticationStatus.notEmpty) {
-            emit(state.copyWith(
-              profileImage: profilePhoto,
-            ));
-          } else {
-            emit(state.copyWith(
-                profileImage: profilePhoto,
-                authenticationStatus: AuthenticationStatus.notEmpty));
-          }
+          emit(state.copyWith(
+            profileImage: profilePhoto,
+          ));
         }
       }
     });
     on<CredentialsNotEmptyEvent>((event, emit) {
-      //  if (state.profileImage != null) {
       emit(state.copyWith(
         authenticationStatus: AuthenticationStatus.notEmpty,
       ));
-      //  }
     });
     on<CredentialsEmptyEvent>((event, emit) {
       emit(state.copyWith(

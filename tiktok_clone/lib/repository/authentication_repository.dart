@@ -6,6 +6,8 @@ import 'package:tiktok_clone/models/user/user.dart';
 abstract class AuthenticationRepositoryInterface {
   Future<User?> getCurrentUser();
   Future<File?> pickProfileImage();
+  void registerUser(
+      String username, String email, String password, File? image);
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
@@ -18,6 +20,13 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<File?> pickProfileImage() {
     return _authenticationService.pickImage();
+  }
+
+  @override
+  void registerUser(
+      String username, String email, String password, File? image) {
+    return _authenticationService.registerUser(
+        username, email, password, image);
   }
 }
 
