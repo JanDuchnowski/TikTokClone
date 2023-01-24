@@ -17,8 +17,10 @@ class AuthenticationStartedEvent extends AuthenticationEvent {
 }
 
 class AuthenticationSignedOutEvent extends AuthenticationEvent {
+  final BuildContext context;
+  AuthenticationSignedOutEvent({required this.context});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [context];
 }
 
 class CredentialsNotEmptyEvent extends AuthenticationEvent {

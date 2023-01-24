@@ -6,7 +6,8 @@ enum AuthenticationStatus {
   notEmpty,
   successful,
   fail,
-  invalidEmail
+  invalidEmail,
+  signedOut
 }
 
 class AuthenticationState extends Equatable {

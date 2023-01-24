@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/authentication/authentication_bloc.dart';
 import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
 import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
@@ -16,7 +17,6 @@ import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key, required this.userId}) : super(key: key);
   final String userId;
-  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +117,9 @@ class ProfileScreen extends StatelessWidget {
                       : const EdgeInsets.only(right: 24),
                   child: ElevatedButton(
                     onPressed: () {
-                      _authenticationService.signOut(); //move this to
-
-                      Navigator.of(context).popUntil(
-                          ModalRoute.withName(Routes.signupScreenRoute));
+                      context
+                          .read<AuthenticationBloc>()
+                          .add(AuthenticationSignedOutEvent(context: context));
                     },
                     child: Text("Sign Out"),
                   ),

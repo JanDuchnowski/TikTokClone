@@ -14,14 +14,14 @@ class TextInputField extends StatelessWidget {
       required this.labelText,
       this.isObscure = false,
       required this.icon,
-      required this.onChanged})
+      this.onChanged})
       : super(key: key);
 
   final TextEditingController textController;
   final String labelText;
   final bool isObscure;
   final IconData icon;
-  final Function onChanged;
+  final Function? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,12 @@ class TextInputField extends StatelessWidget {
         vertical: 10,
       ),
       child: TextField(
-        onChanged: (_) =>
-            onChanged(_, context, context.read<AuthenticationBloc>().state),
+        onChanged: onChanged != null
+            ? (_) {
+                onChanged!(
+                    _, context, context.read<AuthenticationBloc>().state);
+              }
+            : (_) {},
         controller: textController,
         decoration: InputDecoration(
           labelText: labelText,

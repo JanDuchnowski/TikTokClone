@@ -75,7 +75,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       textController: _songController,
                       labelText: 'Song Name',
                       icon: Icons.music_note,
-                      onChanged: (_) {},
                     ),
                   ),
                   const SizedBox(
@@ -88,7 +87,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       textController: _captionController,
                       labelText: 'Caption',
                       icon: Icons.closed_caption,
-                      onChanged: (_) {},
                     ),
                   ),
                   const SizedBox(
