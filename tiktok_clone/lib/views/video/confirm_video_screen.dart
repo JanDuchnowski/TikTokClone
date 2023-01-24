@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
-import 'package:tiktok_clone/controllers/upload_video_controller.dart';
+import 'package:tiktok_clone/repository/upload_video_repository.dart';
 import 'package:tiktok_clone/widgets/text_input_field.dart';
 
 import 'package:video_player/video_player.dart';
@@ -21,10 +23,10 @@ class ConfirmScreen extends StatefulWidget {
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
-  TextEditingController _songController = TextEditingController();
-  TextEditingController _captionController = TextEditingController();
+  final TextEditingController _songController = TextEditingController();
+  final TextEditingController _captionController = TextEditingController();
 
-  UploadVideoController uploadVideoController = UploadVideoController();
+  //UploadVideoService uploadVideoController = UploadVideoService();
 
   @override
   void initState() {
@@ -92,8 +94,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        uploadVideoController.uploadVideo(_songController.text,
-                            _captionController.text, widget.videoPath);
+                        context.read<UploadVideoRepository>().uploadVideo(
+                            _songController.text,
+                            _captionController.text,
+                            widget.videoPath);
 
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();

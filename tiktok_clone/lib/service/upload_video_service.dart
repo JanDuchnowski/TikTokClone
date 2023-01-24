@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 
-class UploadVideoController {
+class UploadVideoService {
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = Storage().firebaseStorage.ref().child('posts').child(id);
 

@@ -14,6 +14,7 @@ import 'package:tiktok_clone/repository/comment_repository.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 import 'package:tiktok_clone/repository/profile_repository.dart';
 import 'package:tiktok_clone/service/profile_service.dart';
+import 'package:tiktok_clone/repository/upload_video_repository.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/routes/router.dart';
 
@@ -29,8 +30,9 @@ void main() async {
 
   Storage().camerasList = await availableCameras();
 
-  runApp(
-    MultiBlocProvider(
+  runApp(RepositoryProvider(
+    create: ((context) => UploadVideoRepository()),
+    child: MultiBlocProvider(
       providers: [
         BlocProvider(
             create: (context) =>
@@ -47,7 +49,7 @@ void main() async {
       ],
       child: const TikTokApp(),
     ),
-  );
+  ));
   Bloc.observer = AppBlocObserver();
 }
 
