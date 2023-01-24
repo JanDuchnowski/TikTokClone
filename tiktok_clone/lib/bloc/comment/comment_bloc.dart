@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
+import 'package:tiktok_clone/models/user/user.dart';
+import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/repository/comment_repository.dart';
 
 part 'comment_event.dart';
@@ -11,7 +13,9 @@ part 'comment_state.dart';
 
 class CommentBloc extends Bloc<CommentEvent, CommentState> {
   final CommentRepositoryInterface _commentRepository;
-  CommentBloc(this._commentRepository) : super(const CommentState.initial()) {
+  final AuthenticationRepositoryInterface _authenticationRepository;
+  CommentBloc(this._commentRepository, this._authenticationRepository)
+      : super(const CommentState.initial()) {
     on<FetchCommentsEvent>((event, emit) async {
       final Stream<QuerySnapshot<Map<String, dynamic>>>? commentStream =
           _commentRepository.getCommentStream(event.postId);
@@ -21,8 +25,11 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       }));
     });
     on<PostCommentEvent>(
-      (event, emit) {
-        _commentRepository.postComment(event.commentText, event.postId);
+      (event, emit) async {
+        final User? currentUser =
+            await _authenticationRepository.getCurrentUser();
+        _commentRepository.postComment(
+            currentUser!, event.commentText, event.postId);
       },
     );
     on<LikeCommentEvent>(

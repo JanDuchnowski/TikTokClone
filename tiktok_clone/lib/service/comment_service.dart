@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
+import 'package:tiktok_clone/service/authentication_service.dart';
 
 class CommentService {
-  final AuthenticationService _authenticationService = AuthenticationService();
   Stream<QuerySnapshot<Map<String, dynamic>>>? getCommentStream(String postId) {
     return Storage()
         .firestore
@@ -16,9 +16,7 @@ class CommentService {
         .snapshots();
   }
 
-  void postComment(String commentText, String postId) async {
-    final User? currentUser = await _authenticationService.getCurrentUser();
-
+  void postComment(User currentUser, String commentText, String postId) async {
     var allDocs = await Storage()
         .firestore
         .collection('posts')
@@ -29,7 +27,7 @@ class CommentService {
     final int len = allDocs.docs.length;
 
     final Comment newComment = Comment(
-      username: currentUser!.name,
+      username: currentUser.name,
       comment: commentText,
       datePublished: Timestamp.now().toDate(),
       likes: [],
@@ -54,7 +52,6 @@ class CommentService {
   }
 
   void likeComment(String commentId, String postId) async {
-    final User? currentUser = await _authenticationService.getCurrentUser();
     final commentSnapshot = await Storage()
         .firestore
         .collection('posts')
@@ -65,8 +62,9 @@ class CommentService {
 
     final List usersWhoLikedComment = commentSnapshot['likes'];
 
-    if (usersWhoLikedComment.contains(currentUser!.uid)) {
-      usersWhoLikedComment.remove(currentUser.uid);
+    if (usersWhoLikedComment
+        .contains(Storage().firebaseAuth.currentUser!.uid)) {
+      usersWhoLikedComment.remove(Storage().firebaseAuth.currentUser!.uid);
       await Storage()
           .firestore
           .collection('posts')
@@ -77,7 +75,7 @@ class CommentService {
       return;
     }
 
-    usersWhoLikedComment.add(currentUser.uid);
+    usersWhoLikedComment.add(Storage().firebaseAuth.currentUser!.uid);
 
     await Storage()
         .firestore

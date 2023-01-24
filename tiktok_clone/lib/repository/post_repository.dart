@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/service/post_service.dart';
 
 abstract class PostRepositoryInterface {
@@ -7,11 +8,12 @@ abstract class PostRepositoryInterface {
       List<String> friendsList);
   Future<String?> likePost(String postId);
   Future<String?> removeLike(String postId);
-  Future<List<dynamic>> getCurrentlyLikedPosts();
+  Future<List<dynamic>> getCurrentlyLikedPosts(User currentUser);
 }
 
 class PostRepository implements PostRepositoryInterface {
   final PostService _postService = PostService();
+
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>>? getPostStream() {
     return _postService.getPostStream();
@@ -23,8 +25,8 @@ class PostRepository implements PostRepositoryInterface {
   }
 
   @override
-  Future<List<dynamic>> getCurrentlyLikedPosts() {
-    return _postService.getCurrentlyLikedPosts();
+  Future<List<dynamic>> getCurrentlyLikedPosts(User currentUser) {
+    return _postService.getCurrentlyLikedPosts(currentUser);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
+import 'package:tiktok_clone/repository/authentication_repository.dart';
 
 class ProfileService {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(
@@ -41,8 +42,7 @@ class ProfileService {
           .update({"followers": followersOfTheOtherUser});
       return;
     }
-
-    followersOfTheOtherUser.add(AuthController().user!.uid);
+    followersOfTheOtherUser.add(Storage().firebaseAuth.currentUser!.uid);
     followingOfTheCurrentUser.add(otherUserId);
 
     await Storage()

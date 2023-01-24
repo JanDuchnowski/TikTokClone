@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
@@ -21,10 +21,12 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
   TiktokBloc(this._postRepository, this._authenticationRepository)
       : super(TiktokState.initial()) {
     on<FetchPostsEvent>((event, emit) async {
+      final User? currentUser =
+          await _authenticationRepository.getCurrentUser();
       final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
           _postRepository.getPostStream();
       final List<dynamic> currentLikedPosts =
-          await _postRepository.getCurrentlyLikedPosts();
+          await _postRepository.getCurrentlyLikedPosts(currentUser!);
       final List<String> currenStringLikedPosts =
           currentLikedPosts.map((post) => post as String).toList();
 

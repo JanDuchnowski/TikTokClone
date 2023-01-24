@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/service/comment_service.dart';
 
 abstract class CommentRepositoryInterface {
-  void postComment(String commentText, String postId);
+  void postComment(User currentUser, String commentText, String postId);
   void likeComment(String commentId, String postId);
   Stream<QuerySnapshot<Map<String, dynamic>>>? getCommentStream(String postId);
 }
@@ -20,7 +21,7 @@ class CommentRepository extends CommentRepositoryInterface {
   }
 
   @override
-  void postComment(String commentText, String postId) {
-    return _commentService.postComment(commentText, postId);
+  void postComment(User currentUser, String commentText, String postId) {
+    return _commentService.postComment(currentUser, commentText, postId);
   }
 }

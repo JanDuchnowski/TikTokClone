@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/views/screens/comment_screen.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/service/authentication_service.dart';
 
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/views/screens/profile_screen.dart';

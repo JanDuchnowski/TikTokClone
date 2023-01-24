@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
-import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
@@ -28,14 +28,20 @@ class ProfileScreen extends StatelessWidget {
           children: [
             Flexible(
               child: BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
+                  buildWhen: (previous, current) {
+                if (current.userId == userId) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }, builder: (context, state) {
                 if (state.profileInfoQuery != null) {
                   return ListView(
                       shrinkWrap: true,
                       children: state.profileInfoQuery!.docs.map(
                         (document) {
                           final User currentUser = User.fromSnap(document);
-                          print("Username = ${document.data()}");
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -93,7 +99,9 @@ class ProfileScreen extends StatelessWidget {
                 Storage().firebaseAuth.currentUser!.uid != userId
                     ? ElevatedButton(
                         onPressed: () {
-                          // _profileController.followUser(userId);
+                          context
+                              .read<ProfileBloc>()
+                              .add(FollowUserEvent(otherUserId: userId));
                         },
                         child: Text("Follow"),
                       )

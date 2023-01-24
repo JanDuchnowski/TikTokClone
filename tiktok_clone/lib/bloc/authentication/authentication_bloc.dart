@@ -16,7 +16,7 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthenticationRepository _authenticationRepository;
+  final AuthenticationRepositoryInterface _authenticationRepository;
 
   AuthenticationBloc(this._authenticationRepository)
       : super(AuthenticationInitial()) {
