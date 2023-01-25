@@ -94,4 +94,13 @@ class ProfileService {
     }
     return false;
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchUserPosts(String uid) {
+    return Storage()
+        .firestore
+        .collection("users")
+        .doc(uid)
+        .collection("posts")
+        .snapshots();
+  }
 }

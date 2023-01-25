@@ -83,6 +83,7 @@ flutter:
   assets:
    - assets/placeholder_video.mkv
    - assets/empty_avatar.jpg
+   - assets/icon.png
      
 
   # An image asset can refer to one or more resolution-specific "variants", see

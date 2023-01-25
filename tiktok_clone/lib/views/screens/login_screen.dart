@@ -22,42 +22,44 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const LogoWidget(),
-            const Text("Login"),
-            TextInputField(
-              textController: _emailController,
-              labelText: 'Email',
-              icon: Icons.email,
-            ),
-            TextInputField(
-              textController: _passwordController,
-              isObscure: true,
-              labelText: 'Password',
-              icon: Icons.key,
-            ),
-            LoginButton(
-              email: _emailController,
-              password: _passwordController,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Don\'t have account yet?'),
-                TextButton(
-                  onPressed: () {
-                    print("Register button pressed");
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    "Register",
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const LogoWidget(),
+              const Text("Login"),
+              TextInputField(
+                textController: _emailController,
+                labelText: 'Email',
+                icon: Icons.email,
+              ),
+              TextInputField(
+                textController: _passwordController,
+                isObscure: true,
+                labelText: 'Password',
+                icon: Icons.key,
+              ),
+              LoginButton(
+                email: _emailController,
+                password: _passwordController,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Don\'t have account yet?'),
+                  TextButton(
+                    onPressed: () {
+                      print("Register button pressed");
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      "Register",
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

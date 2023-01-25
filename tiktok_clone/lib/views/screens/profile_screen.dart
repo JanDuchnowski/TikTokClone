@@ -15,153 +15,146 @@ import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key, required this.userId}) : super(key: key);
+  const ProfileScreen({Key? key, required this.userId}) : super(key: key);
   final String userId;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: BlocBuilder<ProfileBloc, ProfileState>(
-                  buildWhen: (previous, current) {
-                if (current.userId == userId) {
-                  return true;
-                } else {
-                  return false;
-                }
-              }, builder: (context, state) {
-                if (state.profileInfoQuery != null) {
-                  return ListView(
-                      shrinkWrap: true,
-                      children: state.profileInfoQuery!.docs.map(
-                        (document) {
-                          final User currentUser = User.fromSnap(document);
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: BlocBuilder<ProfileBloc, ProfileState>(
+                buildWhen: (previous, current) {
+              if (current.userId == userId) {
+                return true;
+              } else {
+                return false;
+              }
+            }, builder: (context, state) {
+              if (state.profileInfoQuery != null) {
+                return ListView(
+                    shrinkWrap: true,
+                    children: state.profileInfoQuery!.docs.map(
+                      (document) {
+                        final User currentUser = User.fromSnap(document);
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(currentUser.profilePhoto),
-                                radius: 60,
-                              ),
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              Text(
-                                currentUser.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        currentUser.following.length.toString(),
-                                      ),
-                                      const Text("Following"),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 32,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        currentUser.followers.length.toString(),
-                                      ),
-                                      const Text("Followers"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      ).toList());
-                }
-                return Text("Stream was null");
-              }),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Storage().firebaseAuth.currentUser!.uid != userId
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 32),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<ProfileBloc>()
-                                .add(FollowUserEvent(otherUserId: userId));
-                          },
-                          child: const Text("Follow"),
-                        ),
-                      )
-                    : const SizedBox(
-                        width: 0,
-                      ),
-                const SizedBox(
-                  width: 32,
-                ),
-                Storage().firebaseAuth.currentUser!.uid == userId
-                    ? Container(
-                        margin:
-                            Storage().firebaseAuth.currentUser!.uid != userId
-                                ? const EdgeInsets.only(right: 0.0)
-                                : const EdgeInsets.only(right: 24),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthenticationBloc>().add(
-                                AuthenticationSignedOutEvent(context: context));
-                          },
-                          child: Text("Sign Out"),
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
-            Flexible(
-              child: StreamBuilder(
-                stream: Storage()
-                    .firestore
-                    .collection("users")
-                    .doc(userId)
-                    .collection("posts")
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Text("No data");
-                  }
-
-                  return SingleChildScrollView(
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 3,
-                      children: snapshot.data!.docs.map((document) {
-                        Video video = Video.fromSnap(document);
-                        return VideoPost(
-                          dataSource: video.videoUrl,
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(currentUser.profilePhoto),
+                              radius: 60,
+                            ),
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            Text(
+                              currentUser.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      currentUser.following.length.toString(),
+                                    ),
+                                    const Text("Following"),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 32,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      currentUser.followers.length.toString(),
+                                    ),
+                                    const Text("Followers"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         );
-                      }).toList(),
+                      },
+                    ).toList());
+              }
+              return Text("Stream was null");
+            }),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Storage().firebaseAuth.currentUser!.uid != userId
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 32),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<ProfileBloc>()
+                              .add(FollowUserEvent(otherUserId: userId));
+                        },
+                        child: const Text("Follow"),
+                      ),
+                    )
+                  : const SizedBox(
+                      width: 0,
                     ),
-                  );
-                },
+              const SizedBox(
+                width: 32,
               ),
-            )
-          ],
-        ),
+              Storage().firebaseAuth.currentUser!.uid == userId
+                  ? Container(
+                      margin: Storage().firebaseAuth.currentUser!.uid != userId
+                          ? const EdgeInsets.only(right: 0.0)
+                          : const EdgeInsets.only(right: 24),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.read<AuthenticationBloc>().add(
+                              AuthenticationSignedOutEvent(context: context));
+                        },
+                        child: Text("Sign Out"),
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
+          Flexible(
+            child: BlocBuilder<ProfileBloc, ProfileState>(
+                buildWhen: (previous, current) {
+              if (current.profilePosts != null) {
+                return true;
+              }
+              return false;
+            }, builder: ((context, state) {
+              if (state.profileStatus == ProfileStatus.fetched) {
+                return SingleChildScrollView(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: state.profilePosts!.docs.map((document) {
+                      Video video = Video.fromSnap(document);
+                      return VideoPost(
+                        dataSource: video.videoUrl,
+                      );
+                    }).toList(),
+                  ),
+                );
+              }
+              return const CircularProgressIndicator();
+            })),
+          )
+        ],
       ),
       bottomNavigationBar: CustomNavigationBar(
         currentlySelected: 4,

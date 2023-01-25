@@ -46,9 +46,7 @@ void main() async {
         BlocProvider(
             create: ((context) =>
                 CommentBloc(CommentRepository(), AuthenticationRepository()))),
-        BlocProvider(
-            create: ((context) =>
-                ProfileBloc(ProfileRepository(), AuthenticationRepository()))),
+        BlocProvider(create: ((context) => ProfileBloc(ProfileRepository()))),
       ],
       child: const TikTokApp(),
     ),

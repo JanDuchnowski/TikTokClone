@@ -10,21 +10,37 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepositoryInterface _profileRepository;
-  final AuthenticationRepositoryInterface _authenticationRepository;
-  ProfileBloc(this._profileRepository, this._authenticationRepository)
-      : super(ProfileState.initial()) {
+  ProfileBloc(this._profileRepository) : super(const ProfileState.initial()) {
     on<FetchProfileEvent>((event, emit) async {
-      final Stream<QuerySnapshot<Map<String, dynamic>>>? postInfoStream =
+      final Stream<QuerySnapshot<Map<String, dynamic>>>? profileInfoStream =
           _profileRepository.getProfileInfoStream(event.uid);
 
+      final Stream<QuerySnapshot<Map<String, dynamic>>>? postsStream =
+          _profileRepository.fetchUserPosts(event.uid);
+
+      emit.forEach(
+        postsStream!,
+        onData: ((QuerySnapshot<Map<String, dynamic>>? data) {
+          print("Fetch videos");
+          return state.copyWith(
+              profilePosts: data, profileStatus: ProfileStatus.fetched);
+        }),
+      );
       await emit.forEach(
-        postInfoStream!,
+        profileInfoStream!,
         onData: ((QuerySnapshot<Map<String, dynamic>> data) {
-          return state.copyWith(profileInfoQuery: data, userId: event.uid);
+          return state.copyWith(
+              profileInfoQuery: data,
+              userId: event.uid,
+              profileStatus: ProfileStatus.fetched);
         }),
       );
     });
+    on<FetchProfilePostsEvent>(
+      (event, emit) async {},
+    );
     on<FollowUserEvent>(
+      //TODO this could be in repository
       (event, emit) {
         _profileRepository.followUser(event.otherUserId);
         emit(state.copyWith());

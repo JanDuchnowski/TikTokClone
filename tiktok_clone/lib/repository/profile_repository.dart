@@ -5,6 +5,7 @@ import 'package:tiktok_clone/service/profile_service.dart';
 abstract class ProfileRepositoryInterface {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(String uid);
   Future<void> followUser(String userToFollowId);
+  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchUserPosts(String uid);
 }
 
 class ProfileRepository extends ProfileRepositoryInterface {
@@ -22,5 +23,10 @@ class ProfileRepository extends ProfileRepositoryInterface {
   @override
   Future<void> followUser(String userToFollowId) {
     return _profileService.followUser(userToFollowId);
+  }
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchUserPosts(String uid) {
+    return _profileService.fetchUserPosts(uid);
   }
 }

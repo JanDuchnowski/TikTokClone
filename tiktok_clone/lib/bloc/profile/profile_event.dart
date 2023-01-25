@@ -17,3 +17,10 @@ class FollowUserEvent extends ProfileEvent {
   @override
   List<Object?> get props => [otherUserId];
 }
+
+class FetchProfilePostsEvent extends ProfileEvent {
+  final String uid;
+  FetchProfilePostsEvent({required this.uid});
+  @override
+  List<Object?> get props => [uid];
+}
