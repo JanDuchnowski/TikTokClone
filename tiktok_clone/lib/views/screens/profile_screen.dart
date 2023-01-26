@@ -144,6 +144,9 @@ class ProfileScreen extends StatelessWidget {
                         onPressed: () {
                           context.read<AuthenticationBloc>().add(
                               AuthenticationSignedOutEvent(context: context));
+
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/signup', (route) => false);
                         },
                         child: const Text("Sign Out"),
                       ),

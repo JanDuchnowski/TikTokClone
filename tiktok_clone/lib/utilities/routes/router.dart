@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/views/screens/conversations_list_screen.dart';
-import 'package:tiktok_clone/views/screens/followers_screen.dart';
 import 'package:tiktok_clone/views/screens/friends_page.dart';
 import 'package:tiktok_clone/views/screens/login_screen.dart';
-import 'package:tiktok_clone/views/screens/profile_screen.dart';
-
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/signup_screen.dart';
 import 'package:tiktok_clone/views/video/add_video_screen.dart';

@@ -24,8 +24,15 @@ class ProfileService {
     final User? currentUser = User.fromSnap(currentUserDocument);
     final User? otherUser = User.fromSnap(otherUserDocument);
 
-    final List followersOfTheOtherUser = otherUserDocument['followers'];
-    final List followingOfTheCurrentUser = currentUserDocument['following'];
+    final List<User> followersOfTheOtherUser =
+        (otherUserDocument['followers'] as List)
+            .map((item) => item as User)
+            .toList();
+    final List<User> followingOfTheCurrentUser =
+        (currentUserDocument['following'] as List)
+            .map((item) => item as User)
+            .toList();
+
     if (followersOfTheOtherUser.contains(currentUser) ||
         followingOfTheCurrentUser.contains(otherUser)) {
       followersOfTheOtherUser.remove(currentUser);
@@ -44,10 +51,10 @@ class ProfileService {
           .update({"followers": followersOfTheOtherUser});
       return;
     }
-    followersOfTheOtherUser.add(currentUser);
-    followingOfTheCurrentUser.add(otherUser);
+    followersOfTheOtherUser.add(currentUser!);
+    followingOfTheCurrentUser.add(otherUser!);
 
-    await Storage()
+    await Storage() //TODO  should propbably turn list of users in to a list of dictionaries because firebase may not be able to store objects directly but rather as a map of primitve datatypes
         .firestore
         .collection('users')
         .doc(Storage().firebaseAuth.currentUser!.uid)

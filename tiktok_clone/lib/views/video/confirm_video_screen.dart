@@ -26,8 +26,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   final TextEditingController _songController = TextEditingController();
   final TextEditingController _captionController = TextEditingController();
 
-  //UploadVideoService uploadVideoController = UploadVideoService();
-
   @override
   void initState() {
     super.initState();
@@ -99,9 +97,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                             _captionController.text,
                             widget.videoPath);
 
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/', (Route<dynamic> route) => false);
                       },
                       child: const Text(
                         'Share!',

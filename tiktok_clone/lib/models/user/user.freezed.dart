@@ -25,9 +25,9 @@ mixin _$User {
   String get profilePhoto => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
-  List<dynamic> get following => throw _privateConstructorUsedError;
-  List<dynamic> get followers => throw _privateConstructorUsedError;
-  List<dynamic> get friends => throw _privateConstructorUsedError;
+  List<User> get following => throw _privateConstructorUsedError;
+  List<User> get followers => throw _privateConstructorUsedError;
+  List<User> get friends => throw _privateConstructorUsedError;
   List<dynamic> get currentlyLikedPosts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,9 +46,9 @@ abstract class $UserCopyWith<$Res> {
       String profilePhoto,
       String uid,
       int likes,
-      List<dynamic> following,
-      List<dynamic> followers,
-      List<dynamic> friends,
+      List<User> following,
+      List<User> followers,
+      List<User> friends,
       List<dynamic> currentlyLikedPosts});
 }
 
@@ -99,15 +99,15 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       following: null == following
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       followers: null == followers
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       friends: null == friends
           ? _value.friends
           : friends // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       currentlyLikedPosts: null == currentlyLikedPosts
           ? _value.currentlyLikedPosts
           : currentlyLikedPosts // ignore: cast_nullable_to_non_nullable
@@ -128,9 +128,9 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String profilePhoto,
       String uid,
       int likes,
-      List<dynamic> following,
-      List<dynamic> followers,
-      List<dynamic> friends,
+      List<User> following,
+      List<User> followers,
+      List<User> friends,
       List<dynamic> currentlyLikedPosts});
 }
 
@@ -177,15 +177,15 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       following: null == following
           ? _value._following
           : following // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       followers: null == followers
           ? _value._followers
           : followers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       friends: null == friends
           ? _value._friends
           : friends // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<User>,
       currentlyLikedPosts: null == currentlyLikedPosts
           ? _value._currentlyLikedPosts
           : currentlyLikedPosts // ignore: cast_nullable_to_non_nullable
@@ -203,9 +203,9 @@ class _$_User extends _User {
       required this.profilePhoto,
       required this.uid,
       required this.likes,
-      required final List<dynamic> following,
-      required final List<dynamic> followers,
-      required final List<dynamic> friends,
+      required final List<User> following,
+      required final List<User> followers,
+      required final List<User> friends,
       required final List<dynamic> currentlyLikedPosts})
       : _following = following,
         _followers = followers,
@@ -225,25 +225,25 @@ class _$_User extends _User {
   final String uid;
   @override
   final int likes;
-  final List<dynamic> _following;
+  final List<User> _following;
   @override
-  List<dynamic> get following {
+  List<User> get following {
     if (_following is EqualUnmodifiableListView) return _following;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_following);
   }
 
-  final List<dynamic> _followers;
+  final List<User> _followers;
   @override
-  List<dynamic> get followers {
+  List<User> get followers {
     if (_followers is EqualUnmodifiableListView) return _followers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_followers);
   }
 
-  final List<dynamic> _friends;
+  final List<User> _friends;
   @override
-  List<dynamic> get friends {
+  List<User> get friends {
     if (_friends is EqualUnmodifiableListView) return _friends;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_friends);
@@ -318,9 +318,9 @@ abstract class _User extends User {
       required final String profilePhoto,
       required final String uid,
       required final int likes,
-      required final List<dynamic> following,
-      required final List<dynamic> followers,
-      required final List<dynamic> friends,
+      required final List<User> following,
+      required final List<User> followers,
+      required final List<User> friends,
       required final List<dynamic> currentlyLikedPosts}) = _$_User;
   const _User._() : super._();
 
@@ -337,11 +337,11 @@ abstract class _User extends User {
   @override
   int get likes;
   @override
-  List<dynamic> get following;
+  List<User> get following;
   @override
-  List<dynamic> get followers;
+  List<User> get followers;
   @override
-  List<dynamic> get friends;
+  List<User> get friends;
   @override
   List<dynamic> get currentlyLikedPosts;
   @override

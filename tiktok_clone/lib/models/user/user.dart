@@ -14,9 +14,9 @@ class User with _$User {
     required String profilePhoto,
     required String uid,
     required int likes,
-    required List following,
-    required List followers,
-    required List friends,
+    required List<User> following,
+    required List<User> followers,
+    required List<User> friends,
     required List currentlyLikedPosts,
   }) = _User;
 
@@ -24,15 +24,21 @@ class User with _$User {
 
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
+    final List<User> followingList =
+        (snapshot['following'] as List).map((item) => item as User).toList();
+    final List<User> followersList =
+        (snapshot['followers'] as List).map((item) => item as User).toList();
+    final List<User> friendsList =
+        (snapshot['friends'] as List).map((item) => item as User).toList();
     return User(
       email: snapshot['email'],
       profilePhoto: snapshot['profilePhoto'],
       uid: snapshot['uid'],
       name: snapshot['name'],
       likes: snapshot['likes'],
-      following: snapshot['following'],
-      followers: snapshot['followers'],
-      friends: snapshot['friends'],
+      following: followingList,
+      followers: followersList,
+      friends: friendsList,
       currentlyLikedPosts: snapshot['currentlyLikedPosts'],
     );
   }
