@@ -33,17 +33,16 @@ class RegisterButton extends StatelessWidget {
             color: state.authenticationStatus == AuthenticationStatus.notEmpty
                 ? ColorPalette.buttonColor
                 : Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               if (state.authenticationStatus == AuthenticationStatus.notEmpty) {
-                context.read<AuthenticationRepository>().registerUser(
-                      username.text,
-                      email.text,
-                      password.text,
-                      (state.profileImage),
-                    );
+                context.read<AuthenticationBloc>().add(RegisterUserEvent(
+                    email: email.text,
+                    password: password.text,
+                    profileImage: state.profileImage!,
+                    username: username.text));
               }
             },
             child: const Center(

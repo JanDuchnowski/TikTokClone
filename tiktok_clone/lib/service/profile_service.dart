@@ -21,13 +21,15 @@ class ProfileService {
         .collection('users')
         .doc(Storage().firebaseAuth.currentUser!.uid)
         .get();
-    final currentUserFollower = User.fromSnap(currentUserDocument);
+    final User? currentUser = User.fromSnap(currentUserDocument);
+    final User? otherUser = User.fromSnap(otherUserDocument);
+
     final List followersOfTheOtherUser = otherUserDocument['followers'];
     final List followingOfTheCurrentUser = currentUserDocument['following'];
-    if (followersOfTheOtherUser.contains(currentUserFollower.uid) ||
-        followingOfTheCurrentUser.contains(otherUserId)) {
-      followersOfTheOtherUser.remove(currentUserFollower.uid);
-      followingOfTheCurrentUser.remove(otherUserId);
+    if (followersOfTheOtherUser.contains(currentUser) ||
+        followingOfTheCurrentUser.contains(otherUser)) {
+      followersOfTheOtherUser.remove(currentUser);
+      followingOfTheCurrentUser.remove(otherUser);
 
       await Storage()
           .firestore
@@ -42,8 +44,8 @@ class ProfileService {
           .update({"followers": followersOfTheOtherUser});
       return;
     }
-    followersOfTheOtherUser.add(Storage().firebaseAuth.currentUser!.uid);
-    followingOfTheCurrentUser.add(otherUserId);
+    followersOfTheOtherUser.add(currentUser);
+    followingOfTheCurrentUser.add(otherUser);
 
     await Storage()
         .firestore
@@ -61,8 +63,8 @@ class ProfileService {
     if (usersAreFriends) {
       final List currentUserFriendList = currentUserDocument['friends'];
       final List otherUserFriendList = otherUserDocument['friends'];
-      currentUserFriendList.add(otherUserId);
-      otherUserFriendList.add(Storage().firebaseAuth.currentUser!.uid);
+      currentUserFriendList.add(otherUser);
+      otherUserFriendList.add(currentUser);
       await Storage()
           .firestore
           .collection('users')

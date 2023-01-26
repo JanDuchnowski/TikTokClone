@@ -15,12 +15,20 @@ class AuthenticationService {
   model.User? currentUser;
 
   Future<model.User?> getCurrentUser() async {
-    final DocumentSnapshot<Map<String, dynamic>> userSnapshot = await Storage()
-        .firestore
-        .collection('users')
-        .doc(Storage().firebaseAuth.currentUser!.uid)
-        .get();
-    currentUser = model.User.fromSnap(userSnapshot);
+    if (Storage().firebaseAuth.currentUser != null) {
+      print(" I am here");
+      try {
+        final DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+            await Storage()
+                .firestore
+                .collection('users')
+                .doc(Storage().firebaseAuth.currentUser!.uid)
+                .get();
+        currentUser = model.User.fromSnap(userSnapshot);
+      } catch (e) {
+        print(e);
+      }
+    }
 
     return currentUser;
   }
@@ -50,14 +58,15 @@ class AuthenticationService {
     return downloadUrl;
   }
 
-  void registerUser(
+  Future<void> registerUser(
       String username, String email, String password, File? image) async {
     try {
       if (username.isNotEmpty &&
           email.isNotEmpty &&
           password.isNotEmpty &&
           image != null) {
-        UserCredential userCredential =
+        UserCredential
+            userCredential = //TODO utilize the additional errors provided by the function
             await Storage().firebaseAuth.createUserWithEmailAndPassword(
                   email: email,
                   password: password,
@@ -88,15 +97,13 @@ class AuthenticationService {
     }
   }
 
-  void loginUser(String email, String password, BuildContext context) async {
+  void loginUser(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         await Storage()
             .firebaseAuth
             .signInWithEmailAndPassword(email: email, password: password);
         print("Successful login");
-
-        Navigator.pushNamed(context, Routes.homeScreenRoute);
       } else {
         print("Error logging in");
         print("Please input all the credentials");

@@ -11,9 +11,28 @@ class ProfilePictureChosenEvent extends AuthenticationEvent {
   List<Object> get props => [];
 }
 
-class AuthenticationStartedEvent extends AuthenticationEvent {
+class RegisterUserEvent extends AuthenticationEvent {
+  final String email;
+  final String password;
+  final String username;
+  final File profileImage;
+
+  RegisterUserEvent(
+      {required this.email,
+      required this.password,
+      required this.profileImage,
+      required this.username});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [email, password, username, profileImage];
+}
+
+class LoginEvent extends AuthenticationEvent {
+  final String email;
+  final String password;
+
+  LoginEvent({required this.email, required this.password});
+  @override
+  List<Object> get props => [email, password];
 }
 
 class AuthenticationSignedOutEvent extends AuthenticationEvent {

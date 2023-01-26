@@ -4,6 +4,7 @@ enum AuthenticationStatus {
   initial,
   empty,
   notEmpty,
+  waitingToRegister,
   successful,
   fail,
   invalidEmail,

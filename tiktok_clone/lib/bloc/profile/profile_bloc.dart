@@ -21,7 +21,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit.forEach(
         postsStream!,
         onData: ((QuerySnapshot<Map<String, dynamic>>? data) {
-          print("Fetch videos");
           return state.copyWith(
               profilePosts: data, profileStatus: ProfileStatus.fetched);
         }),

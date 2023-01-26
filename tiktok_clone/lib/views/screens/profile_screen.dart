@@ -11,6 +11,7 @@ import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
+import 'package:tiktok_clone/views/screens/followers_screen.dart';
 import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
 
@@ -63,24 +64,42 @@ class ProfileScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      currentUser.following.length.toString(),
-                                    ),
-                                    const Text("Following"),
-                                  ],
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowersScreen(
+                                                    user: currentUser)));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        currentUser.following.length.toString(),
+                                      ),
+                                      const Text("Following"),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(
                                   width: 32,
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      currentUser.followers.length.toString(),
-                                    ),
-                                    const Text("Followers"),
-                                  ],
+                                InkWell(
+                                  onTap: (() {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowersScreen(
+                                                    user: currentUser)));
+                                  }),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        currentUser.followers.length.toString(),
+                                      ),
+                                      const Text("Followers"),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -91,6 +110,9 @@ class ProfileScreen extends StatelessWidget {
               }
               return Text("Stream was null");
             }),
+          ),
+          const SizedBox(
+            height: 16,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                           context.read<AuthenticationBloc>().add(
                               AuthenticationSignedOutEvent(context: context));
                         },
-                        child: Text("Sign Out"),
+                        child: const Text("Sign Out"),
                       ),
                     )
                   : Container(),
@@ -141,6 +163,8 @@ class ProfileScreen extends StatelessWidget {
                 return SingleChildScrollView(
                   child: GridView.count(
                     shrinkWrap: true,
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 2,
                     crossAxisCount: 3,
                     children: state.profilePosts!.docs.map((document) {
                       Video video = Video.fromSnap(document);

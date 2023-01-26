@@ -23,20 +23,22 @@ class TiktokBloc extends Bloc<TiktokEvent, TiktokState> {
     on<FetchPostsEvent>((event, emit) async {
       final User? currentUser =
           await _authenticationRepository.getCurrentUser();
-      final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
-          _postRepository.getPostStream();
-      final List<dynamic> currentLikedPosts =
-          await _postRepository.getCurrentlyLikedPosts(currentUser!);
-      final List<String> currenStringLikedPosts =
-          currentLikedPosts.map((post) => post as String).toList();
+      if (currentUser != null) {
+        final Stream<QuerySnapshot<Map<String, dynamic>>>? postStream =
+            _postRepository.getPostStream();
+        final List<dynamic> currentLikedPosts =
+            await _postRepository.getCurrentlyLikedPosts(currentUser);
+        final List<String> currenStringLikedPosts =
+            currentLikedPosts.map((post) => post as String).toList();
 
-      await emit.forEach(postStream!,
-          onData: ((QuerySnapshot<Map<String, dynamic>> data) {
-        return state.copyWith(
-            postsQuery: data,
-            status: AppStatus.postsFetched,
-            likedPosts: currenStringLikedPosts);
-      }));
+        await emit.forEach(postStream!,
+            onData: ((QuerySnapshot<Map<String, dynamic>> data) {
+          return state.copyWith(
+              postsQuery: data,
+              status: AppStatus.postsFetched,
+              likedPosts: currenStringLikedPosts);
+        }));
+      }
     });
     on<LikePostEvent>((event, emit) async {
       String? likedPostId = await _postRepository.likePost(event.postId);

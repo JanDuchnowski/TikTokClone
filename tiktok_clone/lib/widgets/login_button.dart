@@ -16,7 +16,6 @@ class LoginButton extends StatelessWidget {
 
   final TextEditingController email;
   final TextEditingController password;
-  final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +34,10 @@ class LoginButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          _authenticationService.loginUser(email.text, password.text, context);
-          context.read<AuthenticationBloc>().add(
-              AuthenticationStartedEvent()); // poczekać aż state bedzie successfull
-          context.read<TiktokBloc>().add(FetchPostsEvent());
-          Navigator.of(context).pushNamed(Routes.homeScreenRoute);
+          context.read<AuthenticationBloc>().add(LoginEvent(
+                email: email.text,
+                password: password.text,
+              )); // poczekać aż state bedzie successfull
         },
         child: const Center(
           child: Text(

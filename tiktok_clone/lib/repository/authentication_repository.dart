@@ -1,14 +1,16 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 abstract class AuthenticationRepositoryInterface {
   Future<User?> getCurrentUser();
   Future<File?> pickProfileImage();
-  void registerUser(
+  Future<void> registerUser(
       String username, String email, String password, File? image);
   Future<String?> fetchLogo();
+  void loginUser(String email, String password);
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
@@ -24,7 +26,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  void registerUser(
+  Future<void> registerUser(
       String username, String email, String password, File? image) {
     return _authenticationService.registerUser(
         username, email, password, image);
@@ -33,6 +35,11 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<String?> fetchLogo() {
     return _authenticationService.fetchLogo();
+  }
+
+  @override
+  void loginUser(String email, String password) {
+    return _authenticationService.loginUser(email, password);
   }
 }
 

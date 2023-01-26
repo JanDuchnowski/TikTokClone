@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/views/screens/conversations_list_screen.dart';
+import 'package:tiktok_clone/views/screens/followers_screen.dart';
 import 'package:tiktok_clone/views/screens/friends_page.dart';
 import 'package:tiktok_clone/views/screens/login_screen.dart';
 import 'package:tiktok_clone/views/screens/profile_screen.dart';
@@ -25,6 +26,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ConversationsListScreen());
     case Routes.friendsPageRoute:
       return MaterialPageRoute(builder: (context) => FriendsPage());
+    // case Routes.followersScreenRoute:
+    //   return MaterialPageRoute(builder: (context) => const FollowersScreen());
     default:
       return MaterialPageRoute(builder: (context) => TikTokFeed());
   }

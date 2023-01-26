@@ -22,39 +22,59 @@ class AuthenticationBloc
   final AuthenticationRepositoryInterface _authenticationRepository;
 
   AuthenticationBloc(this._authenticationRepository)
-      : super(AuthenticationState.initial()) {
+      : super(const AuthenticationState.initial()) {
     on<FetchLogoEvent>(
       (event, emit) async {
         final String? logoUrl = await _authenticationRepository.fetchLogo();
         emit(state.copyWith(logoUrl: logoUrl!));
       },
     );
-    on<AuthenticationEvent>((event, emit) async {
-      if (event is AuthenticationStartedEvent) {
-        model.User? user = await _authenticationRepository.getCurrentUser();
+    on<RegisterUserEvent>((event, emit) async {
+      emit(state.copyWith(
+          authenticationStatus: AuthenticationStatus.waitingToRegister));
+      await _authenticationRepository.registerUser(
+          event.username, event.email, event.password, event.profileImage);
 
-        if (user != null) {
-          emit(state.copyWith(
-              user: user,
-              authenticationStatus: AuthenticationStatus.successful));
-        } else {
-          emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
-        }
-      } else if (event is AuthenticationSignedOutEvent) {
+      model.User? user = await _authenticationRepository.getCurrentUser();
+
+      if (user != null) {
+        _authenticationRepository.loginUser(event.email, event.password);
         emit(state.copyWith(
-            authenticationStatus: AuthenticationStatus.signedOut));
-        Navigator.of(event.context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SignupScreen()),
-            (Route<dynamic> route) => false);
-      } else if (event is ProfilePictureChosenEvent) {
+            user: user, authenticationStatus: AuthenticationStatus.successful));
+      } else {
+        emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
+      }
+    });
+    on<LoginEvent>((event, emit) async {
+      model.User? user = await _authenticationRepository.getCurrentUser();
+
+      if (user != null) {
+        _authenticationRepository.loginUser(event.email, event.password);
+        emit(state.copyWith(
+            user: user, authenticationStatus: AuthenticationStatus.successful));
+      } else {
+        emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
+      }
+    });
+    on<AuthenticationSignedOutEvent>(
+      (event, emit) {
+        emit(state.copyWith(
+            authenticationStatus: AuthenticationStatus.signedOut,
+            profileImage: null));
+      },
+    );
+
+    on<ProfilePictureChosenEvent>(
+      (event, emit) async {
         File? profilePhoto = await _authenticationRepository.pickProfileImage();
         if (profilePhoto != null) {
           emit(state.copyWith(
             profileImage: profilePhoto,
           ));
         }
-      }
-    });
+      },
+    );
+
     on<CredentialsNotEmptyEvent>((event, emit) {
       emit(state.copyWith(
         authenticationStatus: AuthenticationStatus.notEmpty,

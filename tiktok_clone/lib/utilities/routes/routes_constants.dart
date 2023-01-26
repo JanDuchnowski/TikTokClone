@@ -8,4 +8,5 @@ class Routes {
   static const chatScreenRoute = '/chat';
   static const friendsPageRoute = '/friends';
   static const profileScreenRoute = '/profile';
+  static const followersScreenRoute = '/followers';
 }
