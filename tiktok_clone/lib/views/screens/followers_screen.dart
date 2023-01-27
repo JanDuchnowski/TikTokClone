@@ -50,22 +50,13 @@ class _FollowersScreenState extends State<FollowersScreen> {
               ],
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
-              // buildWhen: (previous, current) {
-              //   if (current.followingQuery != null) {
-              //     return true;
-              //   }
-              //   return false;
-              // },
               builder: (context, state) {
-                // QuerySnapshot<Map<String, dynamic>>? chosenQuery =
-                //     chosenTab == 0 ? state.followingQuery : state.followersQuery;
-                if (state.followingQuery != null) {
+                if (state.followingList != null) {
                   print("got here on cyc");
                   return ListView(
                     shrinkWrap: true,
-                    children: state.followingQuery!.docs.map((user) {
-                      final User tileUser = User.fromSnap(user);
-                      return Text(tileUser.name);
+                    children: state.followingList!.map((currentUser) {
+                      return Text(currentUser.name);
                     }).toList(),
                   );
                 }

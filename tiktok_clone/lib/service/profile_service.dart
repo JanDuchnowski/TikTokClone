@@ -104,31 +104,42 @@ class ProfileService {
         .snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowers(
-      List<String> followersUids) {
-    if (followersUids.isNotEmpty) {
-      return Storage()
-          .firestore
-          .collection("users")
-          .where('uid',
-              whereIn:
-                  followersUids) //TODO remove whereIN as it has a hard constraint of 10 records
-          .snapshots();
+  Future<List<User>>? fetchFollowers(List<String> followersUids) async {
+    final List<User> followerUser = <User>[];
+
+    for (var userId in followersUids) {
+      final user = await _getUser(userId);
+      followerUser.add(user!);
     }
-    return null;
+    return followerUser;
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowing(
-      List<String> followingUids) {
-    if (followingUids.isNotEmpty) {
-      return Storage()
-          .firestore
-          .collection("users")
-          .where('uid',
-              whereIn:
-                  followingUids) //TODO remove whereIN as it has a hard constraint of 10 records
-          .snapshots();
+  Future<List<User>>? fetchFollowing(List<String> followingUids) async {
+    final List<User> followingUser = <User>[];
+
+    for (var userId in followingUids) {
+      final user = await _getUser(userId);
+      followingUser.add(user!);
     }
-    return null;
+    //print(followingUser);
+    return followingUser;
+
+    // if (followingUids.isNotEmpty) {
+    //   return Storage()
+    //       .firestore
+    //       .collection("users")
+    //       .where('uid',
+    //           whereIn:
+    //               followingUids) //TODO remove whereIN as it has a hard constraint of 10 records
+    //       .snapshots();
+    // }
+    // return null;
+  }
+
+  Future<User?> _getUser(String uid) async {
+    final DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+        await Storage().firestore.collection('users').doc(uid).get();
+    final User currentUser = User.fromSnap(userSnapshot);
+    return currentUser;
   }
 }

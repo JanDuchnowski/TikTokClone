@@ -6,10 +6,8 @@ abstract class ProfileRepositoryInterface {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(String uid);
   Future<void> followUser(String userToFollowId);
   Stream<QuerySnapshot<Map<String, dynamic>>>? fetchUserPosts(String uid);
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowers(
-      List<String> followersUids);
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowing(
-      List<String> followingUids);
+  Future<List<User>>? fetchFollowers(List<String> followersUids);
+  Future<List<User>>? fetchFollowing(List<String> followingUids);
 }
 
 class ProfileRepository extends ProfileRepositoryInterface {
@@ -35,14 +33,12 @@ class ProfileRepository extends ProfileRepositoryInterface {
   }
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowers(
-      List<String> followersUids) {
+  Future<List<User>>? fetchFollowers(List<String> followersUids) {
     return _profileService.fetchFollowers(followersUids);
   }
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowing(
-      List<String> followingUids) {
+  Future<List<User>>? fetchFollowing(List<String> followingUids) {
     return _profileService.fetchFollowing(followingUids);
   }
 }

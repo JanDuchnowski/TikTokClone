@@ -48,46 +48,32 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final followersToString =
             event.profileUser.followers.map((e) => e.toString()).toList();
 
-        final Stream<QuerySnapshot<Map<String, dynamic>>>? followersStream =
-            _profileRepository.fetchFollowers(followersToString);
+        final List<User>? followersList =
+            await _profileRepository.fetchFollowers(followersToString);
 
-        if (followersStream != null) {
+        if (followersList != null) {
           // print("followers stream not null");
-          await emit.forEach(
-            followersStream!,
-            onData: ((QuerySnapshot<Map<String, dynamic>> data) {
-              return state.copyWith(
-                followersQuery: data,
-              );
-            }),
-          );
+          emit(state.copyWith(followersList: followersList));
         }
       },
     );
     on<FetchFollowingEvent>(
       (event, emit) async {
-        print(
-            "user who called fetch following  ${event.profileUser.following}");
         final followingToString =
             event.profileUser.following.map((e) => e.toString()).toList();
-        final Stream<QuerySnapshot<Map<String, dynamic>>>?
-            followingStream = //TODO if this stream is null it means that following/followers are empty NEED TO HANDLE THAT CASE
-            _profileRepository.fetchFollowing(followingToString);
-
-        if (followingStream != null) {
-          await emit.forEach(
-            followingStream,
-            onData: ((QuerySnapshot<Map<String, dynamic>> data) {
-              return state.copyWith(
-                followingQuery: data,
-              );
-            }),
-          );
+        final List<User>?
+            followingList = //TODO if this stream is null it means that following/followers are empty NEED TO HANDLE THAT CASE
+            await _profileRepository.fetchFollowing(followingToString);
+        print("following list  ${followingList}");
+        if (followingList != null) {
+          emit(state.copyWith(
+            followingList: followingList,
+          ));
+        } else {
+          //TODO when going first to a person with not null followers (not empty), and then going to person with no followers, the state is not updated because it is null. Maybe emit a decoy state ?
+          print("Stream is null");
+          emit(state.copyWith(followingList: null));
         }
-
-        //TODO when going first to a person with not null followers (not empty), and then going to person with no followers, the state is not updated because it is null. Maybe emit a decoy state ?
-        print("Stream is null");
-        emit(state.copyWith(followingQuery: null));
       },
     );
   }
