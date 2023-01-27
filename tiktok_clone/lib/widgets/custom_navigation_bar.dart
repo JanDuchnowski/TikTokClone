@@ -87,8 +87,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         case 4:
           context.read<ProfileBloc>().add(
               FetchProfileEvent(uid: Storage().firebaseAuth.currentUser!.uid));
-          context.read<ProfileBloc>().add(FetchProfilePostsEvent(
-              uid: Storage().firebaseAuth.currentUser!.uid));
+          // context.read<ProfileBloc>().add(FetchProfilePostsEvent(
+          //     uid: Storage().firebaseAuth.currentUser!.uid));
           Navigator.push(
             context,
             MaterialPageRoute(

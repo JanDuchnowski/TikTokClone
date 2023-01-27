@@ -66,9 +66,9 @@ class TikTokFeed extends StatelessWidget {
                                         context.read<ProfileBloc>().add(
                                             FetchProfileEvent(
                                                 uid: currentVideo.uid));
-                                        context.read<ProfileBloc>().add(
-                                            FetchProfilePostsEvent(
-                                                uid: currentVideo.uid));
+                                        // context.read<ProfileBloc>().add(
+                                        //     FetchProfilePostsEvent(
+                                        //         uid: currentVideo.uid));
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => ProfileScreen(

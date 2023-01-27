@@ -66,6 +66,12 @@ class ProfileScreen extends StatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {
+                                    // context.read<ProfileBloc>().add(
+                                    //     FetchFollowersEvent(
+                                    //         profileUser: currentUser));
+                                    context.read<ProfileBloc>().add(
+                                        FetchFollowingEvent(
+                                            profileUser: currentUser));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -86,6 +92,12 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: (() {
+                                    context.read<ProfileBloc>().add(
+                                        FetchFollowersEvent(
+                                            profileUser: currentUser));
+                                    // context.read<ProfileBloc>().add(
+                                    //     FetchFollowingEvent(
+                                    //         profileUser: currentUser));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>

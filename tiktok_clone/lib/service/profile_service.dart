@@ -21,22 +21,13 @@ class ProfileService {
         .collection('users')
         .doc(Storage().firebaseAuth.currentUser!.uid)
         .get();
-    final User? currentUser = User.fromSnap(currentUserDocument);
-    final User? otherUser = User.fromSnap(otherUserDocument);
-
-    final List<User> followersOfTheOtherUser =
-        (otherUserDocument['followers'] as List)
-            .map((item) => item as User)
-            .toList();
-    final List<User> followingOfTheCurrentUser =
-        (currentUserDocument['following'] as List)
-            .map((item) => item as User)
-            .toList();
-
-    if (followersOfTheOtherUser.contains(currentUser) ||
-        followingOfTheCurrentUser.contains(otherUser)) {
-      followersOfTheOtherUser.remove(currentUser);
-      followingOfTheCurrentUser.remove(otherUser);
+    final currentUserFollower = User.fromSnap(currentUserDocument);
+    final List followersOfTheOtherUser = otherUserDocument['followers'];
+    final List followingOfTheCurrentUser = currentUserDocument['following'];
+    if (followersOfTheOtherUser.contains(currentUserFollower.uid) ||
+        followingOfTheCurrentUser.contains(otherUserId)) {
+      followersOfTheOtherUser.remove(currentUserFollower.uid);
+      followingOfTheCurrentUser.remove(otherUserId);
 
       await Storage()
           .firestore
@@ -51,10 +42,10 @@ class ProfileService {
           .update({"followers": followersOfTheOtherUser});
       return;
     }
-    followersOfTheOtherUser.add(currentUser!);
-    followingOfTheCurrentUser.add(otherUser!);
+    followersOfTheOtherUser.add(Storage().firebaseAuth.currentUser!.uid);
+    followingOfTheCurrentUser.add(otherUserId);
 
-    await Storage() //TODO  should propbably turn list of users in to a list of dictionaries because firebase may not be able to store objects directly but rather as a map of primitve datatypes
+    await Storage()
         .firestore
         .collection('users')
         .doc(Storage().firebaseAuth.currentUser!.uid)
@@ -70,8 +61,8 @@ class ProfileService {
     if (usersAreFriends) {
       final List currentUserFriendList = currentUserDocument['friends'];
       final List otherUserFriendList = otherUserDocument['friends'];
-      currentUserFriendList.add(otherUser);
-      otherUserFriendList.add(currentUser);
+      currentUserFriendList.add(otherUserId);
+      otherUserFriendList.add(Storage().firebaseAuth.currentUser!.uid);
       await Storage()
           .firestore
           .collection('users')
@@ -111,5 +102,33 @@ class ProfileService {
         .doc(uid)
         .collection("posts")
         .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowers(
+      List<String> followersUids) {
+    if (followersUids.isNotEmpty) {
+      return Storage()
+          .firestore
+          .collection("users")
+          .where('uid',
+              whereIn:
+                  followersUids) //TODO remove whereIN as it has a hard constraint of 10 records
+          .snapshots();
+    }
+    return null;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? fetchFollowing(
+      List<String> followingUids) {
+    if (followingUids.isNotEmpty) {
+      return Storage()
+          .firestore
+          .collection("users")
+          .where('uid',
+              whereIn:
+                  followingUids) //TODO remove whereIN as it has a hard constraint of 10 records
+          .snapshots();
+    }
+    return null;
   }
 }

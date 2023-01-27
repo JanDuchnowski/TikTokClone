@@ -32,8 +32,8 @@ class ConversationsListScreen extends StatelessWidget {
                       context
                           .read<ProfileBloc>()
                           .add(FetchProfileEvent(uid: interlocutorUser.uid));
-                      context.read<ProfileBloc>().add(
-                          FetchProfilePostsEvent(uid: interlocutorUser.uid));
+                      // context.read<ProfileBloc>().add(
+                      //     FetchProfilePostsEvent(uid: interlocutorUser.uid));
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
                               ProfileScreen(userId: interlocutorUser.uid)

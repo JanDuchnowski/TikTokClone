@@ -12,15 +12,9 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       profilePhoto: json['profilePhoto'] as String,
       uid: json['uid'] as String,
       likes: json['likes'] as int,
-      following: (json['following'] as List<dynamic>)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      followers: (json['followers'] as List<dynamic>)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      friends: (json['friends'] as List<dynamic>)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      following: json['following'] as List<dynamic>,
+      followers: json['followers'] as List<dynamic>,
+      friends: json['friends'] as List<dynamic>,
       currentlyLikedPosts: json['currentlyLikedPosts'] as List<dynamic>,
     );
 

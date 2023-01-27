@@ -24,3 +24,19 @@ class FetchProfilePostsEvent extends ProfileEvent {
   @override
   List<Object?> get props => [uid];
 }
+
+class FetchFollowersEvent extends ProfileEvent {
+  final User profileUser;
+
+  FetchFollowersEvent({required this.profileUser});
+  @override
+  List<Object?> get props => [profileUser];
+}
+
+class FetchFollowingEvent extends ProfileEvent {
+  final User profileUser;
+
+  FetchFollowingEvent({required this.profileUser});
+  @override
+  List<Object?> get props => [profileUser];
+}

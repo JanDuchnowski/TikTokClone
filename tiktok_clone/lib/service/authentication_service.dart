@@ -78,9 +78,9 @@ class AuthenticationService {
           uid: userCredential.user!.uid,
           profilePhoto: downloadUrl,
           likes: 0,
-          followers: <model.User>[],
-          following: <model.User>[],
-          friends: <model.User>[],
+          followers: [],
+          following: [],
+          friends: [],
           currentlyLikedPosts: [],
         );
         await Storage()

@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 class FollowersScreen extends StatefulWidget {
@@ -13,6 +16,7 @@ class FollowersScreen extends StatefulWidget {
 }
 
 class _FollowersScreenState extends State<FollowersScreen> {
+  int chosenTab = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,53 @@ class _FollowersScreenState extends State<FollowersScreen> {
         title: Text(widget.user!.name),
         centerTitle: true,
       ),
-      body: ListView(children: [Text("Test")]),
+      body: Container(
+        height: 400,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                TextButton(
+                  onPressed: (() => setState(() {
+                        chosenTab = 0;
+                      })),
+                  child: Text("Following"),
+                ),
+                TextButton(
+                  onPressed: (() => setState(() {
+                        chosenTab = 1;
+                      })),
+                  child: Text("Followers"),
+                ),
+              ],
+            ),
+            BlocBuilder<ProfileBloc, ProfileState>(
+              // buildWhen: (previous, current) {
+              //   if (current.followingQuery != null) {
+              //     return true;
+              //   }
+              //   return false;
+              // },
+              builder: (context, state) {
+                // QuerySnapshot<Map<String, dynamic>>? chosenQuery =
+                //     chosenTab == 0 ? state.followingQuery : state.followersQuery;
+                if (state.followingQuery != null) {
+                  print("got here on cyc");
+                  return ListView(
+                    shrinkWrap: true,
+                    children: state.followingQuery!.docs.map((user) {
+                      final User tileUser = User.fromSnap(user);
+                      return Text(tileUser.name);
+                    }).toList(),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
