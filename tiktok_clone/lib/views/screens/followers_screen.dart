@@ -17,6 +17,7 @@ class FollowersScreen extends StatefulWidget {
 
 class _FollowersScreenState extends State<FollowersScreen> {
   int chosenTab = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,21 +52,43 @@ class _FollowersScreenState extends State<FollowersScreen> {
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state.followingList != null) {
-                  print("got here on cyc");
+                if (state.followingList != null &&
+                    state.followersList != null) {
+                  print("got here");
                   return ListView(
-                    shrinkWrap: true,
-                    children: state.followingList!.map((currentUser) {
-                      return Text(currentUser.name);
-                    }).toList(),
-                  );
+                      shrinkWrap: true,
+                      children: chosenTab == 0
+                          ? _buildListView(context, state.followingList!)
+                          : _buildListView(context, state.followersList!));
                 }
-                return Container();
+                return Container(child: Text("Lists are null"));
               },
             ),
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> _buildListView(BuildContext context, List<User> userList) {
+    print("Got here");
+    return userList.map((user) {
+      return ListTile(
+        leading: Image.network(
+          user.profilePhoto,
+          errorBuilder: ((context, error, stackTrace) =>
+              const Text("Error fetching user profile photo")),
+        ),
+        title: Text(user.name),
+        trailing: ElevatedButton(
+          onPressed: () {
+            context
+                .read<ProfileBloc>()
+                .add(FollowUserEvent(otherUserId: user.uid));
+          },
+          child: const Text("Follow"),
+        ),
+      );
+    }).toList();
   }
 }

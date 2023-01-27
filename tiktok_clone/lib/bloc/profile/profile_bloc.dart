@@ -51,8 +51,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final List<User>? followersList =
             await _profileRepository.fetchFollowers(followersToString);
 
+        print("followers list  ${followersList}");
+
         if (followersList != null) {
-          // print("followers stream not null");
           emit(state.copyWith(followersList: followersList));
         }
       },

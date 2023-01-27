@@ -121,19 +121,8 @@ class ProfileService {
       final user = await _getUser(userId);
       followingUser.add(user!);
     }
-    //print(followingUser);
-    return followingUser;
 
-    // if (followingUids.isNotEmpty) {
-    //   return Storage()
-    //       .firestore
-    //       .collection("users")
-    //       .where('uid',
-    //           whereIn:
-    //               followingUids) //TODO remove whereIN as it has a hard constraint of 10 records
-    //       .snapshots();
-    // }
-    // return null;
+    return followingUser;
   }
 
   Future<User?> _getUser(String uid) async {
