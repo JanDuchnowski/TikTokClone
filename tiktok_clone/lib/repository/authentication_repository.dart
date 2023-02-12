@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 

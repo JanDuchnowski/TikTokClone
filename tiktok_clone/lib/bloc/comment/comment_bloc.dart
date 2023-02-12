@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
-import 'package:tiktok_clone/models/comment/comment.dart';
+
 import 'package:tiktok_clone/models/user/user.dart';
 import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/repository/comment_repository.dart';

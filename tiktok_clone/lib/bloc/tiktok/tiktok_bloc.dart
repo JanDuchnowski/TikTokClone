@@ -1,14 +1,9 @@
-import 'dart:ui';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/service/authentication_service.dart';
-import 'package:tiktok_clone/models/comment/comment.dart';
+
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/repository/post_repository.dart';
 

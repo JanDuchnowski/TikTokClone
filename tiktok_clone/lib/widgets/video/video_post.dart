@@ -33,6 +33,12 @@ class _VideoPostState extends State<VideoPost> {
 
   @override
   Widget build(BuildContext context) {
+    // return FittedBox(
+    //   fit: BoxFit.cover,
+    //   child: SizedBox(
+    //     height: _controller.value.size.height ?? 1,
+    //     width: _controller.value.size.width ?? 1,
+    //     child:
     return VideoPlayer(_controller);
   }
 }

@@ -1,9 +1,3 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/video/video.dart';
 import 'package:tiktok_clone/service/upload_video_service.dart';
 
 abstract class IUploadVideoRepository {

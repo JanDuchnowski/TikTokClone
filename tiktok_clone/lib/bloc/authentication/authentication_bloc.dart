@@ -1,22 +1,17 @@
-import 'dart:developer';
+//import 'dart:io';
+
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:tiktok_clone/repository/authentication_repository.dart';
 import 'package:tiktok_clone/models/user/user.dart' as model;
-import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/views/screens/signup_screen.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
+//TODO add a state which controlls whether app is connected to the internet
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationRepositoryInterface _authenticationRepository;
@@ -47,14 +42,15 @@ class AuthenticationBloc
     });
     on<LoginEvent>((event, emit) async {
       model.User? user = await _authenticationRepository.getCurrentUser();
+      print(user);
 
-      if (user != null) {
-        _authenticationRepository.loginUser(event.email, event.password);
-        emit(state.copyWith(
-            user: user, authenticationStatus: AuthenticationStatus.successful));
-      } else {
-        emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
-      }
+      //  if (user != null) {
+      _authenticationRepository.loginUser(event.email, event.password);
+      emit(state.copyWith(
+          user: user, authenticationStatus: AuthenticationStatus.successful));
+      //   } else {
+      // emit(state.copyWith(authenticationStatus: AuthenticationStatus.fail));
+      //  }
     });
     on<AuthenticationSignedOutEvent>(
       (event, emit) {

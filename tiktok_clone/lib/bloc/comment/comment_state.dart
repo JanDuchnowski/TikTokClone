@@ -2,7 +2,6 @@ part of 'comment_bloc.dart';
 
 enum CommentStatus { initial, fetched }
 
-@immutable
 class CommentState extends Equatable {
   final QuerySnapshot<Map<String, dynamic>>? commentQuery;
   final CommentStatus? commentStatus;

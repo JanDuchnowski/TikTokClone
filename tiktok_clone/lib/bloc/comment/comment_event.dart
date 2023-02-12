@@ -1,6 +1,5 @@
 part of 'comment_bloc.dart';
 
-@immutable
 abstract class CommentEvent extends Equatable {}
 
 class FetchCommentsEvent extends CommentEvent {

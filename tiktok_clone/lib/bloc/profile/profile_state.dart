@@ -2,7 +2,6 @@ part of 'profile_bloc.dart';
 
 enum ProfileStatus { initial, fetched }
 
-@immutable
 class ProfileState extends Equatable {
   final QuerySnapshot<Map<String, dynamic>>? profileInfoQuery;
   final QuerySnapshot<Map<String, dynamic>>? profilePosts;
