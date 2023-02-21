@@ -1,8 +1,6 @@
-import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/repository/upload_video_repository.dart';
 
@@ -15,6 +13,8 @@ class AudioPicker extends StatefulWidget {
 
 class _AudioPickerState extends State<AudioPicker> {
   List<String>? audioList;
+
+  AudioPlayer player = AudioPlayer();
   @override
   void initState() {
     asyncInitState();
@@ -24,9 +24,7 @@ class _AudioPickerState extends State<AudioPicker> {
   void asyncInitState() async {
     audioList = await (context.read<UploadVideoRepository>().getAudioList());
 
-    AudioPlayer player = AudioPlayer();
     //player.setSourceAsset("audio/");
-    player.play(AssetSource("audio/audio1.mp3"));
   }
 
   @override
@@ -35,7 +33,13 @@ class _AudioPickerState extends State<AudioPicker> {
     // return audioList != null
     return ListView(
       shrinkWrap: true,
-      children: [Text("Test")],
+      children: [
+        TextButton(
+            onPressed: () {
+              player.play(AssetSource("audio/audio1.mp3"));
+            },
+            child: const Text("Test"))
+      ],
     );
   }
 }

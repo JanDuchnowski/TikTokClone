@@ -37,6 +37,7 @@ class AuthenticationService {
       pickedProfileImage = File(pickedImage.path);
       return pickedProfileImage;
     }
+    return null;
   }
 
   Future<String> _uploadToStorage(File image, String folder) async {

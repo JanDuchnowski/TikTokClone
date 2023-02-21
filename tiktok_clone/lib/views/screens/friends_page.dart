@@ -121,7 +121,7 @@ class FriendsPage extends StatelessWidget {
                                           LikePostEvent(
                                               postId: currentVideo.id));
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.favorite,
                                       color: Colors.white,
                                     ),
@@ -173,7 +173,7 @@ class FriendsPage extends StatelessWidget {
           return const Center(child: Text("No content from your friends"));
         },
       ),
-      bottomNavigationBar: CustomNavigationBar(
+      bottomNavigationBar: const CustomNavigationBar(
         currentlySelected: 1,
       ),
     );

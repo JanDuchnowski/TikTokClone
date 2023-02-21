@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
-import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/widgets/comment_widget.dart';
 
@@ -33,7 +28,7 @@ class CommentScreen extends StatelessWidget {
                   }).toList()
                 : [
                     Container(
-                      child: Text("No comments yet"),
+                      child: const Text("No comments yet"),
                     )
                   ],
           );

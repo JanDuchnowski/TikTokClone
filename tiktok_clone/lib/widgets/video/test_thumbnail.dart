@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/models/video/video.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoItem extends StatefulWidget {
-  VideoItem({required this.dataSource});
+  const VideoItem({required this.dataSource});
   final String dataSource;
   @override
   State<VideoItem> createState() => _VideoItemState();
@@ -32,13 +30,13 @@ class _VideoItemState extends State<VideoItem> {
   Widget build(BuildContext context) {
     return ListTile(
       leading: _controller!.value.isInitialized
-          ? Container(
+          ? SizedBox(
               width: 100.0,
               height: 56.0,
               child: VideoPlayer(_controller!),
             )
-          : CircularProgressIndicator(),
-      title: Text("Szyc"),
+          : const CircularProgressIndicator(),
+      title: const Text("Szyc"),
       onTap: () {},
     );
   }

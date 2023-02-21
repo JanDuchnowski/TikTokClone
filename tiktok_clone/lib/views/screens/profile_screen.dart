@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/authentication/authentication_bloc.dart';
 import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
@@ -12,8 +11,6 @@ import 'package:tiktok_clone/views/screens/comment_screen.dart';
 import 'package:tiktok_clone/views/screens/followers_screen.dart';
 import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
-import 'package:tiktok_clone/widgets/video/video_thumnails.dart';
-import 'package:video_player/video_player.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key, required this.userId}) : super(key: key);
@@ -120,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                       },
                     ).toList());
               }
-              return Text("Stream was null");
+              return const Text("Stream was null");
             }),
           ),
           const SizedBox(
@@ -204,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(
+      bottomNavigationBar: const CustomNavigationBar(
         currentlySelected: 4,
       ),
     );
@@ -308,7 +305,7 @@ class ProfileScreen extends StatelessWidget {
                                   .read<TiktokBloc>()
                                   .add(LikePostEvent(postId: currentVideo.id));
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite,
                               color: Colors.white,
                             ),

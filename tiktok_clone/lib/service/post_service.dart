@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
-import 'package:tiktok_clone/models/comment/comment.dart';
 import 'package:tiktok_clone/models/user/user.dart';
 
 class PostService {

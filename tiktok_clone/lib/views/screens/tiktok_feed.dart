@@ -136,7 +136,7 @@ class TikTokFeed extends StatelessWidget {
                                             LikePostEvent(
                                                 postId: currentVideo.id));
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.favorite,
                                         color: Colors.white,
                                       ),
@@ -186,10 +186,10 @@ class TikTokFeed extends StatelessWidget {
               ),
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
-      bottomNavigationBar: CustomNavigationBar(
+      bottomNavigationBar: const CustomNavigationBar(
         currentlySelected: 0,
       ),
     );

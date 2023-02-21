@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/repository/upload_video_repository.dart';
 import 'package:tiktok_clone/widgets/audio_picker.dart';
@@ -69,7 +68,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width - 20,
-                    child: AudioPicker(),
+                    child: const AudioPicker(),
                   ),
                   const SizedBox(
                     height: 10,

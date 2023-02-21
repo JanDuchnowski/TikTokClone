@@ -50,7 +50,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final List<User>? followersList =
             await _profileRepository.fetchFollowers(followersToString);
 
-        print("followers list  ${followersList}");
+        print("followers list  $followersList");
 
         if (followersList != null) {
           emit(state.copyWith(followersList: followersList));
@@ -64,7 +64,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final List<User>?
             followingList = //TODO if this stream is null it means that following/followers are empty NEED TO HANDLE THAT CASE
             await _profileRepository.fetchFollowing(followingToString);
-        print("following list  ${followingList}");
+        print("following list  $followingList");
         if (followingList != null) {
           emit(state.copyWith(
             followingList: followingList,

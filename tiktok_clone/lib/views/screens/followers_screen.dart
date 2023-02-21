@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/profile/profile_bloc.dart';
 import 'package:tiktok_clone/models/user/user.dart';
@@ -29,7 +25,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
         title: Text(widget.user!.name),
         centerTitle: true,
       ),
-      body: Container(
+      body: SizedBox(
         height: 400,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -40,13 +36,13 @@ class _FollowersScreenState extends State<FollowersScreen> {
                   onPressed: (() => setState(() {
                         chosenTab = 0;
                       })),
-                  child: Text("Following"),
+                  child: const Text("Following"),
                 ),
                 TextButton(
                   onPressed: (() => setState(() {
                         chosenTab = 1;
                       })),
-                  child: Text("Followers"),
+                  child: const Text("Followers"),
                 ),
               ],
             ),
@@ -61,7 +57,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
                           ? _buildListView(context, state.followingList!)
                           : _buildListView(context, state.followersList!));
                 }
-                return Container(child: Text("Lists are null"));
+                return Container(child: const Text("Lists are null"));
               },
             ),
           ],

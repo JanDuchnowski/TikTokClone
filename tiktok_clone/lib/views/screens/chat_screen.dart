@@ -18,7 +18,7 @@ class ChatScreen extends StatelessWidget {
           Text(interlocutorUser.name),
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(
+      bottomNavigationBar: const CustomNavigationBar(
         currentlySelected: 3,
       ),
     );

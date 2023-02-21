@@ -4,8 +4,8 @@ import 'package:tiktok_clone/views/screens/friends_page.dart';
 import 'package:tiktok_clone/views/screens/login_screen.dart';
 import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/views/screens/signup_screen.dart';
-import 'package:tiktok_clone/views/video/add_video_screen.dart';
 import 'package:tiktok_clone/views/screens/tiktok_feed.dart';
+import 'package:tiktok_clone/views/video/camera_preview_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -16,7 +16,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.signupScreenRoute:
       return MaterialPageRoute(builder: (context) => SignupScreen());
     case Routes.videoPickerRoute:
-      return MaterialPageRoute(builder: (context) => const AddVideoScreen());
+      return MaterialPageRoute(builder: (context) => CamerPreviewScreen());
     case Routes.conversationsScreenRoute:
       return MaterialPageRoute(builder: (context) => ConversationsListScreen());
     case Routes.friendsPageRoute:

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tiktok_clone/service/authentication_service.dart';
 import 'package:tiktok_clone/bloc/authentication/authentication_bloc.dart';
-import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 import 'package:tiktok_clone/utilities/color_palette.dart';
 import 'package:tiktok_clone/utilities/constants.dart';
-import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 
 class LoginButton extends StatelessWidget {
-  LoginButton({
+  const LoginButton({
     Key? key,
     required this.password,
     required this.email,

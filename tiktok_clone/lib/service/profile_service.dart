@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiktok_clone/firebase/storage.dart';
 import 'package:tiktok_clone/models/user/user.dart';
-import 'package:tiktok_clone/repository/authentication_repository.dart';
 
 class ProfileService {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getProfileInfoStream(

@@ -10,7 +10,7 @@ class TiktokState extends Equatable {
   final QuerySnapshot<Map<String, dynamic>>? commentQuery;
   final QuerySnapshot<Map<String, dynamic>>? postInfoQuery;
 
-  TiktokState(
+  const TiktokState(
       {this.postsQuery,
       this.likedPosts,
       this.status,

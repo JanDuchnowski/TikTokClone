@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:tiktok_clone/models/video/video.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class PostThumbnail extends StatefulWidget {
-  PostThumbnail({Key? key, this.video}) : super(key: key);
+  const PostThumbnail({Key? key, this.video}) : super(key: key);
   final Video? video;
 
   @override

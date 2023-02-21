@@ -11,7 +11,7 @@ import 'package:tiktok_clone/utilities/routes/routes_constants.dart';
 import 'package:tiktok_clone/widgets/custom_plus_icon.dart';
 
 class CustomNavigationBar extends StatefulWidget {
-  CustomNavigationBar({
+  const CustomNavigationBar({
     Key? key,
     required this.currentlySelected,
   }) : super(key: key);
