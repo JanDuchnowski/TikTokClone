@@ -2,6 +2,7 @@ import 'package:tiktok_clone/service/upload_video_service.dart';
 
 abstract class IUploadVideoRepository {
   Future<void> uploadVideo(String songName, String caption, String videoPath);
+  Future<List<String>> getAudioList();
 }
 
 class UploadVideoRepository implements IUploadVideoRepository {
@@ -9,5 +10,10 @@ class UploadVideoRepository implements IUploadVideoRepository {
   @override
   Future<void> uploadVideo(String songName, String caption, String videoPath) {
     return _uploadVideoService.uploadVideo(songName, caption, videoPath);
+  }
+
+  @override
+  Future<List<String>> getAudioList() {
+    return _uploadVideoService.getAudioList();
   }
 }

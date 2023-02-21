@@ -21,7 +21,7 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width - 40;
     return Container(
-      width: deviceWidth,
+      width: 100,
       height: 50,
       margin: const EdgeInsets.only(
         left: 20,

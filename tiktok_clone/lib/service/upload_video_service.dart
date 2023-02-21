@@ -56,4 +56,22 @@ class UploadVideoService {
       print(e);
     }
   }
+
+  Future<List<String>> getAudioList() async {
+    final List<String> audioList = [];
+    final directoryList =
+        Storage().firebaseStorage.ref().child('audio').listAll();
+    directoryList.then(
+      (value) => value.items.forEach(
+        (element) {
+          audioList.add(element.name);
+        },
+      ),
+    );
+    return audioList;
+    // UploadTask uploadTask = ref.putFile(File(videoPath));
+    // TaskSnapshot snap = await uploadTask;
+    // String downloadUrl = await ref.getDownloadURL();
+    // return downloadUrl;
+  }
 }

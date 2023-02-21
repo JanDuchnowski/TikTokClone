@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/tiktok/tiktok_bloc.dart';
 
 import 'package:tiktok_clone/repository/upload_video_repository.dart';
+import 'package:tiktok_clone/widgets/audio_picker.dart';
 import 'package:tiktok_clone/widgets/text_input_field.dart';
 
 import 'package:video_player/video_player.dart';
@@ -47,33 +48,28 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.5,
-              child: VideoPlayer(controller),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.5,
+                child: VideoPlayer(controller),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width - 20,
-                    child: TextInputField(
-                      textController: _songController,
-                      labelText: 'Song Name',
-                      icon: Icons.music_note,
-                    ),
+                    child: AudioPicker(),
                   ),
                   const SizedBox(
                     height: 10,
@@ -109,8 +105,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       ))
                 ],
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

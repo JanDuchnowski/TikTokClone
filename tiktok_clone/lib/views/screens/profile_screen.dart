@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktok_clone/bloc/authentication/authentication_bloc.dart';
 import 'package:tiktok_clone/bloc/comment/comment_bloc.dart';
@@ -11,6 +12,8 @@ import 'package:tiktok_clone/views/screens/comment_screen.dart';
 import 'package:tiktok_clone/views/screens/followers_screen.dart';
 import 'package:tiktok_clone/widgets/video/video_post.dart';
 import 'package:tiktok_clone/widgets/custom_navigation_bar.dart';
+import 'package:tiktok_clone/widgets/video/video_thumnails.dart';
+import 'package:video_player/video_player.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key, required this.userId}) : super(key: key);
@@ -174,15 +177,23 @@ class ProfileScreen extends StatelessWidget {
               if (state.profileStatus == ProfileStatus.fetched) {
                 return SingleChildScrollView(
                   child: GridView.count(
+                    // Change video ratio so they all have the same sizes, because when using crossAxisCount we are forcing them to have certain width eventough the video is way smaller
+                    controller: ScrollController(),
                     shrinkWrap: true,
-                    mainAxisSpacing: 2,
-                    crossAxisSpacing: 2,
                     crossAxisCount: 3,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+
                     children: state.profilePosts!.docs.map((document) {
                       Video video = Video.fromSnap(document);
-                      return VideoPost(
-                        //on clic open tiktok feed from this post
-                        dataSource: video.videoUrl,
+
+                      return Container(
+                        child: VideoPost(
+                          //on clic open tiktok feed from this post
+
+                          dataSource: video.videoUrl,
+                          playVideo: false,
+                        ),
                       );
                     }).toList(),
                   ),
